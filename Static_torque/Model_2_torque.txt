@@ -1,0 +1,25 @@
+! ---------------------------------------------------------------------------------
+! STATIC_2: TORQUE ANALYSIS
+! ...............................................................
+! PROBLEM:  DETERMINE STRAIN AND STRESS FIELD DUE TO TORQUE IN LANDING
+! ...............................................................
+! MODEL:    HYBRID ELEMENTS SIMPLIFIED MODEL
+! ---------------------------------------------------------------------------------
+
+FINISH
+/CLEAR, START, NEW
+/FILNAM,static_torque
+/TITLE,static torque on links
+
+! >>>>> MODEL PARAMETERS <<<<<
+
+! >>>>> MATERIAL PROPERTIES <<<<<
+
+! ELEMENT 1
+
+! ELEMENT 2
+
+! ELEMENT 3
+
+/PREP7
+

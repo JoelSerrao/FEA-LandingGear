@@ -1,0 +1,26 @@
+! ---------------------------------------------------------------------------------
+! STATIC_1: INTERNAL PRESSURE ANALYSIS
+! ...............................................................
+! PROBLEM:  DETERMINE STRAIN AND STRESS FIELD DUE TO INTERNAL PRESSURE IN CYLINDER
+! ...............................................................
+! MODEL:    HYBRID ELEMENTS SIMPLIFIED MODEL
+! ---------------------------------------------------------------------------------
+
+FINISH
+/CLEAR, START, NEW
+/FILNAM,static_pres
+/TITLE,static internal pressure
+
+! >>>>> MODEL PARAMETERS <<<<<
+
+! >>>>> MATERIAL PROPERTIES <<<<<
+
+! ELEMENT 1
+
+! ELEMENT 2
+
+! ELEMENT 3
+
+/PREP7
+
+
