@@ -5,7 +5,7 @@
 ! ...............................................................
 ! MODEL:    HYBRID ELEMENTS SIMPLIFIED MODEL - 3D all round
 ! ---------------------------------------------------------------------------------
-! version: 1_30-05
+! version: 2_04/06
 
 FINISH
 /CLEAR, START, NEW
@@ -42,8 +42,8 @@ MP,PRXY,1,0.3
 
 ! >>>>> ELEMENT PROPERTIES <<<<<
 
-! ELEMENT 1 -> SOLID185
-ET,1,SOLID185
+! ELEMENT 1 -> SOLID185(for mapped) 187 (for free)
+ET,1,SOLID187
 !KEYOPT,1,
 
 ! ELEMENT 2 -> BEAM188
@@ -94,9 +94,11 @@ NUMCMP,VOLU								!Now they are #1 and #2 (vsel,s,volu,,2) to see them separate
 TYPE,1
 ESIZE,esize_s
 MSHKEY,0	!Free meshing (default), 1 for mapped
-MSHAPE,0,3D	!Quadrilateral shaped elements
+MSHAPE,1,3D 	!Tetra Elements if you are using solid187
+!MSHAPE,0,3D 	!Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185
 VMESH,1
 VMESH,2
+!! TOO MANY ELEMENTS: INCREASE SIZE OR CONSIDER HALF OF THE MODEL
 
 ! CONTA on solid surface
 TYPE,3
@@ -120,7 +122,7 @@ E,nmax+1
 
 TYPE,2
 SECNUM,2
-!MAT,1
+MAT,1
 LSEL,S,LINE,,1,3,1		!Select the lines
 LESIZE,ALL,ndiv			!Refine mesh
 LMESH,ALL			!Mesh lines
