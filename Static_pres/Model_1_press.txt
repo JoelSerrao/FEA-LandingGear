@@ -53,17 +53,22 @@ KEYOPT,2,3,2		!Quadratic formulation to represent correctly linearly varying ben
 SECTYPE,2,BEAM,CSOLID
 SECDATA,solid_d*0.5
 
-! ELEMENT 3 -> CONTACT
+! ELEMENT 3 -> CONTACT BONDED
 ET,3,CONTA174
-KEYOPT,3,2,2		!Contact algorithm: Multipoint constraint (MPC)
+KEYOPT,3,2,0		!Contact algorithm: Augmented Lagrangian (Default)
 KEYOPT,3,12,5 		!Behavior of contact surface: Bonded (always)
 KEYOPT,3,4,2 		!Rigid surface constraint
 
 ! ELEMENT 4 -> TARGET
 ET,4,TARGE170
-KEYOPT,4,2,1		 !Boundary conditions for rigid target nodes: Specified by user
+KEYOPT,4,2,1		 !Boundary conditions for rigid target nodes: Specified by user (0=autoset)
 R,2
 
+! ELEMENT 5 -> CONTACT FRICTIONLESS
+ET,5,CONTA174
+KEYOPT,5,2,2		!Contact algorithm: Multipoint constraint (MPC)
+KEYOPT,5,12,2		!Behavior of contact surface: No separation (Sliding Permitted)
+KEYOPT,5,4,2 		!Rigid surface constraint
 
 ! >>>>> BUILD GEOMETRIES <<<<<
 
@@ -134,8 +139,18 @@ EPLOT
 ! >>>>> FRICTIONLESS CONTACTS <<<<<
 ! Applied on inside walls of cylinder against outer face of piston
 
-! CONTACT ELEMENTS
-! TARGET ELEMENTS
+! CONTACT ELEMENTS -> Cylinder Wall
+! Remesh the piston side walls 
+
+
+! TARGET ELEMENTS -> Piston Face
+! Remesh the cylinder inner face 
+TYPE,4
+REAL,			! Real Constant Set ID
+! Select nodes
+NKPT,nmax+1,4			!Create node on Keypoint #4
+TSHAP,CYLI			!Targe 170 Segment Type: CYLI=cylinder, TRI6=triangular 6 nodes
+E,	!Create Elements
 
 ! >>>>> BOUNDARY CONDITIONS <<<<<
 
