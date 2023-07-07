@@ -5,7 +5,7 @@
 ! ...............................................................
 ! MODEL:    HYBRID ELEMENTS SIMPLIFIED MODEL - 3D all round
 ! ---------------------------------------------------------------------------------
-! version: 2_04/06
+! version: 3_07/07
 
 FINISH
 /CLEAR, START, NEW
@@ -28,10 +28,10 @@ piston_b   = 265		! Piston cantilever length (one side) [mm]
 side_support_r = 190	! Distance from axis of support [mm]
 side_support_h = 400	! Distance of support from base [mm]
 
-esize_s = 5		! Solid mesh element size
-esize_b = 5		! Beam mesh size
+esize_s = 10		! Solid mesh element size
+esize_b = 10		! Beam mesh size
 ndiv    = 5		! Lines divisions size
-!press = 				! Internal pressure value [Pa]
+!press = 		! Internal pressure value [Pa]
 
 ! >>>>> MATERIAL PROPERTIES <<<<<
 /PREP7
