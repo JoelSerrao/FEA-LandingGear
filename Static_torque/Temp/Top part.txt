@@ -1,0 +1,53 @@
+FINISH
+/CLEAR, START, NEW
+/FILNAM,static_torque
+/TITLE,static torque on links
+
+! >>>>> MODEL PARAMETERS <<<<<
+
+CylnOrad = 165/2
+CylnIrad = 120/2
+CylnH    = 520
+
+/prep7
+Et,1,182
+
+! Cylinder
+WPOFF,,600
+CYLIND,CylnOrad,CylnIrad,CylnH,0,360,360
+
+!Clamp upper
+CYLIND,CylnOrad+10,CylnOrad,0,120,360,360  ! #V1
+WPOFF,,CylnOrad
+BLC4,0,0,150,10,120
+WPROTA,,-90
+WPOFF,150,-60
+CYLIND,60,,10,0,360,360    ! #V3
+VSBV,3,4
+CYLIND,60,15,10,0,360,360  !#V4
+VADD,3,5
+WPOFF,-150,60
+WPROTA,,90
+WPOFF,,-2*CylnOrad-10
+BLC4,0,0,150,10,120          ! #V5
+WPROTA,,-90
+WPOFF,150,-60
+CYLIND,60,,10,0,360,360    ! #V6
+VSBV,3,5
+CYLIND,60,15,10,0,360,360  !#V7
+VADD,6,3
+
+!Steer link left
+WPOFF,-150,60
+WPOFF,,-490+27,15
+CYLIND,27,,-100,,360,360
+
+!Steer link right
+WPOFF,,,-10+CylnOrad*2
+CYLIND,27,,100,,360,360
+
+!Top fixture
+ET,2,170                                   ! Target MPC
+WPOFF,,-57,5-CylnOrad                      !490-27-520=-57
+WPROTA,,90
+CYLIND,,CylnOrad,0,10,360,360  ! #V8
