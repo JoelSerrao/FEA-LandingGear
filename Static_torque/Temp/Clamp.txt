@@ -1,0 +1,40 @@
+FINISH
+/CLEAR, START, NEW
+/FILNAM,static_torque
+/TITLE,static torque on links
+
+/prep7
+Et,1,182
+
+!Making Clamp
+
+CYLIND,70,60,0,60,360,360  ! #V1
+WPOFF,,60
+BLC4,0,0,95,10,60          ! #V2
+WPROTA,,-90
+WPOFF,95,-30
+CYLIND,30,,10,0,360,360    ! #V3
+VSBV,2,3
+CYLIND,30,15,10,0,360,360  !#V4
+VADD,2,4
+WPOFF,-95,30
+WPROTA,,90
+WPOFF,,-130
+BLC4,0,0,95,10,60          ! #V5
+WPROTA,,-90
+WPOFF,95,-30
+CYLIND,30,,10,0,360,360    ! #V6
+VSBV,2,4
+CYLIND,30,15,10,0,360,360  !#V7
+VADD,2,5
+
+
+
+
+
+
+
+
+
+VATT, MAT, REAL, TYPE, ESYS, SECNUM
+Associates element attributes with the selected, unmeshed volumes.
