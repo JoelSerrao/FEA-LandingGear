@@ -5,7 +5,7 @@
 ! ...............................................................
 ! MODEL:    HYBRID ELEMENTS SIMPLIFIED MODEL - 3D all round
 ! ---------------------------------------------------------------------------------
-! version: 2_04/06
+! version: v3_07/07
 
 FINISH
 /CLEAR, START, NEW
@@ -28,10 +28,11 @@ piston_b   = 265		! Piston cantilever length (one side) [mm]
 side_support_r = 190	! Distance from axis of support [mm]
 side_support_h = 400	! Distance of support from base [mm]
 
-esize_s = 5		! Solid mesh element size
-esize_b = 5		! Beam mesh size
+esize_s1 = 10		! Solid mesh element size #1
+esize_s2 = 20		! Solid mesh element size #2
+esize_b = 10		! Beam mesh size
 ndiv    = 5		! Lines divisions size
-!press = 				! Internal pressure value [Pa]
+!press = 		! Internal pressure value [Pa]
 
 ! >>>>> MATERIAL PROPERTIES <<<<<
 /PREP7
@@ -52,17 +53,22 @@ KEYOPT,2,3,2		!Quadratic formulation to represent correctly linearly varying ben
 SECTYPE,2,BEAM,CSOLID
 SECDATA,solid_d*0.5
 
-! ELEMENT 3 -> CONTACT
+! ELEMENT 3 -> CONTACT BONDED
 ET,3,CONTA174
-KEYOPT,3,2,2		!Contact algorithm: Multipoint constraint (MPC)
+KEYOPT,3,2,0		!Contact algorithm: Augmented Lagrangian (Default)
 KEYOPT,3,12,5 		!Behavior of contact surface: Bonded (always)
 KEYOPT,3,4,2 		!Rigid surface constraint
 
 ! ELEMENT 4 -> TARGET
 ET,4,TARGE170
-KEYOPT,4,2,1		 !Boundary conditions for rigid target nodes: Specified by user
+KEYOPT,4,2,1		 !Boundary conditions for rigid target nodes: Specified by user (0=autoset)
 R,2
 
+! ELEMENT 5 -> CONTACT FRICTIONLESS
+ET,5,CONTA174
+KEYOPT,5,2,2		!Contact algorithm: Multipoint constraint (MPC)
+KEYOPT,5,12,2		!Behavior of contact surface: No separation (Sliding Permitted)
+KEYOPT,5,4,2 		!Rigid surface constraint
 
 ! >>>>> BUILD GEOMETRIES <<<<<
 
@@ -85,20 +91,22 @@ WPROTA,0,-90
 CYLIND, 0, solid_r, 0, solid_h, 360, 360			!#1
 CYLIND, solid_r, cylinder_do*0.5, 0, 520, 360, 360		!#2
 CYLIND, 0, cylinder_do*0.5, 520, 880, 360, 360			!#3
-VADD,2,3								!Merge volumes 2,3
+!VADD,2,3								!Merge volumes 2,3
 NUMCMP,VOLU								!Now they are #1 and #2 (vsel,s,volu,,2) to see them separately
 
 ! >>>>> MESH ELEMENTS <<<<<
 
 ! SOLID Elements
 TYPE,1
-ESIZE,esize_s
+ESIZE,esize_s1
 MSHKEY,0	!Free meshing (default), 1 for mapped
 MSHAPE,1,3D 	!Tetra Elements if you are using solid187
 !MSHAPE,0,3D 	!Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185
 VMESH,1
 VMESH,2
-!! TOO MANY ELEMENTS: INCREASE SIZE OR CONSIDER HALF OF THE MODEL
+ESIZE,esize_s2	!Use bigger mesh size
+VMESH,3
+! May need better mesh control/mapping
 
 ! CONTA on solid surface
 TYPE,3
@@ -119,7 +127,6 @@ TSHAPE,pilo			!Pilot Targe element
 E,nmax+1
 
 ! BEAM elements
-
 TYPE,2
 SECNUM,2
 MAT,1
@@ -130,12 +137,33 @@ LMESH,ALL			!Mesh lines
 EPLOT
 
 ! >>>>> FRICTIONLESS CONTACTS <<<<<
-! Applied on inside walls of cylinder
+! Applied on inside walls of cylinder against outer face of piston
+
+! CONTACT ELEMENTS -> Cylinder Wall
+! Remesh the piston side walls 
+
+
+! TARGET ELEMENTS -> Piston Face
+! Remesh the cylinder inner face 
+TYPE,4
+REAL,			! Real Constant Set ID
+! Select nodes
+NKPT,nmax+1,4			!Create node on Keypoint #4
+TSHAP,CYLI			!Targe 170 Segment Type: CYLI=cylinder, TRI6=triangular 6 nodes
+E,	!Create Elements
 
 ! >>>>> BOUNDARY CONDITIONS <<<<<
 
-! INTERNAL PRESSURE
+/SOLU
+
 ! CONSTRAINTS
+
+
+! INTERNAL PRESSURE
+
+
+! >>>>> SOLUTION <<<<<
+
 
 
 
