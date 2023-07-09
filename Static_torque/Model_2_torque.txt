@@ -14,12 +14,61 @@ FINISH
 ! >>>>> MODEL PARAMETERS <<<<<
 
 ! >>>>> MATERIAL PROPERTIES <<<<<
+E_Young = 100e9   ! Young's modulus, Pa
+ni = 0.28	      ! Poisson's ratio
+Density=7.85e-6	  ! Kg/mm3
 
+
+/PREP7
+! >>>>> ELEMENT TYPE <<<<<< 
 ! ELEMENT 1
 
 ! ELEMENT 2
 
-! ELEMENT 3
+! ELEMENT 3 Torque Link
+Et,1,182
 
-/PREP7
+!MODELING
 
+
+
+!Piston
+CYLIND,,60,0,690,360,360  ! #V1
+
+!Clamp
+WPOFF,,,140
+CYLIND,70,60,0,60,360,360  ! #V1
+WPOFF,,60
+BLC4,0,0,95,10,60          ! #V2
+WPROTA,,-90
+WPOFF,95,-30
+CYLIND,30,,10,0,360,360    ! #V3
+VSBV,3,4
+CYLIND,30,15,10,0,360,360  !#V4
+VADD,3,5
+WPOFF,-95,30
+WPROTA,,90
+WPOFF,,-130
+BLC4,0,0,95,10,60          ! #V5
+WPROTA,,-90
+WPOFF,95,-30
+CYLIND,30,,10,0,360,360    ! #V6
+VSBV,3,5
+CYLIND,30,15,10,0,360,360  !#V7
+VADD,6,3
+WPOFF,-95,30
+WPOFF,,140
+WPROTA,,90
+WPOFF,,70
+
+!Wheels
+WPOFF,,,70
+WPROTA,,-90
+WPOFFS,,,-350
+CYLIND,75/2,,700,,360,360
+
+!Cylinder
+WPOFF,,,350
+WPROTA,,90
+WPOFF,,,-70
+VADD,1,3
