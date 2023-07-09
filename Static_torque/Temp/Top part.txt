@@ -51,3 +51,42 @@ ET,2,170                                   ! Target MPC
 WPOFF,,-57,5-CylnOrad                      !490-27-520=-57
 WPROTA,,90
 CYLIND,,CylnOrad,0,10,360,360  ! #V8
+
+
+! Upper torque link
+WPOFF,150,165/2,60-520
+WPROTA,,90
+CYLIND,40,15,165,,360,360
+
+        ! Appling pin
+        WPOFF,,,-10
+        CYLIND,,15,185,,360,360
+WPOFF,15,-15,10+165
+WPROTA,,-90
+WPROTA,,,42
+BLC4,0,0,390,165,15
+VADD,10,8
+WPOFF,400
+WPOFF,,165
+WPROTA,,90
+WPOFFS,25/2,15
+CYLIND,5,30,50,,360,360
+WPOFF,,,50+65
+CYLIND,5,30,50,,360,360
+VADD,8,10,11
+
+! Lower torque link top
+CYLIND,5,10,-65,,360,360
+        ! Appling pin
+        WPOFF,,,50
+        CYLIND,,5,-165,,360,360
+WPOFF,,,-50
+WPROTA,,-90
+WPROTA,,,-42
+WPOFF,,,-10
+WPROTA,180
+WPOFF,,-65
+WPROTA,,,30
+BLC4,0,0,370,65,15
+
+
