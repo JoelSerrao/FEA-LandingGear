@@ -12,27 +12,32 @@ FINISH
 /FILNAM, static_pres
 /TITLE, static internal pressure
 
+!------------------------------------------------------------------------------------------------------------
 
 ! >>>>> MODEL PARAMETERS <<<<<
+
+eps = 1e-4
 
 cylinder_do = 165		! Cylinder outer diameter [mm]
 cylinder_di = 120		! Cylinder inner diameter [mm]
 cylinder_ho = 880		! Cylinder outer height   [mm]
 cylinder_hi = 520		! Cylinder inner height   [mm]
 
-solid_h = 90		! Height of solid part of the piston   [mm]
-solid_d = 120        ! Diameter of solid part of the piston [mm]
+solid_h = 90			! Height of solid part of the piston   [mm]
+solid_d = 120        		! Diameter of solid part of the piston [mm]
 piston_h   = 690		! Piston full height [mm]
 piston_b   = 265		! Piston cantilever length (one side) [mm]
 
-side_support_r = 190	! Distance from axis of support [mm]
-side_support_h = 400	! Distance of support from base [mm]
+side_support_r = 190		! Distance from axis of support [mm]
+side_support_h = 370		! Distance of support from base [mm]
 
-esize_s1 = 10		! Solid mesh element size #1
-esize_s2 = 20		! Solid mesh element size #2
-esize_b = 10		! Beam mesh size
-ndiv    = 5		! Lines divisions size
-!press = 		! Internal pressure value [Pa]
+esize_s1 = 10			! Solid mesh element size #1
+esize_s2 = 20			! Solid mesh element size #2
+esize_b  = 10			! Beam mesh size
+ndiv     = 5			! Lines divisions size
+!press = 			! Internal pressure value [Pa]
+
+!------------------------------------------------------------------------------------------------------------
 
 ! >>>>> MATERIAL PROPERTIES <<<<<
 /PREP7
@@ -40,6 +45,8 @@ ndiv    = 5		! Lines divisions size
 ! MATERIAL 1 -> High Res. Steel 4340M
 MP,EX,1,210000
 MP,PRXY,1,0.3
+
+!------------------------------------------------------------------------------------------------------------
 
 ! >>>>> ELEMENT PROPERTIES <<<<<
 
@@ -61,14 +68,17 @@ KEYOPT,3,4,2 		!Rigid surface constraint
 
 ! ELEMENT 4 -> TARGET
 ET,4,TARGE170
-KEYOPT,4,2,1		 !Boundary conditions for rigid target nodes: Specified by user (0=autoset)
-R,2
+KEYOPT,4,2,1		!Boundary conditions for rigid target nodes: Specified by user (0=autoset)
+R,1			!Real Constants set #1, All Default
 
 ! ELEMENT 5 -> CONTACT FRICTIONLESS
 ET,5,CONTA174
 KEYOPT,5,2,2		!Contact algorithm: Multipoint constraint (MPC)
 KEYOPT,5,12,2		!Behavior of contact surface: No separation (Sliding Permitted)
 KEYOPT,5,4,2 		!Rigid surface constraint
+R,2,-solid_r		!Set radius, <0 for inner pipes 
+
+!------------------------------------------------------------------------------------------------------------
 
 ! >>>>> BUILD GEOMETRIES <<<<<
 
@@ -94,23 +104,25 @@ CYLIND, 0, cylinder_do*0.5, 520, 880, 360, 360			!#3
 !VADD,2,3								!Merge volumes 2,3
 NUMCMP,VOLU								!Now they are #1 and #2 (vsel,s,volu,,2) to see them separately
 
+!------------------------------------------------------------------------------------------------------------
+
 ! >>>>> MESH ELEMENTS <<<<<
 
 ! SOLID Elements
 TYPE,1
 ESIZE,esize_s1
-MSHKEY,0	!Free meshing (default), 1 for mapped
-MSHAPE,1,3D 	!Tetra Elements if you are using solid187
-!MSHAPE,0,3D 	!Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185
+MSHKEY,0		!Free meshing (default), 1 for mapped
+MSHAPE,1,3D 		!Tetra Elements if you are using solid187
+!MSHAPE,0,3D 		!Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185
 VMESH,1
 VMESH,2
-ESIZE,esize_s2	!Use bigger mesh size
+ESIZE,esize_s2		!Use bigger mesh size
 VMESH,3
 ! May need better mesh control/mapping
 
 ! CONTA on solid surface
 TYPE,3
-REAL,3
+REAL,1				!Call real constants ID
 CSYS,0
 VSEL,S,VOLU,,1
 NSEL,S,LOC,Y,solid_base_y
@@ -120,7 +132,7 @@ ALLS
 
 ! PILOT node 
 TYPE,4
-REAL,3
+REAL,1				!Call real constants ID
 *GET,nmax,NODE,,NUM,MAX
 NKPT,nmax+1,4			!Create node on Keypoint #4
 TSHAPE,pilo			!Pilot Targe element
@@ -133,39 +145,73 @@ MAT,1
 LSEL,S,LINE,,1,3,1		!Select the lines
 LESIZE,ALL,ndiv			!Refine mesh
 LMESH,ALL			!Mesh lines
-/ESHAPE,1
+!/ESHAPE,1			!Show cross sections
 EPLOT
+
+!------------------------------------------------------------------------------------------------------------
 
 ! >>>>> FRICTIONLESS CONTACTS <<<<<
 ! Applied on inside walls of cylinder against outer face of piston
 
-! CONTACT ELEMENTS -> Cylinder Wall
-! Remesh the piston side walls 
+! CONTACT ELEMENTS -> Piston Outer Walls	!CHECK NORMALS->they look opposite
+! Remesh the piston side walls
+VSEL,S,VOLU,,1		
+ASLV,S
+ASEL,R,AREA,,3,4			! Select outer surfaces
+TYPE,5
+REAL,2					! Select real constants set #2
+AMESH,ALL
 
-
-! TARGET ELEMENTS -> Piston Face
-! Remesh the cylinder inner face 
+! TARGET ELEMENTS -> Cylinder Inner Wall
+!*GET,nmax,NODE,,NUM,MAX			! Get new max node number
+!N,nmax+10,0,piston_h-solid_h,0		! Build 1st guideline node
+!N,nmax+11,0,piston_h,0			! Build 2nd guideline node
+VSEL,S,VOLU,,2		
+ASLV,S
+ASEL,R,AREA,,9,10
 TYPE,4
-REAL,			! Real Constant Set ID
-! Select nodes
-NKPT,nmax+1,4			!Create node on Keypoint #4
-TSHAP,CYLI			!Targe 170 Segment Type: CYLI=cylinder, TRI6=triangular 6 nodes
-E,	!Create Elements
+REAL,2				! Real Constant Set ID
+TSHAP,TRI6			! Targe 170 Segment Type: CYLI=cylinder, TRI6=triangular 6 nodes
+AMESH,ALL			! Mesh Surfaces
+
+!------------------------------------------------------------------------------------------------------------
 
 ! >>>>> BOUNDARY CONDITIONS <<<<<
 
-/SOLU
 
-! CONSTRAINTS
+! ##### CONSTRAINTS #####
+
+! TOP FACE
+
+ET,6,MASS21
+R,3,0,0,0,0,0,0
+KEYOPT,6,3,0
+TYPE,6
+REAL,3
+*GET, max_node, NODE, 0, NUM, MAX
+masternode = max_node+10
+N,masternode,0,35+(cylinder_ho+solid_base_y),0 					! Create 'master' node in the hook center
+E, masternode									! Create point mass
+NSEL,S,LOC,Y,cylinder_ho+solid_base_y-eps,cylinder_ho+solid_base_y+eps		! Pick top face nodes
+NSEL,A,NODE,,masternode								! Add masternode
+CERIG, masternode, ALL, ALL
+ALLS
+
+! ##### STEERING POINTS ##### 
+! ##### WHEEL AXLES ##### 
 
 
-! INTERNAL PRESSURE
+! ##### INTERNAL PRESSURE ##### 
 
 
 ! >>>>> SOLUTION <<<<<
+/SOLU
 
+TIME,1
 
+/POST26
 
+/FINISH
 
 
 
