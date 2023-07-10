@@ -34,7 +34,8 @@ side_support_h = 370		! Distance of support from base [mm]
 esize_s1 = 10			! Solid mesh element size #1
 esize_s2 = 20			! Solid mesh element size #2
 esize_b  = 10			! Beam mesh size
-ndiv     = 5			! Lines divisions size
+ndiv1    = 10			! Lines divisions size
+ndiv2    = 5
 press    = 100			! Internal pressure value [Pa] ########TESTING VALUE#########
 
 !------------------------------------------------------------------------------------------------------------
@@ -51,7 +52,7 @@ MP,PRXY,1,0.3
 ! >>>>> ELEMENT PROPERTIES <<<<<
 
 ! ELEMENT 1 -> SOLID185(for mapped) 187 (for free)
-ET,1,SOLID187
+ET,1,SOLID185
 !KEYOPT,1,
 
 ! ELEMENT 2 -> BEAM188
@@ -96,13 +97,96 @@ L,1,4
 ! Solid head
 solid_r = solid_d*0.5
 
-WPOFFS,0,solid_base_y,0
-WPROTA,0,-90
-CYLIND, 0, solid_r, 0, solid_h, 360, 360			!#1
-CYLIND, solid_r, cylinder_do*0.5, 0, 520, 360, 360		!#2
-CYLIND, 0, cylinder_do*0.5, 520, 880, 360, 360			!#3
-!VADD,2,3								!Merge volumes 2,3
-NUMCMP,VOLU								!Now they are #1 and #2 (vsel,s,volu,,2) to see them separately
+K,5,solid_r,solid_base_y,0
+K,6,solid_r,solid_base_y+solid_h
+K,7,0,solid_base_y+solid_h
+L,4,5
+L,5,6
+L,6,7
+L,7,4
+LESIZE,4,esize_s1
+LESIZE,5,esize_s1
+LESIZE,6,esize_s1
+LESIZE,7,esize_s1
+AL,4,5,6,7
+
+! Cylinder
+K,8,cylinder_do*0.5,solid_base_y,0
+K,9,cylinder_do*0.5,cylinder_hi+solid_base_y
+K,10,cylinder_do*0.5,cylinder_hi+solid_base_y+30
+K,11,cylinder_do*0.5,cylinder_hi+solid_base_y+60
+K,12,cylinder_do*0.5,cylinder_ho+solid_base_y
+K,13,0,cylinder_ho+solid_base_y
+K,14,0,cylinder_hi+solid_base_y+60
+K,15,0,cylinder_hi+solid_base_y
+K,16,cylinder_di*0.5,cylinder_hi+solid_base_y
+K,17,cylinder_do*0.5*0.5,cylinder_hi+solid_base_y+30
+
+! horizontals
+L,5,8
+L,16,9
+L,10,17
+L,11,14
+L,12,13
+L,15,16
+L,14,17
+
+! vertical lines
+L,8,9
+L,5,16
+L,9,10
+L,16,17
+L,14,15
+L,10,11
+L,14,17
+L,11,12
+L,13,14
+
+LSEL,S,LINE,,8,10,1
+LESIZE,ALL,,,ndiv1
+
+LSEL,S,LINE,,11,14,1
+LESIZE,ALL,,,ndiv1
+
+LSEL,S,LINE,,15,16,1
+LESIZE,ALL,,,ndiv1
+
+LSEL,S,LINE,,17,20,1
+LESIZE,ALL,,,ndiv1
+
+LSEL,S,LINE,,21,22,1
+LESIZE,ALL,,,ndiv2
+ALLS
+
+AL,8,15,9,16
+AL,9,17,10,18
+AL,13,18,14,19
+AL,10,20,11,14
+AL,11,21,12,22
+
+! Make volumes
+VROTAT,1,,,,,,4,7
+!VADD,1,2,3,4		! Merge volumes into one
+!NUMCMP,VOLU		! Back to be #1
+
+ASEL,S,AREA,,2,6,1
+VROTAT,ALL,,,,,,4,13,,8
+ALLS
+!VSEL,S,VOLU,,1
+!VSEL,INVE
+!VADD,ALL		! Merge volumes into one
+!ALLS
+!NUMCMP,VOLU		! Back to be #2
+
+
+!Discarded Method
+!WPOFFS,0,solid_base_y,0
+!WPROTA,0,-90
+!CYLIND, 0, solid_r, 0, solid_h, 360, 360			!#1
+!CYLIND, solid_r, cylinder_do*0.5, 0, 520, 360, 360		!#2
+!CYLIND, 0, cylinder_do*0.5, 520, 880, 360, 360			!#3
+!VADD,2,3
+!NUMCMP,VOLU								!Now they are #1 and #2 (vsel,s,volu,,2) to see them separately
 
 !------------------------------------------------------------------------------------------------------------
 
@@ -110,15 +194,19 @@ NUMCMP,VOLU								!Now they are #1 and #2 (vsel,s,volu,,2) to see them separate
 
 ! SOLID Elements
 TYPE,1
-ESIZE,esize_s1
-MSHKEY,0		!Free meshing (default), 1 for mapped
-MSHAPE,1,3D 		!Tetra Elements if you are using solid187
-!MSHAPE,0,3D 		!Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185
-VMESH,1
-VMESH,2
-ESIZE,esize_s2		!Use bigger mesh size
-VMESH,3
-! May need better mesh control/mapping
+!ESIZE,esize_s1
+MSHKEY,1		!Free meshing (default), 1 for mapped
+!MSHAPE,1,3D 		!Tetra Elements if you are using solid187
+MSHAPE,0,3D 		!Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185
+
+VSEL,S,VOLU,,1,4,1		!Select volumes that make up the piston head
+VMESH,ALL
+VSEL,INVE		!Invert selection
+!MSHKEY,0
+!MSHAPE,1,3D
+VMESH,ALL
+
+! ####### May need better mesh control/mapping ############
 
 ! CONTA on solid surface
 TYPE,3
