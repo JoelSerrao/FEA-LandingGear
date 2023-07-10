@@ -5,7 +5,7 @@
 ! ...............................................................
 ! MODEL:    HYBRID ELEMENTS SIMPLIFIED MODEL - 3D all round
 ! ---------------------------------------------------------------------------------
-! version: v3_07/07
+! version: v4_10/07
 
 FINISH
 /CLEAR, START, NEW
@@ -23,8 +23,8 @@ cylinder_di = 120		! Cylinder inner diameter [mm]
 cylinder_ho = 880		! Cylinder outer height   [mm]
 cylinder_hi = 520		! Cylinder inner height   [mm]
 
-solid_h = 90			! Height of solid part of the piston   [mm]
-solid_d = 120        		! Diameter of solid part of the piston [mm]
+solid_h    = 90			! Height of solid part of the piston   [mm]
+solid_d    = 120        	! Diameter of solid part of the piston [mm]
 piston_h   = 690		! Piston full height [mm]
 piston_b   = 265		! Piston cantilever length (one side) [mm]
 
@@ -35,7 +35,7 @@ esize_s1 = 10			! Solid mesh element size #1
 esize_s2 = 20			! Solid mesh element size #2
 esize_b  = 10			! Beam mesh size
 ndiv     = 5			! Lines divisions size
-!press = 			! Internal pressure value [Pa]
+press    = 100			! Internal pressure value [Pa] ########TESTING VALUE#########
 
 !------------------------------------------------------------------------------------------------------------
 
@@ -178,9 +178,6 @@ AMESH,ALL			! Mesh Surfaces
 
 ! >>>>> BOUNDARY CONDITIONS <<<<<
 
-
-! ##### CONSTRAINTS #####
-
 ! ##### TOP FACE ##### 
 
 ET,6,MASS21
@@ -199,11 +196,35 @@ ALLS
 
 D,masternode,UX,0,,,,UY,UZ,ROTX,ROTY						! Keep ROTZ free, lock others
 
+
 ! ##### STEERING POINTS #####
 
+! Create master nodes
+*GET, max_node, NODE, 0, NUM, MAX
+masternode = max_node+10
+N,masternode,side_support_r,side_support_h,0	
+N,masternode+10,-side_support_r,side_support_h,0
+
+! Select Wall Nodes (DX)
+NSEL,S,LOC,Y,side_support_h-55,side_support_h+80				! Select in Y
+NSEL,R,LOC,Z,-50,+50								! Select in Z
+NSEL,R,LOC,X,cylinder_do-eps,cylinder_do+eps					! Reselect in X			
+
+! Create RBE3
+RBE3,masternode,ALL,ALL
+ALLS
+
+! Select Wall Nodes (SX)
+NSEL,S,LOC,Y,side_support_h-55,side_support_h+80				! Select in Y
+NSEL,R,LOC,Z,-50,+50								! Select in Z
+NSEL,R,LOC,X,-cylinder_do-eps,-cylinder_do+eps					! Reselect in X
+
+! Create RBE3
+RBE3,masternode+10,ALL,ALL		
 
 
 ! ##### WHEEL AXLES #####
+
 WPCSYS,,0					! Go back to origin WP
 WPROTA,0,-10,0					! Rotate working plane
 CSWPLA,100,0					! Rotated coordinate system 10°
@@ -217,21 +238,46 @@ NSEL,R,LOC,X,-65,-270
 D,ALL,UX					! Horizontal constrain
 NROTAT,ALL					! Rotate nodal in new coordinate system
 D,ALL,UY					! Inclined Constrain Nodes 
-
+CSYS,0
 
 						
-
 ! ##### INTERNAL PRESSURE #####
 
+! Select Chamber Nodes
+ALLS
+VSEL,S,VOLU,,1,3,1						! Select volumes
+NSLV,S,0							! Nodes from areas
+NSEL,R,LOC,Y,piston_h-eps,cylinder_hi-solid_h+piston_h+eps	! Remove Unwanted Nodes
+
+clocal,11,1,0,0,0,0,-90
+CSYS,11
+NSEL,R,LOC,X,0,cylinder_di+eps	! Remove Unwanted Nodes
+CSYS,0
+
+! Apply loads
+SF,ALL,PRES,press				! Surface load on selected nodes
+
+!------------------------------------------------------------------------------------------------------------
 
 ! >>>>> SOLUTION <<<<<
-/SOLU
 
+/SOLU
+ANTYPE,STATIC
 TIME,1
+
+!------------------------------------------------------------------------------------------------------------
+
+! >>>>> POST-PROCESSING <<<<<
 
 /POST26
 
 /FINISH
+
+! Split inner areas for later use
+ALLS
+ASEL,S,AREA,,9,11,1				! Select inner surfaces n°: 2, 9, 10, 11
+ASEL,A,AREA,,2
+AINA,ALL					! Find the intersection of selected areas
 
 
 
