@@ -181,7 +181,7 @@ AMESH,ALL			! Mesh Surfaces
 
 ! ##### CONSTRAINTS #####
 
-! TOP FACE
+! ##### TOP FACE ##### 
 
 ET,6,MASS21
 R,3,0,0,0,0,0,0
@@ -197,11 +197,31 @@ NSEL,A,NODE,,masternode								! Add masternode
 CERIG, masternode, ALL, ALL
 ALLS
 
-! ##### STEERING POINTS ##### 
-! ##### WHEEL AXLES ##### 
+D,masternode,UX,0,,,,UY,UZ,ROTX,ROTY						! Keep ROTZ free, lock others
+
+! ##### STEERING POINTS #####
 
 
-! ##### INTERNAL PRESSURE ##### 
+
+! ##### WHEEL AXLES #####
+WPCSYS,,0					! Go back to origin WP
+WPROTA,0,-10,0					! Rotate working plane
+CSWPLA,100,0					! Rotated coordinate system 10°
+NSEL,S,LOC,Y,-eps,+eps				! Select nodes on base
+NSEL,R,LOC,X,65,270
+D,ALL,UX					! Horizontal constrain
+NROTAT,ALL					! Rotate nodal in new coordinate system
+D,ALL,UY					! Inclined Constrain Nodes 
+NSEL,S,LOC,Y,-eps,+eps
+NSEL,R,LOC,X,-65,-270
+D,ALL,UX					! Horizontal constrain
+NROTAT,ALL					! Rotate nodal in new coordinate system
+D,ALL,UY					! Inclined Constrain Nodes 
+
+
+						
+
+! ##### INTERNAL PRESSURE #####
 
 
 ! >>>>> SOLUTION <<<<<
