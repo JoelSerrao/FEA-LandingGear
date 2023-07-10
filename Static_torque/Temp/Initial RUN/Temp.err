@@ -1,0 +1,996 @@
+/COM,ANSYS RELEASE 2023 R1           BUILD 23.1      UP20221128       15:51:30
+
+ *** WARNING ***                         CP =       8.594   TIME= 15:54:53
+ Shape testing revealed that 2 of the 186 new or modified elements       
+ violate shape warning limits.  To review test results, please see the   
+ output file or issue the CHECK command.                                 
+
+ *** WARNING ***                         CP =      14.531   TIME= 15:57:24
+ Previous testing revealed that 2 of the 322 selected elements violate   
+ shape warning limits.  To review warning messages, please see the       
+ output or error file, or issue the CHECK command.                       
+
+ *** WARNING ***                         CP =      14.734   TIME= 15:57:27
+ The program chosen initial timestep/load-factor is arbitrary.  It is    
+ necessary for the user to supply a suitable initial                     
+ timestep/load-factor through the NSUB or DELTIM command for             
+ convergence and overall efficiency.                                     
+
+ *** WARNING ***                         CP =      14.938   TIME= 15:57:29
+ Maximum friction coefficient 0.38 is defined in the model.  Switch to   
+ the unsymmetric solver (NROP,UNSYM) instead if convergence difficulty   
+ is encountered.                                                         
+
+ *** WARNING ***                         CP =      15.688   TIME= 15:57:30
+ The view for graph plots is currently NOT changeable.                   
+  To enable graph view manipulation, issue /GROPTS,VIEW,1.               
+
+ *** WARNING ***                         CP =      20.266   TIME= 16:58:34
+ No surface elements were generated because no exterior face of the      
+ selected element set has all of its nodes selected.                     
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =      43.875   TIME= 17:05:53
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =      43.875   TIME= 17:05:53
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =      44.391   TIME= 17:05:56
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =      44.406   TIME= 17:05:56
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =      44.406   TIME= 17:05:56
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***                         CP =      45.625   TIME= 17:06:23
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***                         CP =      48.281   TIME= 17:07:54
+ Some entities requested in the *VGET were undefined.                    
+
+ *** ERROR ***                           CP =     128.047   TIME= 17:18:38
+ Element type 3 is CONTA174, which cannot be used with the VMES command. 
+  Meshing of volume 10 aborted.                                          
+
+ *** ERROR ***                           CP =     129.438   TIME= 17:19:55
+ Element type 3 is CONTA174, which cannot be used with the VMES          
+ command.  Meshing of volume 5 aborted.                                  
+
+ *** ERROR ***                           CP =     129.859   TIME= 17:20:09
+ Element type 3 is CONTA174, which cannot be used with the VMES          
+ command.  Meshing of volume 5 aborted.                                  
+
+ *** ERROR ***                           CP =     130.500   TIME= 17:20:39
+ Element type 3 is CONTA174, which cannot be used with the VMES          
+ command.  Meshing of volume 5 aborted.                                  
+
+ *** WARNING ***                         CP =     172.422   TIME= 17:25:15
+ Shape testing revealed that 4 of the 645 new or modified elements       
+ violate shape warning limits.  To review test results, please see the   
+ output file or issue the CHECK command.                                 
+
+ *** WARNING ***                         CP =     175.906   TIME= 17:26:16
+ Shape testing revealed that 12 of the 1205 new or modified elements     
+ violate shape warning limits.  To review test results, please see the   
+ output file or issue the CHECK command.                                 
+
+ *** WARNING ***                         CP =     187.047   TIME= 17:31:04
+ Mid-nodes of some elements have been modified to lie on straight edges  
+ because of distortion with the original mid-nodes.  This condition is   
+ sometimes eliminated by tetrahedron element improvement when enabled.   
+ Issue ESEL,,STRAIGHTENED to select such elements for listing or         
+ plotting.                                                               
+
+ *** WARNING ***                         CP =     187.250   TIME= 17:31:04
+ Shape testing revealed that 4 of the 634 new or modified elements       
+ violate shape warning limits.  To review test results, please see the   
+ output file or issue the CHECK command.                                 
+
+ *** WARNING ***                         CP =     188.516   TIME= 17:31:37
+ SMRTSIZE meshing is activated.                                          
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     196.938   TIME= 17:34:52
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     197.359   TIME= 17:34:54
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     197.359   TIME= 17:34:54
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     201.797   TIME= 17:37:21
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     201.812   TIME= 17:37:21
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     207.578   TIME= 17:41:02
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     207.578   TIME= 17:41:02
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     210.766   TIME= 17:43:42
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     210.766   TIME= 17:43:42
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     216.953   TIME= 17:45:59
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     216.953   TIME= 17:45:59
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     226.000   TIME= 17:48:51
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     226.000   TIME= 17:48:51
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     238.328   TIME= 17:55:03
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     238.328   TIME= 17:55:03
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     267.922   TIME= 18:05:51
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     267.922   TIME= 18:05:51
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     285.797   TIME= 18:07:35
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     285.797   TIME= 18:07:35
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     291.328   TIME= 18:09:22
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     291.328   TIME= 18:09:22
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     294.719   TIME= 18:11:20
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     294.734   TIME= 18:11:20
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     318.656   TIME= 18:16:49
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     318.656   TIME= 18:16:49
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     326.453   TIME= 18:18:34
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     326.453   TIME= 18:18:34
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     331.109   TIME= 18:21:05
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     331.109   TIME= 18:21:05
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     342.906   TIME= 18:24:05
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     342.922   TIME= 18:24:05
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     351.500   TIME= 18:25:26
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     351.500   TIME= 18:25:26
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     365.062   TIME= 18:28:48
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     365.062   TIME= 18:28:48
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***                         CP =     365.953   TIME= 18:29:38
+ For item= VOLU the component ( 3 ) is invalid.                          
+  The VSEL command is ignored.                                           
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     366.375   TIME= 18:31:05
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     368.266   TIME= 18:31:10
+ Some entities requested in the *VGET were undefined.                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     368.266   TIME= 18:31:10
+ Some entities requested in the *VGET were undefined.                    
+
+ *** ERROR ***                           CP =     409.250   TIME= 20:01:17
+ No dimensions set for parameter= WP.                                    
+
+ *** ERROR ***                           CP =     409.281   TIME= 20:01:19
+ The above error occurred processing field= WP(1)                        
+  Line= n,28498,wp(1),wp(2),wp(3).                                       
+
+ *** WARNING ***                         CP =     409.312   TIME= 20:01:25
+ Undefined parameter used in field 3 (WP(1))                             
+  Line= n,28498,wp(1),wp(2),wp(3).                                       
+
+ *** ERROR ***                           CP =     409.344   TIME= 20:01:25
+ No dimensions set for parameter= WP.                                    
+
+ *** ERROR ***                           CP =     409.391   TIME= 20:01:28
+ The above error occurred processing field= WP(2)                        
+  Line= n,28498,wp(1),wp(2),wp(3).                                       
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     409.422   TIME= 20:01:28
+ Undefined parameter used in field 4 (WP(2))                             
+  Line= n,28498,wp(1),wp(2),wp(3).                                       
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =     409.422   TIME= 20:01:28
+ No dimensions set for parameter= WP.                                    
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =     409.422   TIME= 20:01:28
+ The above error occurred processing field= WP(3)                        
+  Line= n,28498,wp(1),wp(2),wp(3).                                       
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     409.422   TIME= 20:01:28
+ Undefined parameter used in field 5 (WP(3))                             
+  Line= n,28498,wp(1),wp(2),wp(3).                                       
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     409.422   TIME= 20:01:29
+ Undefined parameter used for coordinate 1.                              
+  A value of 0.0 will be used.                                           
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     409.422   TIME= 20:01:29
+ Undefined parameter used for coordinate 2.                              
+  A value of 0.0 will be used.                                           
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     409.422   TIME= 20:01:29
+ Undefined parameter used for coordinate 3.                              
+  A value of 0.0 will be used.                                           
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =     409.422   TIME= 20:01:29
+ Node 28498 is attached to LINE 144 and cannot be altered.               
+
+ *** ERROR ***                           CP =     409.547   TIME= 20:02:34
+ No dimensions set for parameter= WP.                                    
+
+ *** ERROR ***                           CP =     409.547   TIME= 20:02:35
+ The above error occurred processing field= WP(1)                        
+  Line= K, 28498, WP(1), WP(2), WP(3).                                   
+
+ *** WARNING ***                         CP =     409.578   TIME= 20:04:04
+ Undefined parameter used in field 3 (WP(1))                             
+  Line= K, 28498, WP(1), WP(2), WP(3).                                   
+
+ *** ERROR ***                           CP =     409.578   TIME= 20:04:04
+ No dimensions set for parameter= WP.                                    
+
+ *** ERROR ***                           CP =     409.641   TIME= 20:04:05
+ The above error occurred processing field= WP(2)                        
+  Line= K, 28498, WP(1), WP(2), WP(3).                                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     409.672   TIME= 20:04:05
+ Undefined parameter used in field 4 (WP(2))                             
+  Line= K, 28498, WP(1), WP(2), WP(3).                                   
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =     409.672   TIME= 20:04:05
+ No dimensions set for parameter= WP.                                    
+
+ *** ERROR ***     SUPPRESSED MESSAGE    CP =     409.672   TIME= 20:04:05
+ The above error occurred processing field= WP(3)                        
+  Line= K, 28498, WP(1), WP(2), WP(3).                                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     409.672   TIME= 20:04:05
+ Undefined parameter used in field 5 (WP(3))                             
+  Line= K, 28498, WP(1), WP(2), WP(3).                                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     409.672   TIME= 20:04:05
+ Undefined parameter used for coordinate 1.                              
+  A value of 0.0 will be used.                                           
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     409.672   TIME= 20:04:05
+ Undefined parameter used for coordinate 2.                              
+  A value of 0.0 will be used.                                           
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     409.672   TIME= 20:04:05
+ Undefined parameter used for coordinate 3.                              
+  A value of 0.0 will be used.                                           
+
+ *** WARNING ***                         CP =     409.812   TIME= 20:04:08
+ Unknown label for *GET command= WP                                      
+  The *GET command is ignored.                                           
+
+ *** WARNING ***                         CP =     409.922   TIME= 20:04:08
+ Unknown label for *GET command= WP                                      
+  The *GET command is ignored.                                           
+
+ *** WARNING ***                         CP =     410.000   TIME= 20:04:09
+ Unknown label for *GET command= WP                                      
+  The *GET command is ignored.                                           
+
+ *** ERROR ***                           CP =     410.438   TIME= 20:04:34
+ Node 28498 is attached to LINE 144 and cannot be altered.               
+
+ *** WARNING ***                         CP =     410.797   TIME= 20:05:39
+ Unknown label for *GET command= WP                                      
+  The *GET command is ignored.                                           
+
+ *** WARNING ***                         CP =     410.906   TIME= 20:06:07
+ Unknown label for *GET command= WP                                      
+  The *GET command is ignored.                                           
+
+ *** ERROR ***                           CP =     415.766   TIME= 20:30:39
+ Keypoint 1 is associated with node 1 and cannot be changed.             
+
+ *** WARNING ***                         CP =     416.078   TIME= 20:31:46
+ WPSOFF is not a recognized PREP7 command, abbreviation, or macro.       
+  This command will be ignored.                                          
+
+ *** WARNING ***                         CP =     436.281   TIME= 21:11:48
+ Previous testing revealed that 20 of the 67072 selected elements        
+ violate shape warning limits.  To review warning messages, please see   
+ the output or error file, or issue the CHECK command.                   
+
+ *** WARNING ***                         CP =     436.688   TIME= 21:11:51
+ Specified degree of freedom constraint UX at unused node 574141.        
+
+ *** WARNING ***                         CP =     436.688   TIME= 21:11:51
+ Specified degree of freedom constraint UY at unused node 574141.        
+
+ *** WARNING ***                         CP =     436.688   TIME= 21:11:51
+ Specified degree of freedom constraint UZ at unused node 574141.        
+
+ *** WARNING ***                         CP =     436.688   TIME= 21:11:51
+ Specified degree of freedom constraint ROTX at unused node 574141.      
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     436.688   TIME= 21:11:51
+ Specified degree of freedom constraint ROTY at unused node 574141.      
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     436.719   TIME= 21:11:51
+ Force load on unused node 574142 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     436.719   TIME= 21:11:51
+ Force load on unused node 574145 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     436.719   TIME= 21:11:51
+ Force load on unused node 574147 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     436.719   TIME= 21:11:51
+ Force load on unused node 574149 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     436.750   TIME= 21:11:51
+ The program chosen initial timestep/load-factor is arbitrary.  It is    
+ necessary for the user to supply a suitable initial                     
+ timestep/load-factor through the NSUB or DELTIM command for             
+ convergence and overall efficiency.                                     
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     456.891   TIME= 21:12:13
+ The Sparse Matrix Solver is currently running in the out-of-core memory 
+ mode.  This memory mode may provide significantly worse performance     
+ compared to the in-core memory mode, depending on the amount of         
+ available system memory and I/O speed.  Please monitor the solver       
+ performance to ensure that the large amount of I/O to the solver files  
+ does not create a bottleneck for performance.                           
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     484.562   TIME= 21:13:20
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 17346) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     487.688   TIME= 21:14:21
+ Contact element 67354 (real ID 12) status changes abruptly from         
+ no-contact -> contact (with target element 67262).                      
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     541.172   TIME= 21:15:25
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 26355) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     597.453   TIME= 21:16:50
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 27944) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     647.781   TIME= 21:18:13
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 32222) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     691.516   TIME= 21:19:07
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 34958) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     730.109   TIME= 21:20:02
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 31568) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     771.734   TIME= 21:21:04
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 17238) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     817.312   TIME= 21:21:31
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 17231) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     872.312   TIME= 21:22:05
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 40394) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     919.078   TIME= 21:22:43
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 17504) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =     970.250   TIME= 21:23:14
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 90542) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1020.328   TIME= 21:23:45
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 35415) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1075.391   TIME= 21:24:23
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 34898) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1127.438   TIME= 21:24:55
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 32222) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1201.938   TIME= 21:25:38
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 16545) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1245.312   TIME= 21:26:04
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 48559) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1289.203   TIME= 21:26:30
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 35149) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1354.688   TIME= 21:27:07
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 26180) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1393.797   TIME= 21:27:31
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 16705) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1438.453   TIME= 21:27:58
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 29099) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1496.172   TIME= 21:28:32
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 17074) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1533.406   TIME= 21:28:54
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 40316) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1564.875   TIME= 21:29:13
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 40316) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1597.016   TIME= 21:29:31
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 40316) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1634.938   TIME= 21:29:53
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 28356) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1673.656   TIME= 21:30:17
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 34958) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1729.359   TIME= 21:30:53
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 38474) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1778.094   TIME= 21:31:22
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 27562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1779.875   TIME= 21:31:23
+ Contact element 66788 (real ID 10) status changes abruptly from contact 
+ (with target element 66723) -> no-contact.                              
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1823.016   TIME= 21:31:49
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 28582) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1868.750   TIME= 21:32:17
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 37341) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1939.391   TIME= 21:32:57
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 77308) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    1989.859   TIME= 21:33:26
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 26054) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2053.609   TIME= 21:34:03
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 106644) which may indicate a numerically      
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2110.906   TIME= 21:34:36
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 17396) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2154.188   TIME= 21:35:02
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 37261) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2202.500   TIME= 21:35:30
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 39579) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2246.391   TIME= 21:35:56
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 34898) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2290.562   TIME= 21:36:22
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 34898) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2333.938   TIME= 21:36:48
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 34958) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2376.141   TIME= 21:37:13
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 102843) which may indicate a numerically      
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2419.812   TIME= 21:37:39
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 17622) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2461.672   TIME= 21:38:05
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 29765) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2505.469   TIME= 21:38:31
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 34898) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2556.391   TIME= 21:39:00
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 16732) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2593.125   TIME= 21:39:23
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 34898) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2659.516   TIME= 21:40:01
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 101686) which may indicate a numerically      
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2719.953   TIME= 21:40:38
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 28140) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2771.125   TIME= 21:41:07
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 35042) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2814.875   TIME= 21:41:33
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 33970) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2883.188   TIME= 21:42:13
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 31935) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    2947.328   TIME= 21:42:50
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 16786) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3002.250   TIME= 21:43:22
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 34958) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3034.297   TIME= 21:43:42
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 26342) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3103.062   TIME= 21:44:23
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 28857) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3104.953   TIME= 21:44:25
+ Contact element 66788 (real ID 10) status changes abruptly from contact 
+ (with target element 66723) -> no-contact.                              
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3146.469   TIME= 21:44:50
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 38517) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3211.641   TIME= 21:45:29
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 17453) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3248.031   TIME= 21:45:51
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 16713) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3283.859   TIME= 21:46:12
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 16600) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3321.359   TIME= 21:46:35
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 16499) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3374.625   TIME= 21:47:06
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 39238) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3410.672   TIME= 21:47:27
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 35080) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3456.703   TIME= 21:47:54
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 40316) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3524.656   TIME= 21:48:32
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 27228) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3566.797   TIME= 21:48:57
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 103167) which may indicate a numerically      
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3609.219   TIME= 21:49:22
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 35080) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3651.625   TIME= 21:49:47
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 17111) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3719.766   TIME= 21:50:25
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 47790) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3761.547   TIME= 21:50:50
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 35080) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3816.922   TIME= 21:51:22
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 17358) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3847.812   TIME= 21:51:39
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 26843) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3907.719   TIME= 21:52:13
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 35080) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3950.047   TIME= 21:52:38
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    3992.406   TIME= 21:53:03
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4053.891   TIME= 21:53:38
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4103.969   TIME= 21:54:07
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 31935) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4134.984   TIME= 21:54:24
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4151.875   TIME= 21:54:33
+ A reference force value times the tolerance is used by the              
+ Newton-Raphson method for checking convergence.  The calculated         
+ reference FORCE CONVERGENCE VALUE = 0 is less than a threshold.  This   
+ threshold is internally calculated.  You can overwrite it by            
+ specifying MINREF on the CNVTOL command.  Check results carefully.      
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4181.719   TIME= 21:54:59
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4212.406   TIME= 21:55:16
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4242.938   TIME= 21:55:33
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4273.656   TIME= 21:55:50
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4304.328   TIME= 21:56:07
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 100015) which may indicate a numerically      
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4352.516   TIME= 21:56:33
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4383.172   TIME= 21:56:50
+ There is at least 1 small equation solver pivot term (e.g., at the UY   
+ degree of freedom of node 31935) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4413.797   TIME= 21:57:07
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4444.438   TIME= 21:57:23
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4475.109   TIME= 21:57:40
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 34995) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4528.391   TIME= 21:58:11
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4557.047   TIME= 21:58:27
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4605.188   TIME= 21:58:53
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4635.469   TIME= 21:59:10
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4665.891   TIME= 21:59:27
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4696.234   TIME= 21:59:43
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4726.500   TIME= 22:00:00
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***                         CP =    4775.297   TIME= 22:02:42
+ Specified degree of freedom constraint UX at unused node 574141.        
+
+ *** WARNING ***                         CP =    4775.297   TIME= 22:02:42
+ Specified degree of freedom constraint UY at unused node 574141.        
+
+ *** WARNING ***                         CP =    4775.297   TIME= 22:02:42
+ Specified degree of freedom constraint UZ at unused node 574141.        
+
+ *** WARNING ***                         CP =    4775.297   TIME= 22:02:42
+ Specified degree of freedom constraint ROTX at unused node 574141.      
+
+ *** WARNING ***                         CP =    4775.297   TIME= 22:02:42
+ Specified degree of freedom constraint ROTY at unused node 574141.      
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4775.328   TIME= 22:02:42
+ Force load on unused node 574142 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4775.328   TIME= 22:02:42
+ Force load on unused node 574145 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4775.328   TIME= 22:02:42
+ Force load on unused node 574147 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4775.328   TIME= 22:02:42
+ Force load on unused node 574149 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4798.172   TIME= 22:03:00
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 26356) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4825.953   TIME= 22:03:15
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4856.188   TIME= 22:03:32
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4885.172   TIME= 22:03:47
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4915.594   TIME= 22:04:04
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4930.000   TIME= 22:04:12
+ A reference force value times the tolerance is used by the              
+ Newton-Raphson method for checking convergence.  The calculated         
+ reference FORCE CONVERGENCE VALUE = 0 is less than a threshold.  This   
+ threshold is internally calculated.  You can overwrite it by            
+ specifying MINREF on the CNVTOL command.  Check results carefully.      
+
+ *** WARNING ***                         CP =    4975.016   TIME= 22:58:37
+ Specified degree of freedom constraint UX at unused node 574141.        
+
+ *** WARNING ***                         CP =    4975.016   TIME= 22:58:37
+ Specified degree of freedom constraint UY at unused node 574141.        
+
+ *** WARNING ***                         CP =    4975.016   TIME= 22:58:37
+ Specified degree of freedom constraint UZ at unused node 574141.        
+
+ *** WARNING ***                         CP =    4975.016   TIME= 22:58:37
+ Specified degree of freedom constraint ROTX at unused node 574141.      
+
+ *** WARNING ***                         CP =    4975.016   TIME= 22:58:37
+ Specified degree of freedom constraint ROTY at unused node 574141.      
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4975.047   TIME= 22:58:37
+ Force load on unused node 574142 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4975.047   TIME= 22:58:37
+ Force load on unused node 574145 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4975.047   TIME= 22:58:37
+ Force load on unused node 574147 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4975.047   TIME= 22:58:37
+ Force load on unused node 574149 FX.                                    
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    4997.078   TIME= 22:58:52
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 26356) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    5022.391   TIME= 22:59:06
+ There is at least 1 small equation solver pivot term (e.g., at the UZ   
+ degree of freedom of node 26356) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    5049.234   TIME= 22:59:20
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    5075.641   TIME= 22:59:34
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    5102.109   TIME= 22:59:48
+ There is at least 1 small equation solver pivot term (e.g., at the UX   
+ degree of freedom of node 38562) which may indicate a numerically       
+ unstable model.  Please check your results carefully.                   
+
+ *** WARNING ***   SUPPRESSED MESSAGE    CP =    5117.156   TIME= 22:59:56
+ A reference force value times the tolerance is used by the              
+ Newton-Raphson method for checking convergence.  The calculated         
+ reference FORCE CONVERGENCE VALUE = 0 is less than a threshold.  This   
+ threshold is internally calculated.  You can overwrite it by            
+ specifying MINREF on the CNVTOL command.  Check results carefully.      
+
+ *** WARNING ***                         CP =    5128.078   TIME= 23:02:43
+ File static_torque.s01 does not exist.                                  
+  The LSREAD command is ignored.                                         
+
+ *** WARNING ***                         CP =    5128.156   TIME= 23:02:43
+ File static_torque.s02 does not exist.                                  
+  The LSREAD command is ignored.                                         
+
+ *** WARNING ***                         CP =    5154.125   TIME= 23:10:06
+ The requested NL data is not available.  The PLESOL command is ignored. 
+
+ *** WARNING ***                         CP =    5159.188   TIME= 23:13:29
+ Unknown label for *GET command=                                         
+  The *GET command is ignored.                                           

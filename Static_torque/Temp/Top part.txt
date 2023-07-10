@@ -13,7 +13,7 @@ CylnH    = 520
 Et,1,182
 
 ! Cylinder
-WPOFF,,600
+WPOFF,,,600
 CYLIND,CylnOrad,CylnIrad,CylnH,0,360,360
 
 !Clamp upper
@@ -96,5 +96,5 @@ VADD,13,11
 WPOFF,,,15/2
 WPROTA,,-90
 CYLIND,25,,120,,360,360
-VSBV,14,11
+VSBV,18,15
 CYLIND,25,15,120,,360,360

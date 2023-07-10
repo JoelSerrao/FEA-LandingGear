@@ -1,0 +1,5522 @@
+/BATCH  
+/COM,ANSYS RELEASE 2023 R1           BUILD 23.1      UP20221128       15:51:31
+/input,menust,tmp,''
+/GRA,POWER
+/GST,ON
+/PLO,INFO,3
+/GRO,CURL,ON
+/CPLANE,1   
+/REPLOT,RESIZE  
+WPSTYLE,,,,,,,,0
+!*  
+/NOPR   
+KEYW,PR_SET,1   
+KEYW,PR_STRUC,1 
+KEYW,PR_THERM,0 
+KEYW,PR_FLUID,0 
+KEYW,PR_ELMAG,0 
+KEYW,MAGNOD,0   
+KEYW,MAGEDG,0   
+KEYW,MAGHFE,0   
+KEYW,MAGELC,0   
+KEYW,PR_MULTI,0 
+/GO 
+!*  
+/COM,   
+/COM,Preferences for GUI filtering have been set to display:
+/COM,  Structural   
+!*  
+/PREP7  
+!*  
+ET,1,SOLID187   
+!*  
+!*  
+KEYOPT,1,6,0
+ETDEL,1 
+!*  
+ET,1,PLANE182   
+!*  
+KEYOPT,1,1,0
+KEYOPT,1,3,3
+KEYOPT,1,6,0
+!*  
+!*  
+R,1,30, 
+!*  
+!*  
+MPTEMP,,,,,,,,  
+MPTEMP,1,0  
+MPDATA,EX,1,,2.1e5  
+MPDATA,PRXY,1,,0.3  
+BLC4, , ,100,50 
+BLC4,80,0,100,-50   
+SMRT,6  
+MSHAPE,0,2D 
+MSHKEY,0
+!*  
+FLST,5,2,5,ORDE,2   
+FITEM,5,1   
+FITEM,5,-2  
+CM,_Y,AREA  
+ASEL, , , ,P51X 
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+FLST,2,2,4,ORDE,2   
+FITEM,2,4   
+FITEM,2,6   
+!*  
+/GO 
+DL,P51X, ,ALL,  
+FLST,2,1,1,ORDE,1   
+FITEM,2,2   
+!*  
+/GO 
+F,P51X,FY,-500  
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.38
+MAT,1   
+R,3 
+REAL,3  
+ET,2,169
+ET,3,172
+KEYOPT,3,9,0
+KEYOPT,3,10,0   
+R,3,
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+LSEL,S,,,1  
+LSEL,A,,,7  
+CM,_TARGET,LINE 
+TYPE,2  
+NSLL,S,1
+ESLN,S,0
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+LSEL,S,,,1  
+LSEL,A,,,7  
+CM,_CONTACT,LINE
+TYPE,3  
+NSLL,S,1
+ESLN,S,0
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,2  
+ESEL,A,TYPE,,3  
+ESEL,R,REAL,,3  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,2  
+ESEL,A,TYPE,,3  
+ESEL,R,REAL,,3  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/MREP,EPLOT 
+FINISH  
+/SOL
+/STATUS,SOLU
+SOLVE   
+FINISH  
+/POST1  
+PLDISP,1
+FINISH  
+/PREP7  
+TYPE,3  
+REAL,1    !Call real constants ID   
+CSYS,0  
+VSEL,S,VOLU,,1  
+NSEL,S,LOC,Y,solid_base_y   
+NSLV,R,1   !Select lower face of piston 
+ESURF   
+ALLS
+FINISH  
+/CLEAR, START, NEW  
+/COM,ANSYS RELEASE 2023 R1           BUILD 23.1      UP20221128       16:58:45
+/input,start,ans,'D:\ANSYS Inc\ANSYS Student\v231\ANSYS\apdl\'  
+/FILNAM,static_torque   
+/TITLE,static torque on links   
+!/VIEW,1,,-1
+!/REPLOT
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODEL PARAMETERS <<<<<  
+*SET,eps , 1e-4 
+*SET,CylnOrad , 165/2   
+*SET,CylnIrad , 120/2   
+*SET,CylnH    , 520 
+/prep7  
+Et,1,182
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MATERIAL PROPERTIES <<<<<   
+! MATERIAL 1 -> Steel 4340M 
+MP,EX,1,210000  
+MP,PRXY,1,0.3   
+! MATERIAL 2 -> AMS 4945
+MP,EX,2,103000  
+MP,PRXY,2,0.342 
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> ELEMENT PROPERTIES <<<<<
+! ELEMENT 1 -> [Piston and wheel axles] 
+ET,1,SOLID187   
+!KEYOPT,1,4,0   ! For Torsion   
+! ELEMENT 2 -> LINK180 [Torque Links]   
+ET,2,LINK180
+KEYOPT,2,2,1   !Constant rigid cross section
+! ELEMENT 3 -> [Top]
+ET,3,CONTA174   
+KEYOPT,3,2,0            !Contact algorithm: Augmented Lagrangian (Default)  
+KEYOPT,3,12,5           !Behavior of contact surface: Bonded (always)   
+KEYOPT,3,4,2            !Rigid surface constraint   
+! ELEMENT 4 -> LINK180 [Pins]   
+ET,4,LINK180
+KEYOPT,4,2,1   !Constant rigid cross section
+! ELEMENT 5 -> [Steer Links]
+ET,5,BEAM188
+KEYOPT,5,4,1   ! For Torsion
+! ELEMENT 6 -> [Cylinder]   
+ET,6,SOLID187   
+! ELEMENT 7 -> [Clamps] 
+ET,7,SOLID187   
+! ELEMENT 8 -> [Targets]
+ET,4,TARGE170   
+KEYOPT,4,2,1            !Rigid target nodes 
+R,1                     !Real Constant  
+! ELEMENT 9 -> [Inner part of the cylinder and outer part of the piston]
+ET,9,CONTA174   
+KEYOPT,9,2,2            !Multipoint constraint (MPC)
+KEYOPT,9,12,2           !Sliding Permitted  
+KEYOPT,9,4,2            !Rigid surface  
+R,2,-120            !Set radius, <0 radius of inner pipe i.e., piston   
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODELLING <<<<< 
+!Piston 
+CYLIND,,60,0,690,360,360  ! #V1 
+!Wheel Axle 
+WPOFF,,,70  
+WPROTA,,-90 
+WPOFFS,,,-350   
+CYLIND,75/2,,700,,360,360   
+WPOFF,,,350 
+WPROTA,,90  
+WPOFF,,,-70 
+!VADD,1,2   
+!Clamp  
+WPOFF,,,162 
+CYLIND,70,60,0,60,360,360  ! #V1
+WPOFF,,60   
+BLC4,0,0,159,10,60          ! #V2   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V3
+VSBV,4,5
+CYLIND,30,15,10,0,360,360  !#V4 
+VADD,4,6
+WPOFF,-159,30   
+WPROTA,,90  
+WPOFF,,-130 
+BLC4,0,0,159,10,60          ! #V5   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V6
+VSBV,4,6
+CYLIND,30,15,10,0,360,360  !#V7 
+VADD,7,4
+WPOFF,-159,30   
+WPOFF,,140  
+WPROTA,,90  
+WPOFF,,70   
+WPOFF,,,-22 
+!!!!!!!!!!!!MESH PISTON!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+!MSHAPE,0,3D            !Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185 
+VMESH,1 
+VMESH,2 
+VMESH,3 
+/pnum,volu,1
+/replot 
+! Cylinder  
+WPOFF,,,600 
+CYLIND,CylnOrad,CylnIrad,CylnH,0,360,360
+!!!!!!!!!!!!MESH CYLINDER!!!!!!!!!!!!!!!
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,4 
+!Clamp upper
+CYLIND,CylnOrad+10,CylnOrad,0,120,360,360  ! #V1
+WPOFF,,CylnOrad 
+BLC4,0,0,152,10,120 
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V3
+VSBV,8,9
+CYLIND,60,15,10,0,360,360  !#V4 
+VADD,8,10   
+WPOFF,-152,60   
+WPROTA,,90  
+WPOFF,,-2*CylnOrad-10   
+BLC4,0,0,152,10,120          ! #V5  
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V6
+VSBV,8,10   
+CYLIND,60,15,10,0,360,360  !#V7 
+VADD,8,11   
+!!!!!!!!!!!!MESH CYLINDER CLAMP!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,7 
+!Steer link left
+WPOFF,-152,60   
+WPOFF,,-490+27,15   
+CYLIND,27,,-100,,360,360
+!Steer link right   
+WPOFF,,,-10+CylnOrad*2  
+CYLIND,27,,100,,360,360 
+/USER,  1   
+/VIEW,  1, -0.603028907791E-02, -0.535800735518    ,  0.844322928406
+/ANG,   1,  0.343906458282  
+/REPLO  
+/VIEW,  1,  0.354404854964    , -0.675078587530    ,  0.647044124798
+/ANG,   1,  -17.8599639394  
+/REPLO  
+/VIEW,  1,  0.394685554660    , -0.631203411484    ,  0.667686727645
+/ANG,   1,  -19.0606467891  
+/REPLO  
+FINISH  
+/CLEAR, START, NEW  
+/COM,ANSYS RELEASE 2023 R1           BUILD 23.1      UP20221128       17:05:11
+/input,start,ans,'D:\ANSYS Inc\ANSYS Student\v231\ANSYS\apdl\'  
+/FILNAM,static_torque   
+/TITLE,static torque on links   
+!/VIEW,1,,-1
+!/REPLOT
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODEL PARAMETERS <<<<<  
+*SET,eps , 1e-4 
+*SET,CylnOrad , 165/2   
+*SET,CylnIrad , 120/2   
+*SET,CylnH    , 520 
+/prep7  
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MATERIAL PROPERTIES <<<<<   
+! MATERIAL 1 -> Steel 4340M 
+MP,EX,1,210000  
+MP,PRXY,1,0.3   
+! MATERIAL 2 -> AMS 4945
+MP,EX,2,103000  
+MP,PRXY,2,0.342 
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> ELEMENT PROPERTIES <<<<<
+! ELEMENT 1 -> [Piston and wheel axles] 
+ET,1,SOLID187   
+!KEYOPT,1,4,0   ! For Torsion   
+! ELEMENT 2 -> LINK180 [Torque Links]   
+ET,2,LINK180
+KEYOPT,2,2,1   !Constant rigid cross section
+! ELEMENT 3 -> [Top]
+ET,3,CONTA174   
+KEYOPT,3,2,0            !Contact algorithm: Augmented Lagrangian (Default)  
+KEYOPT,3,12,5           !Behavior of contact surface: Bonded (always)   
+KEYOPT,3,4,2            !Rigid surface constraint   
+! ELEMENT 4 -> LINK180 [Pins]   
+ET,4,LINK180
+KEYOPT,4,2,1   !Constant rigid cross section
+! ELEMENT 5 -> [Steer Links]
+ET,5,BEAM188
+KEYOPT,5,4,1   ! For Torsion
+! ELEMENT 6 -> [Cylinder]   
+ET,6,SOLID187   
+! ELEMENT 7 -> [Clamps] 
+ET,7,SOLID187   
+! ELEMENT 8 -> [Targets]
+ET,4,TARGE170   
+KEYOPT,4,2,1            !Rigid target nodes 
+R,1                     !Real Constant  
+! ELEMENT 9 -> [Inner part of the cylinder and outer part of the piston]
+ET,9,CONTA174   
+KEYOPT,9,2,2            !Multipoint constraint (MPC)
+KEYOPT,9,12,2           !Sliding Permitted  
+KEYOPT,9,4,2            !Rigid surface  
+R,2,-120            !Set radius, <0 radius of inner pipe i.e., piston   
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODELLING <<<<< 
+!Piston 
+CYLIND,,60,0,690,360,360  ! #V1 
+!Wheel Axle 
+WPOFF,,,70  
+WPROTA,,-90 
+WPOFFS,,,-350   
+CYLIND,75/2,,700,,360,360   
+WPOFF,,,350 
+WPROTA,,90  
+WPOFF,,,-70 
+!VADD,1,2   
+!Clamp  
+WPOFF,,,162 
+CYLIND,70,60,0,60,360,360  ! #V1
+WPOFF,,60   
+BLC4,0,0,159,10,60          ! #V2   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V3
+VSBV,4,5
+CYLIND,30,15,10,0,360,360  !#V4 
+VADD,4,6
+WPOFF,-159,30   
+WPROTA,,90  
+WPOFF,,-130 
+BLC4,0,0,159,10,60          ! #V5   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V6
+VSBV,4,6
+CYLIND,30,15,10,0,360,360  !#V7 
+VADD,7,4
+WPOFF,-159,30   
+WPOFF,,140  
+WPROTA,,90  
+WPOFF,,70   
+WPOFF,,,-22 
+!!!!!!!!!!!!MESH PISTON!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+!MSHAPE,0,3D            !Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185 
+VMESH,1 
+VMESH,2 
+VMESH,3 
+/pnum,volu,1
+/replot 
+! Cylinder  
+WPOFF,,,600 
+CYLIND,CylnOrad,CylnIrad,CylnH,0,360,360
+!!!!!!!!!!!!MESH CYLINDER!!!!!!!!!!!!!!!
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,4 
+!Clamp upper
+CYLIND,CylnOrad+10,CylnOrad,0,120,360,360  ! #V1
+WPOFF,,CylnOrad 
+BLC4,0,0,152,10,120 
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V3
+VSBV,8,9
+CYLIND,60,15,10,0,360,360  !#V4 
+VADD,8,10   
+WPOFF,-152,60   
+WPROTA,,90  
+WPOFF,,-2*CylnOrad-10   
+BLC4,0,0,152,10,120          ! #V5  
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V6
+VSBV,8,10   
+CYLIND,60,15,10,0,360,360  !#V7 
+VADD,8,11   
+!!!!!!!!!!!!MESH CYLINDER CLAMP!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,7 
+!Steer link left
+WPOFF,-152,60   
+WPOFF,,-490+27,15   
+CYLIND,27,,-100,,360,360
+!Steer link right   
+WPOFF,,,-10+CylnOrad*2  
+CYLIND,27,,100,,360,360 
+!!!!!!!!!!!!STEERING LINKS!!!!!!!!!!!!!!!   
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,8 
+VMESH,11
+!Top fixture
+ET,2,170                                   ! Target MPC 
+WPOFF,,-57,5-CylnOrad                      !490-27-520=-57  
+WPROTA,,90  
+CYLIND,,CylnOrad,0,10,360,360  ! #V8
+! Upper torque link 
+WPOFF,152,165/2,60-520  
+WPROTA,,90  
+CYLIND,40,15,165,,360,360   
+! Appling pin   
+WPOFF,,,-10 
+CYLIND,,15,185,,360,360 
+WPOFF,15,-15,10+165 
+WPROTA,,-90 
+WPROTA,,,42 
+BLC4,0,0,390,165,15 
+VADD,13,15  
+WPOFF,400   
+WPOFF,,165  
+WPROTA,,90  
+WPOFFS,25/2,15  
+CYLIND,5,30,50,,360,360 
+WPOFF,,,50+65   
+CYLIND,5,30,50,,360,360 
+VADD,13,15,16   
+/USER,  1   
+/VIEW,  1,  0.663131917006E-01, -0.739087966699    ,  0.670336884028
+/ANG,   1,  -1.90234299513  
+/REPLO  
+/VIEW,  1,  0.191597548685    , -0.957144275728    ,  0.217175539088
+/ANG,   1,  -32.6661756441  
+/REPLO  
+/VIEW,  1,  0.474361624959    , -0.871253492196    ,  0.126088861932
+/ANG,   1,  -64.2072257741  
+/REPLO  
+/VIEW,  1,  0.601650430118    , -0.624515218716    ,  0.497993475391
+/ANG,   1,  -45.6186402849  
+/REPLO  
+/VIEW,  1,  0.455246312181    , -0.490935907905    ,  0.742787136113
+/ANG,   1,  -35.0275023987  
+/REPLO  
+/VIEW,  1,  0.387369875715    , -0.827460730383    ,  0.406513614856
+/ANG,   1,  -43.2599844130  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.402517493608    , -0.716544726166    ,  0.569687039297
+/ANG,   1,  -36.7396262113  
+/REPLO  
+/VIEW,  1,  0.332306983657    , -0.580653687589    ,  0.743245157201
+/ANG,   1,  -29.5235765765  
+/REPLO  
+/VIEW,  1,  0.305019602450    , -0.503421117743    ,  0.808412159935
+/ANG,   1,  -27.6667396903  
+/REPLO  
+/MREP,EPLOT 
+!*  
+KEYOPT,3,1,0
+KEYOPT,3,2,2
+KEYOPT,3,3,1
+KEYOPT,3,4,2
+KEYOPT,3,5,0
+KEYOPT,3,6,0
+KEYOPT,3,7,0
+KEYOPT,3,8,0
+KEYOPT,3,9,0
+KEYOPT,3,10,0   
+KEYOPT,3,11,0   
+KEYOPT,3,12,5   
+KEYOPT,3,13,0   
+KEYOPT,3,14,0   
+KEYOPT,3,15,0   
+KEYOPT,3,16,0   
+KEYOPT,3,18,0   
+!*  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.301748525749    , -0.646989569184    ,  0.700251615189
+/ANG,   1,  -27.6021706941  
+/REPLO  
+/VIEW,  1,  0.448955343163    , -0.892027322919    , -0.522145095887E-01
+/ANG,   1,  -91.2464117296  
+/REPLO  
+/VIEW,  1,  0.754985197962    , -0.351682736854    ,  0.553458764008
+/ANG,   1,  -60.1818535107  
+/REPLO  
+FINISH  
+/CLEAR, START, NEW  
+/COM,ANSYS RELEASE 2023 R1           BUILD 23.1      UP20221128       17:10:54
+/input,start,ans,'D:\ANSYS Inc\ANSYS Student\v231\ANSYS\apdl\'  
+/FILNAM,static_torque   
+/TITLE,static torque on links   
+!/VIEW,1,,-1
+!/REPLOT
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODEL PARAMETERS <<<<<  
+*SET,eps , 1e-4 
+*SET,CylnOrad , 165/2   
+*SET,CylnIrad , 120/2   
+*SET,CylnH    , 520 
+/prep7  
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MATERIAL PROPERTIES <<<<<   
+! MATERIAL 1 -> Steel 4340M 
+MP,EX,1,210000  
+MP,PRXY,1,0.3   
+! MATERIAL 2 -> AMS 4945
+MP,EX,2,103000  
+MP,PRXY,2,0.342 
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> ELEMENT PROPERTIES <<<<<
+! ELEMENT 1 -> [Piston and wheel axles] 
+ET,1,SOLID187   
+!KEYOPT,1,4,0   ! For Torsion   
+! ELEMENT 2 -> LINK180 [Torque Links]   
+ET,2,LINK180
+KEYOPT,2,2,1   !Constant rigid cross section
+! ELEMENT 3 -> [Top]
+ET,3,CONTA174   
+KEYOPT,3,2,0            !Contact algorithm: Augmented Lagrangian (Default)  
+KEYOPT,3,12,5           !Behavior of contact surface: Bonded (always)   
+KEYOPT,3,4,2            !Rigid surface constraint   
+! ELEMENT 4 -> LINK180 [Pins]   
+ET,4,LINK180
+KEYOPT,4,2,1   !Constant rigid cross section
+! ELEMENT 5 -> [Steer Links]
+ET,5,BEAM188
+KEYOPT,5,4,1   ! For Torsion
+! ELEMENT 6 -> [Cylinder]   
+ET,6,SOLID187   
+! ELEMENT 7 -> [Clamps] 
+ET,7,SOLID187   
+! ELEMENT 8 -> [Targets]
+ET,4,TARGE170   
+KEYOPT,4,2,1            !Rigid target nodes 
+R,1                     !Real Constant  
+! ELEMENT 9 -> [Inner part of the cylinder and outer part of the piston]
+ET,9,CONTA174   
+KEYOPT,9,2,2            !Multipoint constraint (MPC)
+KEYOPT,9,12,2           !Sliding Permitted  
+KEYOPT,9,4,2            !Rigid surface  
+R,2,-120            !Set radius, <0 radius of inner pipe i.e., piston   
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODELLING <<<<< 
+!Piston 
+CYLIND,,60,0,690,360,360  ! #V1 
+!Wheel Axle 
+WPOFF,,,70  
+WPROTA,,-90 
+WPOFFS,,,-350   
+CYLIND,75/2,,700,,360,360   
+WPOFF,,,350 
+WPROTA,,90  
+WPOFF,,,-70 
+!VADD,1,2   
+!Clamp  
+WPOFF,,,162 
+CYLIND,70,60,0,60,360,360  ! #V1
+WPOFF,,60   
+BLC4,0,0,159,10,60          ! #V2   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V3
+VSBV,4,5
+CYLIND,30,15,10,0,360,360  !#V4 
+VADD,4,6
+WPOFF,-159,30   
+WPROTA,,90  
+WPOFF,,-130 
+BLC4,0,0,159,10,60          ! #V5   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V6
+VSBV,4,6
+CYLIND,30,15,10,0,360,360  !#V7 
+VADD,7,4
+WPOFF,-159,30   
+WPOFF,,140  
+WPROTA,,90  
+WPOFF,,70   
+WPOFF,,,-22 
+!!!!!!!!!!!!MESH PISTON!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+!MSHAPE,0,3D            !Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185 
+VMESH,1 
+VMESH,2 
+VMESH,3 
+/pnum,volu,1
+/replot 
+! Cylinder  
+WPOFF,,,600 
+CYLIND,CylnOrad,CylnIrad,CylnH,0,360,360
+!!!!!!!!!!!!MESH CYLINDER!!!!!!!!!!!!!!!
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,4 
+!Clamp upper
+CYLIND,CylnOrad+10,CylnOrad,0,120,360,360  ! #V1
+WPOFF,,CylnOrad 
+BLC4,0,0,152,10,120 
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V3
+VSBV,8,9
+CYLIND,60,15,10,0,360,360  !#V4 
+VADD,8,10   
+WPOFF,-152,60   
+WPROTA,,90  
+WPOFF,,-2*CylnOrad-10   
+BLC4,0,0,152,10,120          ! #V5  
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V6
+VSBV,8,10   
+CYLIND,60,15,10,0,360,360  !#V7 
+VADD,8,11   
+!!!!!!!!!!!!MESH CYLINDER CLAMP!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,7 
+!Steer link left
+WPOFF,-152,60   
+WPOFF,,-490+27,15   
+CYLIND,27,,-100,,360,360
+!Steer link right   
+WPOFF,,,-10+CylnOrad*2  
+CYLIND,27,,100,,360,360 
+!!!!!!!!!!!!STEERING LINKS!!!!!!!!!!!!!!!   
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,8 
+VMESH,11
+!Top fixture
+ET,2,170                                   ! Target MPC 
+WPOFF,,-57,5-CylnOrad                      !490-27-520=-57  
+WPROTA,,90  
+CYLIND,,CylnOrad,0,10,360,360  ! #V8
+! Upper torque link 
+WPOFF,152,165/2,60-520  
+WPROTA,,90  
+CYLIND,40,15,165,,360,360   
+! Appling pin   
+WPOFF,,,-10 
+CYLIND,,15,185,,360,360 
+WPOFF,15,-15,10+165 
+WPROTA,,-90 
+WPROTA,,,42 
+BLC4,0,0,390,165,15 
+VADD,13,15  
+WPOFF,400   
+WPOFF,,165  
+WPROTA,,90  
+WPOFFS,25/2,15  
+CYLIND,5,30,50,,360,360 
+WPOFF,,,50+65   
+CYLIND,5,30,50,,360,360 
+VADD,13,15,16   
+! Lower torque link top 
+CYLIND,5,10,-65,,360,360
+! Appling pin   
+WPOFF,,,50  
+CYLIND,,5,-165,,360,360 
+WPOFF,,,-50 
+WPROTA,,-90 
+WPROTA,,,-42
+WPOFF,,,-10 
+WPROTA,180  
+WPOFF,,-65  
+WPROTA,,,30 
+BLC4,0,0,370,65,15  
+WPOFF,370   
+WPOFF,,65/2 
+WPOFF,,-60  
+BLC4,,,-340,120,15  
+VADD,17+1,15+1  
+WPOFF,,,15/2
+WPROTA,,-90 
+CYLIND,25,,120,,360,360 
+VSBV,18+1,15+1  
+CYLIND,25,15,120,,360,360   
+VADD,15+1,17+1  
+! VADD,13,19 Topology error add mesh separately 
+! Pin for lower torque link 
+WPOFF,,,-10 
+CYLIND,15,,140,,360,360 
+!------------------------------------------------------------------------------------------------------------   
+/USER,  1   
+/VIEW,  1, -0.290143760251E-01, -0.629195357572    ,  0.776705457682
+/ANG,   1,  0.659254637924  
+/REPLO  
+/VIEW,  1,  0.260715074029    , -0.842296389445    ,  0.471767360572
+/ANG,   1,  -21.8075581016  
+/REPLO  
+/VIEW,  1,  0.524766394821    , -0.740266553657    ,  0.420268557477
+/ANG,   1,  -39.6373873121  
+/REPLO  
+/VIEW,  1,  0.441829516921    , -0.616188945871    ,  0.651995292133
+/ANG,   1,  -27.9528475110  
+/REPLO  
+/VIEW,  1,  0.349701997552    , -0.856125529646    ,  0.380470222747
+/ANG,   1,  -34.7077078381  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.372343689349    , -0.607532585380    ,  0.701615517719
+/ANG,   1,  -23.4928849950  
+/REPLO  
+/VIEW,  1,  0.406393270217    , -0.764313282914    ,  0.500669267565
+/ANG,   1,  -31.0033861487  
+/REPLO  
+FINISH  
+/CLEAR, START, NEW  
+/COM,ANSYS RELEASE 2023 R1           BUILD 23.1      UP20221128       17:13:27
+/input,start,ans,'D:\ANSYS Inc\ANSYS Student\v231\ANSYS\apdl\'  
+/FILNAM,static_torque   
+/TITLE,static torque on links   
+!/VIEW,1,,-1
+!/REPLOT
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODEL PARAMETERS <<<<<  
+*SET,eps , 1e-4 
+*SET,CylnOrad , 165/2   
+*SET,CylnIrad , 120/2   
+*SET,CylnH    , 520 
+/prep7  
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MATERIAL PROPERTIES <<<<<   
+! MATERIAL 1 -> Steel 4340M 
+MP,EX,1,210000  
+MP,PRXY,1,0.3   
+! MATERIAL 2 -> AMS 4945
+MP,EX,2,103000  
+MP,PRXY,2,0.342 
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> ELEMENT PROPERTIES <<<<<
+! ELEMENT 1 -> [Piston and wheel axles] 
+ET,1,SOLID187   
+!KEYOPT,1,4,0   ! For Torsion   
+! ELEMENT 2 -> LINK180 [Torque Links]   
+ET,2,LINK180
+KEYOPT,2,2,1   !Constant rigid cross section
+! ELEMENT 3 -> [Top]
+ET,3,CONTA174   
+KEYOPT,3,2,0            !Contact algorithm: Augmented Lagrangian (Default)  
+KEYOPT,3,12,5           !Behavior of contact surface: Bonded (always)   
+KEYOPT,3,4,2            !Rigid surface constraint   
+! ELEMENT 4 -> LINK180 [Pins]   
+ET,4,LINK180
+KEYOPT,4,2,1   !Constant rigid cross section
+! ELEMENT 5 -> [Steer Links]
+ET,5,BEAM188
+KEYOPT,5,4,1   ! For Torsion
+! ELEMENT 6 -> [Cylinder]   
+ET,6,SOLID187   
+! ELEMENT 7 -> [Clamps] 
+ET,7,SOLID187   
+! ELEMENT 8 -> [Targets]
+ET,4,TARGE170   
+KEYOPT,4,2,1            !Rigid target nodes 
+R,1                     !Real Constant  
+! ELEMENT 9 -> [Inner part of the cylinder and outer part of the piston]
+ET,9,CONTA174   
+KEYOPT,9,2,2            !Multipoint constraint (MPC)
+KEYOPT,9,12,2           !Sliding Permitted  
+KEYOPT,9,4,2            !Rigid surface  
+R,2,-120            !Set radius, <0 radius of inner pipe i.e., piston   
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODELLING <<<<< 
+!Piston 
+CYLIND,,60,0,690,360,360  ! #V1 
+!Wheel Axle 
+WPOFF,,,70  
+WPROTA,,-90 
+WPOFFS,,,-350   
+CYLIND,75/2,,700,,360,360   
+WPOFF,,,350 
+WPROTA,,90  
+WPOFF,,,-70 
+!VADD,1,2   
+!Clamp  
+WPOFF,,,162 
+CYLIND,70,60,0,60,360,360  ! #V1
+WPOFF,,60   
+BLC4,0,0,159,10,60          ! #V2   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V3
+VSBV,4,5
+CYLIND,30,15,10,0,360,360  !#V4 
+VADD,4,6
+WPOFF,-159,30   
+WPROTA,,90  
+WPOFF,,-130 
+BLC4,0,0,159,10,60          ! #V5   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V6
+VSBV,4,6
+CYLIND,30,15,10,0,360,360  !#V7 
+VADD,7,4
+WPOFF,-159,30   
+WPOFF,,140  
+WPROTA,,90  
+WPOFF,,70   
+WPOFF,,,-22 
+!!!!!!!!!!!!MESH PISTON!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+!MSHAPE,0,3D            !Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185 
+VMESH,1 
+VMESH,2 
+VMESH,3 
+/pnum,volu,1
+/replot 
+! Cylinder  
+WPOFF,,,600 
+CYLIND,CylnOrad,CylnIrad,CylnH,0,360,360
+!!!!!!!!!!!!MESH CYLINDER!!!!!!!!!!!!!!!
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,4 
+!Clamp upper
+CYLIND,CylnOrad+10,CylnOrad,0,120,360,360  ! #V1
+WPOFF,,CylnOrad 
+BLC4,0,0,152,10,120 
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V3
+VSBV,8,9
+CYLIND,60,15,10,0,360,360  !#V4 
+VADD,8,10   
+WPOFF,-152,60   
+WPROTA,,90  
+WPOFF,,-2*CylnOrad-10   
+BLC4,0,0,152,10,120          ! #V5  
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V6
+VSBV,8,10   
+CYLIND,60,15,10,0,360,360  !#V7 
+VADD,8,11   
+!!!!!!!!!!!!MESH CYLINDER CLAMP!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,7 
+!Steer link left
+WPOFF,-152,60   
+WPOFF,,-490+27,15   
+CYLIND,27,,-100,,360,360
+!Steer link right   
+WPOFF,,,-10+CylnOrad*2  
+CYLIND,27,,100,,360,360 
+!!!!!!!!!!!!STEERING LINKS!!!!!!!!!!!!!!!   
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,8 
+VMESH,11
+!Top fixture
+!WPOFF,,-57,5-CylnOrad                      !490-27-520=-57 
+!ET,2,170                                   ! Target MPC
+!WPROTA,,90 
+!CYLIND,,CylnOrad,0,10,360,360  ! #V8   
+! Upper torque link 
+WPOFF,152,165/2,60-520  
+WPROTA,,90  
+CYLIND,40,15,165,,360,360   
+! Appling pin   
+WPOFF,,,-10 
+CYLIND,,15,185,,360,360 
+WPOFF,15,-15,10+165 
+WPROTA,,-90 
+WPROTA,,,42 
+BLC4,0,0,390,165,15 
+VADD,12,14  
+WPOFF,400   
+WPOFF,,165  
+WPROTA,,90  
+WPOFFS,25/2,15  
+CYLIND,5,30,50,,360,360 
+WPOFF,,,50+65   
+CYLIND,5,30,50,,360,360 
+VADD,12,14,15   
+! Lower torque link top 
+CYLIND,5,10,-65,,360,360
+! Appling pin   
+WPOFF,,,50  
+CYLIND,,5,-165,,360,360 
+WPOFF,,,-50 
+WPROTA,,-90 
+WPROTA,,,-42
+WPOFF,,,-10 
+WPROTA,180  
+WPOFF,,-65  
+WPROTA,,,30 
+BLC4,0,0,370,65,15  
+WPOFF,370   
+WPOFF,,65/2 
+WPOFF,,-60  
+BLC4,,,-340,120,15  
+VADD,17,15  
+WPOFF,,,15/2
+WPROTA,,-90 
+CYLIND,25,,120,,360,360 
+VSBV,18,15  
+CYLIND,25,15,120,,360,360   
+VADD,15,17  
+! VADD,13,19 Topology error add mesh separately 
+! Pin for lower torque link 
+WPOFF,,,-10 
+CYLIND,15,,140,,360,360 
+!------------------------------------------------------------------------------------------------------------   
+/USER,  1   
+/VIEW,  1,  0.815152968723E-01, -0.703121146012    ,  0.706382269317
+/ANG,   1, -0.863697042674  
+/REPLO  
+/VIEW,  1,  0.502793898992E-02, -0.892661550002    ,  0.450699541798
+/ANG,   1,   3.97445626915  
+/REPLO  
+/VIEW,  1,  0.492198507887    , -0.861827160461    ,  0.122452334912
+/ANG,   1,  -64.8908559175  
+/REPLO  
+/VIEW,  1,  0.582094008961    , -0.488751546195    ,  0.649837280266
+/ANG,   1,  -40.0168252712  
+/REPLO  
+FINISH  
+/CLEAR, START, NEW  
+/COM,ANSYS RELEASE 2023 R1           BUILD 23.1      UP20221128       17:14:30
+/input,start,ans,'D:\ANSYS Inc\ANSYS Student\v231\ANSYS\apdl\'  
+/FILNAM,static_torque   
+/TITLE,static torque on links   
+!/VIEW,1,,-1
+!/REPLOT
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODEL PARAMETERS <<<<<  
+*SET,eps , 1e-4 
+*SET,CylnOrad , 165/2   
+*SET,CylnIrad , 120/2   
+*SET,CylnH    , 520 
+/prep7  
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MATERIAL PROPERTIES <<<<<   
+! MATERIAL 1 -> Steel 4340M 
+MP,EX,1,210000  
+MP,PRXY,1,0.3   
+! MATERIAL 2 -> AMS 4945
+MP,EX,2,103000  
+MP,PRXY,2,0.342 
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> ELEMENT PROPERTIES <<<<<
+! ELEMENT 1 -> [Piston and wheel axles] 
+ET,1,SOLID187   
+!KEYOPT,1,4,0   ! For Torsion   
+! ELEMENT 2 -> LINK180 [Torque Links]   
+ET,2,LINK180
+KEYOPT,2,2,1   !Constant rigid cross section
+! ELEMENT 3 -> [Top]
+ET,3,CONTA174   
+KEYOPT,3,2,0            !Contact algorithm: Augmented Lagrangian (Default)  
+KEYOPT,3,12,5           !Behavior of contact surface: Bonded (always)   
+KEYOPT,3,4,2            !Rigid surface constraint   
+! ELEMENT 4 -> LINK180 [Pins]   
+ET,4,LINK180
+KEYOPT,4,2,1   !Constant rigid cross section
+! ELEMENT 5 -> [Steer Links]
+ET,5,BEAM188
+KEYOPT,5,4,1   ! For Torsion
+! ELEMENT 6 -> [Cylinder]   
+ET,6,SOLID187   
+! ELEMENT 7 -> [Clamps] 
+ET,7,SOLID187   
+! ELEMENT 8 -> [Targets]
+ET,4,TARGE170   
+KEYOPT,4,2,1            !Rigid target nodes 
+R,1                     !Real Constant  
+! ELEMENT 9 -> [Inner part of the cylinder and outer part of the piston]
+ET,9,CONTA174   
+KEYOPT,9,2,2            !Multipoint constraint (MPC)
+KEYOPT,9,12,2           !Sliding Permitted  
+KEYOPT,9,4,2            !Rigid surface  
+R,2,-120            !Set radius, <0 radius of inner pipe i.e., piston   
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODELLING <<<<< 
+!Piston 
+CYLIND,,60,0,690,360,360  ! #V1 
+!Wheel Axle 
+WPOFF,,,70  
+WPROTA,,-90 
+WPOFFS,,,-350   
+CYLIND,75/2,,700,,360,360   
+WPOFF,,,350 
+WPROTA,,90  
+WPOFF,,,-70 
+!VADD,1,2   
+!Clamp  
+WPOFF,,,162 
+CYLIND,70,60,0,60,360,360  ! #V1
+WPOFF,,60   
+BLC4,0,0,159,10,60          ! #V2   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V3
+VSBV,4,5
+CYLIND,30,15,10,0,360,360  !#V4 
+VADD,4,6
+WPOFF,-159,30   
+WPROTA,,90  
+WPOFF,,-130 
+BLC4,0,0,159,10,60          ! #V5   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V6
+VSBV,4,6
+CYLIND,30,15,10,0,360,360  !#V7 
+VADD,7,4
+WPOFF,-159,30   
+WPOFF,,140  
+WPROTA,,90  
+WPOFF,,70   
+WPOFF,,,-22 
+!!!!!!!!!!!!MESH PISTON!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+!MSHAPE,0,3D            !Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185 
+VMESH,1 
+VMESH,2 
+VMESH,3 
+/pnum,volu,1
+/replot 
+! Cylinder  
+WPOFF,,,600 
+CYLIND,CylnOrad,CylnIrad,CylnH,0,360,360
+!!!!!!!!!!!!MESH CYLINDER!!!!!!!!!!!!!!!
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,4 
+!Clamp upper
+CYLIND,CylnOrad+10,CylnOrad,0,120,360,360  ! #V1
+WPOFF,,CylnOrad 
+BLC4,0,0,152,10,120 
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V3
+VSBV,8,9
+CYLIND,60,15,10,0,360,360  !#V4 
+VADD,8,10   
+WPOFF,-152,60   
+WPROTA,,90  
+WPOFF,,-2*CylnOrad-10   
+BLC4,0,0,152,10,120          ! #V5  
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V6
+VSBV,8,10   
+CYLIND,60,15,10,0,360,360  !#V7 
+VADD,8,11   
+!!!!!!!!!!!!MESH CYLINDER CLAMP!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,7 
+!Steer link left
+WPOFF,-152,60   
+WPOFF,,-490+27,15   
+CYLIND,27,,-100,,360,360
+!Steer link right   
+WPOFF,,,-10+CylnOrad*2  
+CYLIND,27,,100,,360,360 
+!!!!!!!!!!!!STEERING LINKS!!!!!!!!!!!!!!!   
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,8 
+VMESH,11
+!Top fixture
+WPOFF,,-57,5-CylnOrad                      !490-27-520=-57  
+!ET,2,170                                   ! Target MPC
+WPROTA,,90  
+!CYLIND,,CylnOrad,0,10,360,360  ! #V8   
+! Upper torque link 
+WPOFF,152,165/2,60-520  
+WPROTA,,90  
+CYLIND,40,15,165,,360,360   
+! Appling pin   
+WPOFF,,,-10 
+CYLIND,,15,185,,360,360 
+WPOFF,15,-15,10+165 
+WPROTA,,-90 
+WPROTA,,,42 
+BLC4,0,0,390,165,15 
+VADD,12,14  
+WPOFF,400   
+WPOFF,,165  
+WPROTA,,90  
+WPOFFS,25/2,15  
+CYLIND,5,30,50,,360,360 
+WPOFF,,,50+65   
+CYLIND,5,30,50,,360,360 
+VADD,12,14,15   
+! Lower torque link top 
+CYLIND,5,10,-65,,360,360
+! Appling pin   
+WPOFF,,,50  
+CYLIND,,5,-165,,360,360 
+WPOFF,,,-50 
+WPROTA,,-90 
+WPROTA,,,-42
+WPOFF,,,-10 
+WPROTA,180  
+WPOFF,,-65  
+WPROTA,,,30 
+BLC4,0,0,370,65,15  
+WPOFF,370   
+WPOFF,,65/2 
+WPOFF,,-60  
+BLC4,,,-340,120,15  
+VADD,17,15  
+WPOFF,,,15/2
+WPROTA,,-90 
+CYLIND,25,,120,,360,360 
+VSBV,18,15  
+CYLIND,25,15,120,,360,360   
+VADD,15,17  
+! VADD,13,19 Topology error add mesh separately 
+! Pin for lower torque link 
+WPOFF,,,-10 
+CYLIND,15,,140,,360,360 
+!------------------------------------------------------------------------------------------------------------   
+/USER,  1   
+/VIEW,  1,  0.989825343167E-02, -0.333806519842    ,  0.942589641302
+/ANG,   1, -0.499899059075E-02  
+/REPLO  
+/VIEW,  1,  0.122237192381    , -0.729820408198    ,  0.672621915028
+/ANG,   1,  -4.33948559988  
+/REPLO  
+/VIEW,  1,  0.703350934323E-01, -0.996171558838    ,  0.519153156072E-01
+/ANG,   1,  -45.0286172726  
+/REPLO  
+/VIEW,  1, -0.135452960684    , -0.779127217483    ,  0.612056594131
+/ANG,   1,   19.5474371577  
+/REPLO  
+/VIEW,  1, -0.691707579808E-01, -0.871162893552E-01,  0.993793820855
+/ANG,   1,   16.7868834560  
+/REPLO  
+/VIEW,  1, -0.677984821166E-01, -0.751032609471    ,  0.656774988359
+/ANG,   1,   20.8293662307  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1, -0.341075921806    , -0.934767309347    , -0.993845709380E-01
+/ANG,   1,   116.009586729  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.875946290062    , -0.453406589296    ,  0.164743927684
+/ANG,   1,  -51.4708874963  
+/REPLO  
+/VIEW,  1,  0.632991082679    , -0.712037037394    ,  0.303851191587
+/ANG,   1,  -18.6441336407  
+/REPLO  
+/VIEW,  1,  0.902719540754    , -0.277853919357    , -0.328473180394
+/ANG,   1,  -46.1911098429  
+/REPLO  
+/VIEW,  1,  0.482023889971    , -0.681613288286    ,  0.550505490189
+/ANG,   1,  -54.5392221143  
+/REPLO  
+/VIEW,  1,  0.441486967599    , -0.436023793001    ,  0.784201829491
+/ANG,   1,  -48.1406740159  
+/REPLO  
+/VIEW,  1,  0.516796942471    , -0.690127092959    ,  0.506601930333
+/ANG,   1,  -57.5442102718  
+/REPLO  
+/VIEW,  1,  0.725129582459    , -0.656610380678    ,  0.207484690107
+/ANG,   1,  -76.5244301380  
+/REPLO  
+/VIEW,  1,  0.712894549407    , -0.530705476909    ,  0.458402724909
+/ANG,   1,  -66.6550348491  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+!*  
+KEYOPT,3,1,0
+KEYOPT,3,2,2
+KEYOPT,3,3,0
+KEYOPT,3,4,2
+KEYOPT,3,5,0
+KEYOPT,3,6,0
+KEYOPT,3,7,0
+KEYOPT,3,8,0
+KEYOPT,3,9,0
+KEYOPT,3,10,0   
+KEYOPT,3,11,0   
+KEYOPT,3,12,5   
+KEYOPT,3,13,0   
+KEYOPT,3,14,0   
+KEYOPT,3,15,0   
+KEYOPT,3,16,0   
+KEYOPT,3,18,0   
+!*  
+type,3  
+esize,10
+mshkey,0
+mshape,1,3d 
+vmesh,10
+FLST,5,4,6,ORDE,4   
+FITEM,5,5   
+FITEM,5,-6  
+FITEM,5,9   
+FITEM,5,-10 
+CM,_Y,VOLU  
+VSEL, , , ,P51X 
+CM,_Y1,VOLU 
+CMSEL,S,_Y  
+!*  
+CMSEL,S,_Y1 
+VATT,       1,       1,   3,       0
+CMSEL,S,_Y  
+CMDELE,_Y   
+CMDELE,_Y1  
+!*  
+FLST,5,4,6,ORDE,4   
+FITEM,5,5   
+FITEM,5,-6  
+FITEM,5,9   
+FITEM,5,-10 
+CM,_Y,VOLU  
+VSEL, , , ,P51X 
+CM,_Y1,VOLU 
+CHKMSH,'VOLU'   
+CMSEL,S,_Y  
+!*  
+VMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+FLST,5,4,6,ORDE,4   
+FITEM,5,5   
+FITEM,5,-6  
+FITEM,5,9   
+FITEM,5,-10 
+CM,_Y,VOLU  
+VSEL, , , ,P51X 
+CM,_Y1,VOLU 
+CHKMSH,'VOLU'   
+CMSEL,S,_Y  
+!*  
+VMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+TYPE,   2   
+MAT,       1
+REAL,       1   
+ESYS,       0   
+SECNUM, 
+!*  
+FLST,5,4,6,ORDE,4   
+FITEM,5,5   
+FITEM,5,-6  
+FITEM,5,9   
+FITEM,5,-10 
+CM,_Y,VOLU  
+VSEL, , , ,P51X 
+CM,_Y1,VOLU 
+CHKMSH,'VOLU'   
+CMSEL,S,_Y  
+!*  
+VMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+FINISH  
+/CLEAR, START, NEW  
+/COM,ANSYS RELEASE 2023 R1           BUILD 23.1      UP20221128       17:21:00
+/input,start,ans,'D:\ANSYS Inc\ANSYS Student\v231\ANSYS\apdl\'  
+/FILNAM,static_torque   
+/TITLE,static torque on links   
+!/VIEW,1,,-1
+!/REPLOT
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODEL PARAMETERS <<<<<  
+*SET,eps , 1e-4 
+*SET,CylnOrad , 165/2   
+*SET,CylnIrad , 120/2   
+*SET,CylnH    , 520 
+/prep7  
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MATERIAL PROPERTIES <<<<<   
+! MATERIAL 1 -> Steel 4340M 
+MP,EX,1,210000  
+MP,PRXY,1,0.3   
+! MATERIAL 2 -> AMS 4945
+MP,EX,2,103000  
+MP,PRXY,2,0.342 
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> ELEMENT PROPERTIES <<<<<
+! ELEMENT 1 -> [Piston and wheel axles] 
+ET,1,SOLID187   
+!KEYOPT,1,4,0   ! For Torsion   
+! ELEMENT 2 -> LINK180 [Torque Links]   
+ET,2,LINK180
+KEYOPT,2,2,1   !Constant rigid cross section
+! ELEMENT 3 -> [Top]
+ET,3,CONTA174   
+KEYOPT,3,2,0            !Contact algorithm: Augmented Lagrangian (Default)  
+KEYOPT,3,12,5           !Behavior of contact surface: Bonded (always)   
+KEYOPT,3,4,2            !Rigid surface constraint   
+! ELEMENT 4 -> LINK180 [Pins]   
+ET,4,LINK180
+KEYOPT,4,2,1   !Constant rigid cross section
+! ELEMENT 5 -> [Steer Links]
+ET,5,BEAM188
+KEYOPT,5,4,1   ! For Torsion
+! ELEMENT 6 -> [Cylinder]   
+ET,6,SOLID187   
+! ELEMENT 7 -> [Clamps] 
+ET,7,SOLID187   
+! ELEMENT 8 -> [Targets]
+ET,4,TARGE170   
+KEYOPT,4,2,1            !Rigid target nodes 
+R,1                     !Real Constant  
+! ELEMENT 9 -> [Inner part of the cylinder and outer part of the piston]
+ET,9,CONTA174   
+KEYOPT,9,2,2            !Multipoint constraint (MPC)
+KEYOPT,9,12,2           !Sliding Permitted  
+KEYOPT,9,4,2            !Rigid surface  
+R,2,-120            !Set radius, <0 radius of inner pipe i.e., piston   
+!------------------------------------------------------------------------------------------------------------   
+! >>>>> MODELLING <<<<< 
+!Piston 
+CYLIND,,60,0,690,360,360  ! #V1 
+!Wheel Axle 
+WPOFF,,,70  
+WPROTA,,-90 
+WPOFFS,,,-350   
+CYLIND,75/2,,700,,360,360   
+WPOFF,,,350 
+WPROTA,,90  
+WPOFF,,,-70 
+!VADD,1,2   
+!Clamp  
+WPOFF,,,162 
+CYLIND,70,60,0,60,360,360  ! #V1
+WPOFF,,60   
+BLC4,0,0,159,10,60          ! #V2   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V3
+VSBV,4,5
+CYLIND,30,15,10,0,360,360  !#V4 
+VADD,4,6
+WPOFF,-159,30   
+WPROTA,,90  
+WPOFF,,-130 
+BLC4,0,0,159,10,60          ! #V5   
+WPROTA,,-90 
+WPOFF,159,-30   
+CYLIND,30,,10,0,360,360    ! #V6
+VSBV,4,6
+CYLIND,30,15,10,0,360,360  !#V7 
+VADD,7,4
+WPOFF,-159,30   
+WPOFF,,140  
+WPROTA,,90  
+WPOFF,,70   
+WPOFF,,,-22 
+!!!!!!!!!!!!MESH PISTON!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+!MSHAPE,0,3D            !Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185 
+VMESH,1 
+VMESH,2 
+VMESH,3 
+/pnum,volu,1
+/replot 
+! Cylinder  
+WPOFF,,,600 
+CYLIND,CylnOrad,CylnIrad,CylnH,0,360,360
+!!!!!!!!!!!!MESH CYLINDER!!!!!!!!!!!!!!!
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,4 
+!Clamp upper
+CYLIND,CylnOrad+10,CylnOrad,0,120,360,360  ! #V1
+WPOFF,,CylnOrad 
+BLC4,0,0,152,10,120 
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V3
+VSBV,8,9
+CYLIND,60,15,10,0,360,360  !#V4 
+VADD,8,10   
+WPOFF,-152,60   
+WPROTA,,90  
+WPOFF,,-2*CylnOrad-10   
+BLC4,0,0,152,10,120          ! #V5  
+WPROTA,,-90 
+WPOFF,152,-60   
+CYLIND,60,,10,0,360,360    ! #V6
+VSBV,8,10   
+CYLIND,60,15,10,0,360,360  !#V7 
+VADD,8,11   
+!!!!!!!!!!!!MESH CYLINDER CLAMP!!!!!!!!!!!!!!!  
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,7 
+!Steer link left
+WPOFF,-152,60   
+WPOFF,,-490+27,15   
+CYLIND,27,,-100,,360,360
+!Steer link right   
+WPOFF,,,-10+CylnOrad*2  
+CYLIND,27,,100,,360,360 
+!!!!!!!!!!!!STEERING LINKS!!!!!!!!!!!!!!!   
+TYPE,1  
+ESIZE,20 !esize_s1  
+MSHKEY,0                !Free meshing (default), 1 for mapped   
+MSHAPE,1,3D             !Tetra Elements if you are using solid187   
+VMESH,8 
+VMESH,11
+!Top fixture
+WPOFF,,-57,5-CylnOrad                      !490-27-520=-57  
+!ET,2,170                                   ! Target MPC
+WPROTA,,90  
+!CYLIND,,CylnOrad,0,10,360,360  ! #V8   
+! Upper torque link 
+WPOFF,152,165/2,60-520  
+WPROTA,,90  
+CYLIND,40,15,165,,360,360   
+! Appling pin   
+WPOFF,,,-10 
+CYLIND,,15,185,,360,360 
+WPOFF,15,-15,10+165 
+WPROTA,,-90 
+WPROTA,,,42 
+BLC4,0,0,390,165,15 
+VADD,12,14  
+WPOFF,400   
+WPOFF,,165  
+WPROTA,,90  
+WPOFFS,25/2,15  
+CYLIND,5,30,50,,360,360 
+WPOFF,,,50+65   
+CYLIND,5,30,50,,360,360 
+VADD,12,14,15   
+! Lower torque link top 
+CYLIND,5,10,-65,,360,360
+! Appling pin   
+WPOFF,,,50  
+CYLIND,,5,-165,,360,360 
+WPOFF,,,-50 
+WPROTA,,-90 
+WPROTA,,,-42
+WPOFF,,,-10 
+WPROTA,180  
+WPOFF,,-65  
+WPROTA,,,30 
+BLC4,0,0,370,65,15  
+WPOFF,370   
+WPOFF,,65/2 
+WPOFF,,-60  
+BLC4,,,-340,120,15  
+VADD,17,15  
+WPOFF,,,15/2
+WPROTA,,-90 
+CYLIND,25,,120,,360,360 
+VSBV,18,15  
+CYLIND,25,15,120,,360,360   
+VADD,15,17  
+! VADD,13,19 Topology error add mesh separately 
+! Pin for lower torque link 
+WPOFF,,,-10 
+CYLIND,15,,140,,360,360 
+!------------------------------------------------------------------------------------------------------------   
+/REPLOT,RESIZE  
+/USER,  1   
+/VIEW,  1,  0.181200697319E-01, -0.444599209902    ,  0.895546316852
+/ANG,   1,  0.266423646510  
+/REPLO  
+/VIEW,  1,  0.294615901568    , -0.773588784491    ,  0.561036418651
+/ANG,   1,  -16.1835573673  
+/REPLO  
+/VIEW,  1, -0.102329076149    , -0.605369858601    ,  0.789339023786
+/ANG,   1,   11.0604086162  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST,  1,   464.662598763  
+/ANG,   1,  -15.9395913838  
+/REPLO  
+/DIST,  1,   495.768102235  
+/ANG,   1,  -21.6395913838  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.159413361490    , -0.209917943975    ,  0.964635598024
+/ANG,   1,  -29.3440382386  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.321106062160    , -0.651236479631    ,  0.687591408063
+/ANG,   1,  -35.7756898154  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.617157170469    , -0.767125342463    ,  0.175030671284
+/ANG,   1,  -69.4134113479  
+/REPLO  
+/VIEW,  1,  0.682376918496    , -0.716773162237    , -0.143519946356
+/ANG,   1,  -89.6326450614  
+/REPLO  
+/VIEW,  1,  0.408020294025    , -0.576834517865    , -0.707659083644
+/ANG,   1,  -122.680855717  
+/REPLO  
+/VIEW,  1,  0.930850058414    , -0.364926142544    , -0.186300627762E-01
+/ANG,   1,  -90.0369025842  
+/REPLO  
+/VIEW,  1,  0.806913891883    ,  0.533070240978    ,  0.254413225422
+/ANG,   1,  -89.9883896007  
+/REPLO  
+/VIEW,  1,  0.474497350978    ,  0.185135144584    ,  0.860567976487
+/ANG,   1,  -106.462912981  
+/REPLO  
+FLST,5,14,4,ORDE,12 
+FITEM,5,140 
+FITEM,5,161 
+FITEM,5,-164
+FITEM,5,180 
+FITEM,5,-181
+FITEM,5,186 
+FITEM,5,189 
+FITEM,5,194 
+FITEM,5,203 
+FITEM,5,-204
+FITEM,5,206 
+FITEM,5,-207
+CM,_Y,LINE  
+LSEL, , , ,P51X 
+CM,_Y1,LINE 
+CMSEL,S,_Y  
+!*  
+!*  
+CMSEL,S,_Y1 
+LATT,1,1,3, , , ,   
+CMSEL,S,_Y  
+CMDELE,_Y   
+CMDELE,_Y1  
+!*  
+/VIEW,  1, -0.228126574478    , -0.856286119573    ,  0.463392217720
+/ANG,   1,  -47.3817781642  
+/REPLO  
+CM,_Y,VOLU  
+VSEL, , , ,      10 
+CM,_Y1,VOLU 
+CHKMSH,'VOLU'   
+CMSEL,S,_Y  
+!*  
+VMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+/VIEW,  1, -0.371933400017    , -0.135633577843    ,  0.918296835731
+/ANG,   1,  -50.4629249532  
+/REPLO  
+/VIEW,  1,  0.303641912837    , -0.451192217667    ,  0.839182442312
+/ANG,   1,  -63.1259010075  
+/REPLO  
+/VIEW,  1,  0.556012208105    , -0.335488986150    ,  0.760458785609
+/ANG,   1,  -69.3197770702  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.627157382077    , -0.149413654125    ,  0.764427353035
+/ANG,   1,  -70.1551037167  
+/REPLO  
+/VIEW,  1,  0.725143034026    , -0.245002856498    ,  0.643538017922
+/ANG,   1,  -71.9846159670  
+/REPLO  
+/VIEW,  1,  0.600827903513    , -0.363341322515    ,  0.712031539830
+/ANG,   1,  -69.6786688054  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.816690126253    , -0.411036326908    ,  0.405051077821
+/ANG,   1,  -79.0787570245  
+/REPLO  
+/VIEW,  1,  0.954675471648    ,  0.265460935653    ,  0.134629994709
+/ANG,   1,  -84.5450651238  
+/REPLO  
+/VIEW,  1,  0.727170195725    ,  0.686407413550    ,  0.826855925922E-02
+/ANG,   1,  -81.2183689035  
+/REPLO  
+/VIEW,  1,  0.700513560105    ,  0.518241025235    ,  0.490618988495
+/ANG,   1,  -102.544624234  
+/REPLO  
+/VIEW,  1,  0.445547126508    ,  0.284717232026    ,  0.848777860130
+/ANG,   1,  -113.380681207  
+/REPLO  
+/VIEW,  1,  0.720369980344    ,  0.387626806043    ,  0.575163064404
+/ANG,   1,  -104.948329808  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.799213962867    ,  0.456148300971    ,  0.391389536241
+/ANG,   1,  -99.6380781743  
+/REPLO  
+FLST,5,3,6,ORDE,3   
+FITEM,5,5   
+FITEM,5,-6  
+FITEM,5,9   
+CM,_Y,VOLU  
+VSEL, , , ,P51X 
+CM,_Y1,VOLU 
+CHKMSH,'VOLU'   
+CMSEL,S,_Y  
+!*  
+VMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+/VIEW,  1,  0.776285473295    ,  0.102044168023    ,  0.622067401271
+/ANG,   1,  -103.710298476  
+/REPLO  
+/VIEW,  1,  0.751894783218    , -0.456720982345    ,  0.475457862755
+/ANG,   1,  -110.173928719  
+/REPLO  
+/VIEW,  1,  0.320398849127    , -0.914390911442    , -0.247454720202
+/ANG,   1,  -177.308969792  
+/REPLO  
+/VIEW,  1, -0.327959319592    , -0.422391378825    ,  0.845001898097
+/ANG,   1,  -42.9832982141  
+/REPLO  
+/VIEW,  1,  0.664115083194    , -0.316548411162    ,  0.677309574467
+/ANG,   1,  -72.7235783276  
+/REPLO  
+/VIEW,  1,  0.741029473060    , -0.530447973499    ,  0.411704101834
+/ANG,   1,  -80.0923066902  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.898385083644    , -0.336663068116    ,  0.282067757910
+/ANG,   1,  -86.4907212664  
+/REPLO  
+/VIEW,  1,  0.474643084395    , -0.655876083409    ,  0.586975728330
+/ANG,   1,  -70.1858758356  
+/REPLO  
+/VIEW,  1,  0.764578587392    , -0.593421769570    ,  0.251535657714
+/ANG,   1,  -87.9542787756  
+/REPLO  
+/VIEW,  1,  0.396091770120    , -0.918183460262    , -0.710231961909E-02
+/ANG,   1,  -114.651005297  
+/REPLO  
+/VIEW,  1,  0.512509322886    , -0.717900239180    ,  0.471119348509
+/ANG,   1,  -63.2318141711  
+/REPLO  
+/VIEW,  1,  0.675484520947    , -0.522104292683    ,  0.520699308164
+/ANG,   1,  -65.5358472941  
+/REPLO  
+/VIEW,  1,  0.677237795634    , -0.645472053844    ,  0.353149820715
+/ANG,   1,  -71.5003174657  
+/REPLO  
+/VIEW,  1,  0.659655162444    , -0.707783605329    ,  0.252779419037
+/ANG,   1,  -75.9900632124  
+/REPLO  
+/VIEW,  1,  0.702774351665    , -0.647921923165    ,  0.293777793790
+/ANG,   1,  -74.8037259499  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.965090630501    ,  0.148943276462    ,  0.215443670864
+/ANG,   1,  -77.8447685639  
+/REPLO  
+/VIEW,  1,  0.684105154743    ,  0.714783817451    ,  0.145204103123
+/ANG,   1,  -77.2305512256  
+/REPLO  
+/VIEW,  1,  0.853763217012    ,  0.492123653510    ,  0.170007879032
+/ANG,   1,  -76.7008805066  
+/REPLO  
+/VIEW,  1,  0.789999652177    ,  0.603386448507    ,  0.108744394423
+/ANG,   1,  -74.8329992238  
+/REPLO  
+/VIEW,  1,  0.971182942683    ,  0.146152581296    ,  0.188263418706
+/ANG,   1,  -75.6953073458  
+/REPLO  
+/VIEW,  1,  0.916079201476    , -0.267165215913    ,  0.299034519795
+/ANG,   1,  -75.0640428745  
+/REPLO  
+/VIEW,  1,  0.920155818279    , -0.264842723550    ,  0.288394871436
+/ANG,   1,  -75.3206373574  
+/REPLO  
+/VIEW,  1,  0.850444471438    , -0.344623572197    ,  0.397465463262
+/ANG,   1,  -73.0112491025  
+/REPLO  
+/VIEW,  1,  0.784561266299    , -0.255238589549    ,  0.565081305502
+/ANG,   1,  -69.6040279285  
+/REPLO  
+/VIEW,  1,  0.822040487972    ,  0.207451276275    ,  0.530295581829
+/ANG,   1,  -69.3230960193  
+/REPLO  
+/VIEW,  1,  0.756699707905    ,  0.422616370407    ,  0.498799514355
+/ANG,   1,  -69.3695276902  
+/REPLO  
+/VIEW,  1,  0.675145695756    ,  0.625563598510    ,  0.390958404080
+/ANG,   1,  -67.6223954265  
+/REPLO  
+/VIEW,  1,  0.634602016336    ,  0.686310476562    ,  0.355328313849
+/ANG,   1,  -67.0859303674  
+/REPLO  
+/VIEW,  1,  0.844060347781    ,  0.374597773314    ,  0.383716871577
+/ANG,   1,  -63.6177825879  
+/REPLO  
+/VIEW,  1,  0.866021038963    ,  0.451057581333E-01,  0.497968905311
+/ANG,   1,  -64.9140030391  
+/REPLO  
+/VIEW,  1,  0.837703078093    , -0.131271491824    ,  0.530114467251
+/ANG,   1,  -64.8432580443  
+/REPLO  
+/VIEW,  1,  0.847149574577    ,  0.221224213922    ,  0.483112249346
+/ANG,   1,  -64.5328336884  
+/REPLO  
+/VIEW,  1,  0.812856966280    , -0.139479903371    ,  0.565516497483
+/ANG,   1,  -64.9488772074  
+/REPLO  
+/VIEW,  1,  0.767979294618    , -0.282075439472    ,  0.575014129814
+/ANG,   1,  -64.5729707834  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.703173206426    , -0.573363629224    ,  0.420477812075
+/ANG,   1,  -66.5486795442  
+/REPLO  
+/VIEW,  1,  0.691192829115    , -0.684170871065    ,  0.232728795310
+/ANG,   1,  -74.4430013633  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.747005176740    , -0.603888638847    ,  0.278031972615
+/ANG,   1,  -73.2795269239  
+/REPLO  
+/VIEW,  1,  0.845860823836    , -0.529827530142    ,  0.616624278031E-01
+/ANG,   1,  -82.5508131823  
+/REPLO  
+/VIEW,  1,  0.633297496580    , -0.736636091773    ,  0.237279474721
+/ANG,   1,  -72.3256058524  
+/REPLO  
+/VIEW,  1,  0.547536210297    , -0.766853841034    ,  0.334872042586
+/ANG,   1,  -64.0560852629  
+/REPLO  
+CSYS,0  
+/replot 
+WPSTYLE,,,,,,,,0
+/FOC,   1,   111.278940139    ,  -60.5267136899    ,   583.667256035
+/REPLO  
+/SHOW,PNG,,0
+PNGR,COMP,1,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,800, 
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.797763733017    , -0.474354092616    ,  0.372238124190
+/ANG,   1,  -68.2207584751  
+/REPLO  
+/VIEW,  1,  0.858669560556    , -0.124030464306    ,  0.497295716550
+/ANG,   1,  -66.7093574511  
+/REPLO  
+/VIEW,  1,  0.698353964204    ,  0.283095968703    ,  0.657387566954
+/ANG,   1,  -67.7153803274  
+/REPLO  
+/VIEW,  1,  0.793621810907    , -0.279097906257    ,  0.540618886070
+/ANG,   1,  -65.4572385108  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.651439337458    , -0.466583744439    ,  0.598269503683
+/ANG,   1,  -62.1060389185  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.706145964543    , -0.512508362096    ,  0.488562233028
+/ANG,   1,  -65.9776198032  
+/REPLO  
+FLST,5,3,6,ORDE,2   
+FITEM,5,13  
+FITEM,5,-15 
+CM,_Y,VOLU  
+VSEL, , , ,P51X 
+CM,_Y1,VOLU 
+CHKMSH,'VOLU'   
+CMSEL,S,_Y  
+!*  
+VMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+/VIEW,  1,  0.701273335708    , -0.612432633939    ,  0.364886252841
+/ANG,   1,  -70.1013391929  
+/REPLO  
+/VIEW,  1,  0.794715892202    , -0.579903937932    ,  0.179270949830
+/ANG,   1,  -78.8104149640  
+/REPLO  
+/VIEW,  1,  0.629250073226    , -0.763780491320    ,  0.143818310464
+/ANG,   1,  -78.5566867075  
+/REPLO  
+!*  
+ESIZE,10
+SMRTSIZE, ,1,1,2,15,28,1.5,1,1,4,0  
+!*  
+VATT,       2,       1,   1,       0
+/VIEW,  1,  0.794836573545    , -0.562169479047    ,  0.228473845732
+/ANG,   1,  -76.2341369649  
+/REPLO  
+/VIEW,  1,  0.714604233867    , -0.677113232465    ,  0.175665760354
+/ANG,   1,  -77.6622135457  
+/REPLO  
+/VIEW,  1,  0.810051582345    , -0.393875385422    , -0.434371516905
+/ANG,   1,  -101.922141615  
+/REPLO  
+/VIEW,  1,  0.949388090773    , -0.169875696446    , -0.264205414128
+/ANG,   1,  -98.4900012531  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+FLST,5,3,6,ORDE,3   
+FITEM,5,12  
+FITEM,5,16  
+FITEM,5,18  
+CM,_Y,VOLU  
+VSEL, , , ,P51X 
+CM,_Y1,VOLU 
+CHKMSH,'VOLU'   
+CMSEL,S,_Y  
+!*  
+VMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+/VIEW,  1,  0.808872901360    , -0.587321655982    ,  0.278908920649E-01
+/ANG,   1,  -90.5607458910  
+/REPLO  
+/VIEW,  1,  0.743822181139    , -0.624522751879    ,  0.238117398000
+/ANG,   1,  -80.7684246985  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.532854036002    , -0.707604526346    ,  0.464071557641
+/ANG,   1,  -65.0176076110  
+/REPLO  
+/VIEW,  1,  0.497308517667    , -0.538916293899    ,  0.679892246188
+/ANG,   1,  -57.0353093310  
+/REPLO  
+/VIEW,  1,  0.685134453352    , -0.606601880017    ,  0.403267826625
+/ANG,   1,  -71.1061029459  
+/REPLO  
+/VIEW,  1,  0.771744617017    , -0.461447617056    ,  0.437580098746
+/ANG,   1,  -71.7217729904  
+/REPLO  
+/VIEW,  1,  0.731451012154    , -0.569990301456    ,  0.374286618871
+/ANG,   1,  -73.2317218225  
+/REPLO  
+/FOC,   1,   105.664585531    ,  -86.2381832102    ,   555.483873648
+/REPLO  
+/VIEW,  1,  0.575599968723    , -0.746756700346    ,  0.333225308905
+/ANG,   1,  -70.2321687911  
+/REPLO  
+/VIEW,  1,  0.700530241198    , -0.653180660746    ,  0.287423738745
+/ANG,   1,  -74.2398022150  
+/REPLO  
+/FOC,   1,   97.6577153067    ,  -85.3395652340    ,   577.040946978
+/REPLO  
+/SHOW,PNG,,0
+PNGR,COMP,1,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,800, 
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+/VIEW,  1,  0.723331819712    , -0.579978955318    ,  0.374720549183
+/ANG,   1,  -71.1619291564  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.803721453204    , -0.373641629141    ,  0.463059130817
+/ANG,   1,  -70.1679532807  
+/REPLO  
+!*  
+!*  
+/VIEW,  1,  0.757223935734    , -0.497433147600    ,  0.423287343090
+/ANG,   1,  -70.2867575776  
+/REPLO  
+/VIEW,  1,  0.737560180035    , -0.363730115491    ,  0.568951126118
+/ANG,   1,  -66.6959828538  
+/REPLO  
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+MP,EMIS,1,7.88860905221e-31 
+R,3 
+REAL,3  
+ET,10,170   
+ET,11,174   
+R,3,,,1.0,0.1,0,
+RMORE,,,1.0E20,0.0,1.0, 
+RMORE,0.0,0,1.0,,1.0,0.5
+RMORE,0,1.0,1.0,0.0,,1.0
+RMORE,,,,,,1.0  
+KEYOPT,11,4,0   
+KEYOPT,11,5,0   
+KEYOPT,11,7,0   
+KEYOPT,11,8,0   
+KEYOPT,11,9,4   
+KEYOPT,11,10,0  
+KEYOPT,11,11,0  
+KEYOPT,11,12,0  
+KEYOPT,11,14,0  
+KEYOPT,11,18,0  
+KEYOPT,11,2,0   
+KEYOPT,10,5,0   
+! Generate the target surface   
+ASEL,S,,,87 
+CM,_TARGET,AREA 
+TYPE,10 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,84 
+CM,_CONTACT,AREA
+TYPE,11 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,10 
+ESEL,A,TYPE,,11 
+ESEL,R,REAL,,3  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,10 
+ESEL,A,TYPE,,11 
+ESEL,R,REAL,,3  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/VIEW,  1,  0.704195627555    , -0.619687705027    ,  0.346548216516
+/ANG,   1,  -71.7484356627  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.498497522116    , -0.774895396266    ,  0.388635234236
+/ANG,   1,  -63.4162825366  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+!*  
+!*  
+!*  
+/VIEW,  1,  0.991386931950E-01,  0.958942137078    ,  0.265709422580
+/ANG,   1,  -134.993910273  
+/REPLO  
+/VIEW,  1,  0.502831699991E-01,  0.805639467963    ,  0.590268286862
+/ANG,   1,  -149.253752334  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+R,4 
+REAL,4  
+ET,12,170   
+ET,13,174   
+KEYOPT,13,9,0   
+KEYOPT,13,10,0  
+R,4,
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,87 
+CM,_TARGET,AREA 
+TYPE,12 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,56 
+ASEL,A,,,57 
+ASEL,A,,,62 
+ASEL,A,,,68 
+CM,_CONTACT,AREA
+TYPE,13 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,12 
+ESEL,A,TYPE,,13 
+ESEL,R,REAL,,4  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+/VIEW,  1,  0.732254505658    , -0.559451821547    ,  0.388351642600
+/ANG,   1,  -70.7654556697  
+/REPLO  
+/VIEW,  1,  0.709703439689    , -0.460418465690    ,  0.533231529586
+/ANG,   1,  -66.2334417524  
+/REPLO  
+/VIEW,  1,  0.709418010779    , -0.647877491774    ,  0.277454215385
+/ANG,   1,  -74.6559775829  
+/REPLO  
+ESEL,ALL
+ESEL,S,TYPE,,12 
+ESEL,A,TYPE,,13 
+ESEL,R,REAL,,4  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST,1,0.729,1 
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.934980598368    , -0.233304595976    ,  0.267170818340
+/ANG,   1,  -78.8558961931  
+/REPLO  
+/VIEW,  1,  0.720691669275    , -0.526480545198    ,  0.451023007579
+/ANG,   1,  -72.2390137988  
+/REPLO  
+/VIEW,  1,  0.562720020003    , -0.804404104650    , -0.190473660935
+/ANG,   1,  -104.611162944  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.904915940151    , -0.388551192124    ,  0.173652274269
+/ANG,   1,  -85.6516029874  
+/REPLO  
+!*  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.828539640117    , -0.499223230936    , -0.253570957425
+/ANG,   1,  -94.1075064191  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/ZOOM,1,RECT,1.4952,-0.774912 ,1.09474681315 ,-0.114210521129   
+/ZOOM,1,RECT,1.37236,-0.657018 ,0.296301568274 ,0.273859636686  
+/VIEW,  1,  0.933035790469    , -0.248741252930    , -0.259946153645
+/ANG,   1,  -93.5951870359  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/USER,  1   
+/VIEW,  1, -0.114980916573    ,  0.989414943633    ,  0.885294196301E-01
+/ANG,   1,   134.318884586  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.644053733493    ,  0.760014399146    , -0.870224193231E-01
+/ANG,   1,  -73.5072265370  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+R,5 
+REAL,5  
+ET,14,170   
+ET,15,174   
+KEYOPT,15,9,0   
+KEYOPT,15,10,0  
+R,5,
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,99 
+CM,_TARGET,AREA 
+TYPE,14 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,90 
+ASEL,A,,,91 
+ASEL,A,,,107
+ASEL,A,,,108
+CM,_CONTACT,AREA
+TYPE,15 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,14 
+ESEL,A,TYPE,,15 
+ESEL,R,REAL,,5  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,14 
+ESEL,A,TYPE,,15 
+ESEL,R,REAL,,5  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.604668608694    , -0.772671222736    , -0.193274559156
+/ANG,   1,  -103.352458679  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.467370020030    , -0.535292259495    , -0.703581879601
+/ANG,   1,  -130.663648057  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.856193318132    , -0.313318958063    , -0.410809241017
+/ANG,   1,  -117.594390808  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.852961584300    , -0.466106463907    , -0.234949569084
+/ANG,   1,  -113.535509554  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.873833876591    , -0.483844080375    , -0.480547813230E-01
+/ANG,   1,  -107.484410274  
+/REPLO  
+/VIEW,  1,  0.938058289031    , -0.298935781191    , -0.175168619059
+/ANG,   1,  -110.174400847  
+/REPLO  
+/VIEW,  1,  0.864186015013    , -0.502516391104    , -0.256867305873E-01
+/ANG,   1,  -105.988776478  
+/REPLO  
+/VIEW,  1,  0.772539512132    , -0.610809426737    ,  0.173477798015
+/ANG,   1,  -97.9706682804  
+/REPLO  
+/VIEW,  1,  0.735085841004    , -0.535088531012    ,  0.416328080167
+/ANG,   1,  -88.2848164326  
+/REPLO  
+!*  
+/VIEW,  1,  0.880502967432    , -0.460305368306    ,  0.113285004538
+/ANG,   1,  -99.2846716265  
+/REPLO  
+/VIEW,  1,  0.996383168036    , -0.845197154583E-01,  0.877497314466E-02
+/ANG,   1,  -101.230172124  
+/REPLO  
+/VIEW,  1,  0.481808701881    , -0.799161367651    ,  0.359446078355
+/ANG,   1,  -78.5754432939  
+/REPLO  
+/VIEW,  1,  0.573807925219    , -0.533636803610    ,  0.621269850218
+/ANG,   1,  -71.3961327137  
+/REPLO  
+/VIEW,  1,  0.871524237699    , -0.487356965536    , -0.541173839552E-01
+/ANG,   1,  -98.5695908691  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.736732585811    , -0.637434599325    ,  0.225615222419
+/ANG,   1,  -86.1632970378  
+/REPLO  
+/VIEW,  1,  0.652103076101    , -0.599457766925    ,  0.464124944184
+/ANG,   1,  -74.6831044442  
+/REPLO  
+/VIEW,  1,  0.861554484658    , -0.500136857554    ,  0.871033505837E-01
+/ANG,   1,  -91.3010614426  
+/REPLO  
+/VIEW,  1,  0.635191487963    , -0.735970339887    ,  0.234263596032
+/ANG,   1,  -81.0846662334  
+/REPLO  
+/VIEW,  1,  0.274448409597    , -0.936777651823    ,  0.217084549230
+/ANG,   1,  -64.8943158087  
+/REPLO  
+/VIEW,  1, -0.569356869632E-03, -0.988195875382    ,  0.153194607319
+/ANG,   1,  -14.2689476850  
+/REPLO  
+/VIEW,  1,  0.566151162111    , -0.819498714781    ,  0.888522262636E-01
+/ANG,   1,  -91.4919535760  
+/REPLO  
+/VIEW,  1,  0.478348187552    , -0.819554294449    ,  0.315458031942
+/ANG,   1,  -71.2501946749  
+/REPLO  
+/VIEW,  1,  0.511300663008    , -0.580349505427    ,  0.633850205931
+/ANG,   1,  -58.8703687848  
+/REPLO  
+/VIEW,  1,  0.660373692995    , -0.605633869691    ,  0.443975451442
+/ANG,   1,  -68.8032306443  
+/REPLO  
+!*  
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+R,6 
+REAL,6  
+ET,16,170   
+ET,17,174   
+KEYOPT,17,9,0   
+KEYOPT,17,10,0  
+R,6,
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,123
+ASEL,A,,,124
+CM,_TARGET,AREA 
+TYPE,16 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,126
+ASEL,A,,,129
+CM,_CONTACT,AREA
+TYPE,17 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,16 
+ESEL,A,TYPE,,17 
+ESEL,R,REAL,,6  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,16 
+ESEL,A,TYPE,,17 
+ESEL,R,REAL,,6  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/SHOW,PNG,,0
+PNGR,COMP,1,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,800, 
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,800, 
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+/TYPE,1,6   
+/SHADE,1,1  
+/VIEW,  1,  0.445251685105    ,  0.887814530077    ,  0.116345593367
+/ANG,   1,  -84.2633875698  
+/REPLO  
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+R,7 
+REAL,7  
+ET,18,170   
+ET,19,174   
+KEYOPT,19,9,0   
+KEYOPT,19,10,0  
+R,7,
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,126
+ASEL,A,,,129
+CM,_TARGET,AREA 
+TYPE,18 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,22 
+ASEL,A,,,23 
+ASEL,A,,,28 
+ASEL,A,,,34 
+CM,_CONTACT,AREA
+TYPE,19 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,18 
+ESEL,A,TYPE,,19 
+ESEL,R,REAL,,7  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,18 
+ESEL,A,TYPE,,19 
+ESEL,R,REAL,,7  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/VIEW,  1,  0.356559917617    , -0.830764957664    ,  0.427427900665
+/ANG,   1,  -53.4393792978  
+/REPLO  
+/VIEW,  1,  0.669847126258    , -0.703478756767    ,  0.237534136959
+/ANG,   1,  -76.4266786178  
+/REPLO  
+/VIEW,  1,  0.820489538031    , -0.494592716362    ,  0.286661756958
+/ANG,   1,  -76.6089177500  
+/REPLO  
+/VIEW,  1,  0.708513054962    , -0.428626541760    ,  0.560614429575
+/ANG,   1,  -67.5498216752  
+/REPLO  
+CWZDELE,7,1,''  
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+R,8 
+REAL,8  
+ET,20,170   
+ET,21,174   
+KEYOPT,21,9,0   
+KEYOPT,21,10,0  
+R,8,
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,126
+ASEL,A,,,129
+CM,_TARGET,AREA 
+TYPE,20 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,22 
+ASEL,A,,,23 
+ASEL,A,,,28 
+ASEL,A,,,34 
+CM,_CONTACT,AREA
+TYPE,21 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,20 
+ESEL,A,TYPE,,21 
+ESEL,R,REAL,,8  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,20 
+ESEL,A,TYPE,,21 
+ESEL,R,REAL,,8  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/VIEW,  1,  0.740048451834    , -0.341686263616    ,  0.579291624482
+/ANG,   1,  -67.7019318729  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.664445684510    ,  0.547799369985    ,  0.508357927627
+/ANG,   1,  -67.7590216686  
+/REPLO  
+/VIEW,  1,  0.537381434611    ,  0.705080812769    ,  0.462690221640
+/ANG,   1,  -69.8604183499  
+/REPLO  
+/VIEW,  1,  0.730180773855    ,  0.166288744161    ,  0.662709658190
+/ANG,   1,  -70.0870096553  
+/REPLO  
+/VIEW,  1,  0.750970527171    , -0.244015284896    ,  0.613595801858
+/ANG,   1,  -70.4945226435  
+/REPLO  
+/VIEW,  1,  0.333488496017    ,  0.942694906520    ,  0.105705366553E-01
+/ANG,   1,  -38.9573415181  
+/REPLO  
+/VIEW,  1,  0.246875755934    ,  0.898763960623    ,  0.362319892108
+/ANG,   1,  -89.0396711267  
+/REPLO  
+/VIEW,  1,  0.336937143743    ,  0.797559169267    ,  0.500372593859
+/ANG,   1,  -89.2331090434  
+/REPLO  
+/VIEW,  1,  0.123735956824E-02,  0.975055444497    , -0.221957989488
+/ANG,   1,   54.8444124134  
+/REPLO  
+/VIEW,  1, -0.651414109967E-01,  0.982719727312    ,  0.173258575908
+/ANG,   1,  -145.686897465  
+/REPLO  
+/VIEW,  1,  0.732717508500    ,  0.247612184834    ,  0.633887417969
+/ANG,   1,  -85.0296928167  
+/REPLO  
+/VIEW,  1,  0.531756705187    ,  0.828989845229    ,  0.173235801716
+/ANG,   1,  -70.6209647159  
+/REPLO  
+/VIEW,  1,  0.738536503409    ,  0.257662862228    ,  0.623035859771
+/ANG,   1,  -84.0498169861  
+/REPLO  
+/VIEW,  1,  0.634618895601    , -0.534868755147    ,  0.557829967027
+/ANG,   1,  -82.1490734610  
+/REPLO  
+/VIEW,  1,  0.727478345948    ,  0.591935698405    ,  0.346968853256
+/ANG,   1,  -81.1720262877  
+/REPLO  
+/VIEW,  1,  0.837520974506    ,  0.343628049729    ,  0.424827471689
+/ANG,   1,  -81.6204906548  
+/REPLO  
+/VIEW,  1,  0.871838057086    , -0.115445015176    ,  0.475994591027
+/ANG,   1,  -81.8742382692  
+/REPLO  
+/VIEW,  1,  0.833756446191    , -0.365999062593    ,  0.413394333072
+/ANG,   1,  -82.4385293834  
+/REPLO  
+/VIEW,  1,  0.725338801826    , -0.487633956037    ,  0.485897877630
+/ANG,   1,  -78.9042152000  
+/REPLO  
+/VIEW,  1,  0.471200340456    ,  0.868238939423    ,  0.155342792637
+/ANG,   1,  -75.4779365429  
+/REPLO  
+/VIEW,  1,  0.759104082728    ,  0.489080920114    ,  0.429605452905
+/ANG,   1,  -83.7997739371  
+/REPLO  
+/VIEW,  1,  0.893715971921    ,  0.204103784389E-01,  0.448168693668
+/ANG,   1,  -83.0476308093  
+/REPLO  
+/VIEW,  1,  0.847232177118    , -0.360163389184    ,  0.390486838634
+/ANG,   1,  -83.4341898910  
+/REPLO  
+/VIEW,  1,  0.554663259602    ,  0.752354882620    ,  0.355402305909
+/ANG,   1,  -95.4871468107  
+/REPLO  
+/VIEW,  1,  0.840417967131    ,  0.147637020125    ,  0.521441224695
+/ANG,   1,  -95.2376018814  
+/REPLO  
+/VIEW,  1,  0.617999720558    , -0.699526919069    ,  0.358801386408
+/ANG,   1,  -95.5299397658  
+/REPLO  
+/VIEW,  1,  0.674563561631    ,  0.584231136957    ,  0.451262650715
+/ANG,   1,  -85.3610285453  
+/REPLO  
+/VIEW,  1,  0.831529358213    ,  0.174194101246    ,  0.527461222765
+/ANG,   1,  -84.3579183686  
+/REPLO  
+/VIEW,  1,  0.798417763456    , -0.423197643972    ,  0.428290589593
+/ANG,   1,  -84.8087045097  
+/REPLO  
+/VIEW,  1,  0.622781895231    ,  0.742082565004    ,  0.247903565301
+/ANG,   1,  -79.4967240653  
+/REPLO  
+/VIEW,  1,  0.488099834361    ,  0.678106435117    ,  0.549481768896
+/ANG,   1,  -98.6215053055  
+/REPLO  
+!*  
+/VIEW,  1,  0.760994563136    , -0.489803651581    ,  0.425417039827
+/ANG,   1,  -94.6455435808  
+/REPLO  
+/VIEW,  1,  0.602908011331    ,  0.229241503091E-01,  0.797481293326
+/ANG,   1,  -87.0285275323  
+/REPLO  
+/VIEW,  1,  0.655533957517    , -0.386564774612    ,  0.648724059651
+/ANG,   1,  -88.7855089882  
+/REPLO  
+/VIEW,  1,  0.593132529217    ,  0.219180222126    ,  0.774695961661
+/ANG,   1,  -87.6982887297  
+/REPLO  
+/VIEW,  1,  0.640020167527    , -0.551864763868    ,  0.534620863379
+/ANG,   1,  -87.3118695491  
+/REPLO  
+/VIEW,  1,  0.640020167527    , -0.551864763868    ,  0.534620863379
+/ANG,   1,  -87.3118695491  
+/LIG,   1,1, 1.000,   0.00000000000    ,   0.00000000000    ,   0.00000000000    ,   0.00000000000  
+/REPLO  
+/VIEW,  1,  0.680294883782    ,  0.494917236383E-01,  0.731265642836
+/ANG,   1,  -84.7274377740  
+/REPLO  
+/VIEW,  1,  0.592336007069    , -0.392621698076    ,  0.703552597130
+/ANG,   1,  -84.2343453782  
+/REPLO  
+/REPLO  
+/VIEW,  1,  0.630859479384    , -0.775752032190    , -0.150033937690E-01
+/ANG,   1,  -81.3151611663  
+/REPLO  
+/VIEW,  1,  0.794503876721    , -0.449134368677    ,  0.408707607891
+/ANG,   1,  -62.9901811970  
+/REPLO  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+R,9 
+REAL,9  
+ET,22,170   
+ET,23,174   
+KEYOPT,23,9,0   
+KEYOPT,23,10,0  
+R,9,
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,101
+ASEL,A,,,103
+CM,_TARGET,AREA 
+TYPE,22 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,51 
+CM,_CONTACT,AREA
+TYPE,23 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,22 
+ESEL,A,TYPE,,23 
+ESEL,R,REAL,,9  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,22 
+ESEL,A,TYPE,,23 
+ESEL,R,REAL,,9  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/VIEW,  1,  0.748309275433    ,  0.602052989454    ,  0.278505702257
+/ANG,   1,  -71.6972824634  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.868651070169    , -0.916212048324E-01,  0.486878704730
+/ANG,   1,  -74.4343557750  
+/REPLO  
+/VIEW,  1, -0.349886889179E-01,  0.785129072235    ,  0.618343053312
+/ANG,   1,  -100.040123862  
+/REPLO  
+/VIEW,  1,  0.371681289953    ,  0.832418932085E-01,  0.924620898484
+/ANG,   1,  -88.6019772570  
+/REPLO  
+/VIEW,  1,  0.228920290792    ,  0.753716828583    ,  0.616040942450
+/ANG,   1,  -87.9239799560  
+/REPLO  
+/VIEW,  1,  0.260299967684    , -0.515112940341E-01,  0.964152743818
+/ANG,   1,  -90.3295157216  
+/REPLO  
+/VIEW,  1,  0.177014708610    ,  0.860439217807    ,  0.477818109113
+/ANG,   1,  -86.1912424226  
+/REPLO  
+/VIEW,  1,  0.371523802870    ,  0.424432157937    ,  0.825728410078
+/ANG,   1,  -84.4368223314  
+/REPLO  
+/VIEW,  1,  0.714654727552    ,  0.316872153729    ,  0.623586929448
+/ANG,   1,  -76.4149579641  
+/REPLO  
+!*  
+/VIEW,  1,  0.728933613381    , -0.514213785479    ,  0.451929164922
+/ANG,   1,  -77.3883869276  
+/REPLO  
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+R,10
+REAL,10 
+ET,24,170   
+ET,25,174   
+KEYOPT,25,9,0   
+KEYOPT,25,10,0  
+R,10,   
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,98 
+ASEL,A,,,104
+CM,_TARGET,AREA 
+TYPE,24 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,55 
+CM,_CONTACT,AREA
+TYPE,25 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,24 
+ESEL,A,TYPE,,25 
+ESEL,R,REAL,,10 
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,24 
+ESEL,A,TYPE,,25 
+ESEL,R,REAL,,10 
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/VIEW,  1,  0.811606889839    , -0.211637079961    ,  0.544521811089
+/ANG,   1,  -69.0797479454  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.864945537235    , -0.501502207033    ,  0.190985329049E-01
+/ANG,   1,  -81.4713653319  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.868910671251    , -0.494961115636    , -0.278197663798E-02
+/ANG,   1,  -82.4102889510  
+/REPLO  
+/VIEW,  1,  0.967653035998    , -0.213581296299    ,  0.134278188082
+/ANG,   1,  -79.5011507680  
+/REPLO  
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+R,11
+REAL,11 
+ET,26,170   
+ET,27,174   
+KEYOPT,27,9,0   
+KEYOPT,27,10,0  
+R,11,   
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,79 
+CM,_TARGET,AREA 
+TYPE,26 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,120
+CM,_CONTACT,AREA
+TYPE,27 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,26 
+ESEL,A,TYPE,,27 
+ESEL,R,REAL,,11 
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,26 
+ESEL,A,TYPE,,27 
+ESEL,R,REAL,,11 
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/VIEW,  1,  0.516389336312    ,  0.818454099636    ,  0.251942334935
+/ANG,   1,  -66.1634972963  
+/REPLO  
+/VIEW,  1,  0.636032768400    ,  0.648330585863    ,  0.418485088092
+/ANG,   1,  -71.6073090916  
+/REPLO  
+/VIEW,  1,  0.808354595631    ,  0.549447563228    ,  0.211353313163
+/ANG,   1,  -60.1350101831  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.794482223806    ,  0.544281527599    , -0.269361494595
+/ANG,   1,  -47.4347388464  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.749224636892    ,  0.481317218732    , -0.454968326839
+/ANG,   1,  -40.9200501270  
+/REPLO  
+/VIEW,  1,  0.788133421438    ,  0.510966838033    , -0.343159730218
+/ANG,   1,  -44.7230481808  
+/REPLO  
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+R,12
+REAL,12 
+ET,28,170   
+ET,29,174   
+KEYOPT,29,9,0   
+KEYOPT,29,10,0  
+R,12,   
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,80 
+CM,_TARGET,AREA 
+TYPE,28 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,121
+CM,_CONTACT,AREA
+TYPE,29 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,28 
+ESEL,A,TYPE,,29 
+ESEL,R,REAL,,12 
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,28 
+ESEL,A,TYPE,,29 
+ESEL,R,REAL,,12 
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/VIEW,  1,  0.552234031889    , -0.356781998631    ,  0.753488008847
+/ANG,   1,  -61.3263254641  
+/REPLO  
+/VIEW,  1,  0.862595711933    , -0.217202287995    ,  0.456893646099
+/ANG,   1,  -68.2257154049  
+/REPLO  
+/VIEW,  1,  0.730774100038    , -0.870572093228E-01,  0.677045240009
+/ANG,   1,  -66.1146382621  
+/REPLO  
+/VIEW,  1,  0.512001024466    , -0.251805359449    ,  0.821248447121
+/ANG,   1,  -63.7201638335  
+/REPLO  
+!*  
+CM,_CWZ_EL,ELEM 
+CM,_CWZ_ND,NODE 
+CM,_CWZ_KP,KP   
+CM,_CWZ_LN,LINE 
+CM,_CWZ_AR,AREA 
+CM,_CWZ_VL,VOLU 
+ESEL,NONE   
+ESEL,A,REAL,,3  
+ESEL,R,ENAME,,169,177   
+NSLE
+KSLN,S  
+LSLK,S,1
+ASLL,S,1
+ELIST   
+CMSEL,S,_CWZ_EL 
+CMDEL,_CWZ_EL   
+CMSEL,S,_CWZ_ND 
+CMDEL,_CWZ_ND   
+CMSEL,S,_CWZ_KP 
+CMDEL,_CWZ_KP   
+CMSEL,S,_CWZ_LN 
+CMDEL,_CWZ_LN   
+CMSEL,S,_CWZ_AR 
+CMDEL,_CWZ_AR   
+CMSEL,S,_CWZ_VL 
+CMDEL,_CWZ_VL   
+!*  
+/VIEW,  1,  0.864710013764    , -0.501948551482    ,  0.180067698523E-01
+/ANG,   1,  -85.6222471369  
+/REPLO  
+/VIEW,  1,  0.447142974970    , -0.893009434377    ,  0.509638111647E-01
+/ANG,   1,  -81.5641687405  
+/REPLO  
+/ZOOM,1,RECT,0.836788,-0.809298 ,0.185747611291 ,-0.291052618361
+/VIEW,  1,  0.565624354280    , -0.784451184702    ,  0.254372617759
+/ANG,   1,  -66.4871322656  
+/REPLO  
+/VIEW,  1,  0.536987099125    , -0.809770208539    ,  0.236467893668
+/ANG,   1,  -66.8519395806  
+/REPLO  
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,0.632877,-0.77 ,-0.315430327031 ,0.151052624719
+/VIEW,  1,  0.594403649193    , -0.775850109527    ,  0.211520470340
+/ANG,   1,  -70.1819800803  
+/REPLO  
+/VIEW,  1,  0.812526342578    , -0.569892578616    ,  0.122569945155
+/ANG,   1,  -77.4492743199  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.989394709869    , -0.157639948053E-02,  0.145243323592
+/ANG,   1,  -77.8867977919  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.950659985716    ,  0.246863674775    ,  0.187893367723
+/ANG,   1,  -78.4345608445  
+/REPLO  
+/VIEW,  1,  0.660491724947    , -0.746721406664    ,  0.784717917861E-01
+/ANG,   1,  -79.8637058429  
+/REPLO  
+/ZOOM,1,RECT,0.839244,-0.406491 ,0.51249597304 ,-0.531754361816 
+/AUTO,1 
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/USER,  1   
+/VIEW,  1,  0.362908734397    , -0.930867772030    ,  0.422189707866E-01
+/ANG,   1,  -83.7834687120  
+/REPLO  
+/VIEW,  1,  0.488514925271    , -0.840893379269    ,  0.232919497871
+/ANG,   1,  -67.2298861548  
+/REPLO  
+/VIEW,  1,  0.858091157878    ,  0.505385908949    ,  0.909101083943E-01
+/ANG,   1,  -74.9932107682  
+/REPLO  
+/VIEW,  1,  0.796835224859    ,  0.601855372284    ,  0.531388302199E-01
+/ANG,   1,  -73.7530535187  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.660572578665    ,  0.711279496313    , -0.240260996505
+/ANG,   1,  -59.5455730132  
+/REPLO  
+/VIEW,  1,  0.959863819091    ,  0.270788114612    , -0.730427668190E-01
+/ANG,   1,  -67.7069070048  
+/REPLO  
+/VIEW,  1,  0.985804471277    , -0.149284211742    ,  0.768359846387E-01
+/ANG,   1,  -68.1975725652  
+/REPLO  
+/VIEW,  1,  0.930436056063    , -0.304095027496    ,  0.204487065190
+/ANG,   1,  -66.0306636903  
+/REPLO  
+/VIEW,  1,  0.970815828197    ,  0.934055767158E-01,  0.220889171214
+/ANG,   1,  -66.8989112595  
+/REPLO  
+/VIEW,  1,  0.925180332235    , -0.103418199966    ,  0.365165755188
+/ANG,   1,  -66.8326381523  
+/REPLO  
+/VIEW,  1,  0.992335953350    , -0.553071858853E-01,  0.110500999444
+/ANG,   1,  -67.6314078523  
+/REPLO  
+/VIEW,  1,  0.874496092395    , -0.446542850849    ,  0.189356982286
+/ANG,   1,  -66.1826629195  
+/REPLO  
+/VIEW,  1,  0.972003945827    , -0.124412075330    ,  0.199323768801
+/ANG,   1,  -66.6246320954  
+/REPLO  
+/VIEW,  1,  0.845433295016    , -0.491327719957    ,  0.209379118541
+/ANG,   1,  -66.1169300427  
+/REPLO  
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+R,13
+REAL,13 
+ET,30,170   
+ET,31,174   
+KEYOPT,31,9,0   
+KEYOPT,31,10,0  
+R,13,   
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,141
+CM,_TARGET,AREA 
+TYPE,30 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,21 
+CM,_CONTACT,AREA
+TYPE,31 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,30 
+ESEL,A,TYPE,,31 
+ESEL,R,REAL,,13 
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,30 
+ESEL,A,TYPE,,31 
+ESEL,R,REAL,,13 
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/VIEW,  1,  0.820328201892    ,  0.546806325829    ,  0.167524574957
+/ANG,   1,  -78.0112160649  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.826302783477    , -0.557933657029    ,  0.770308014474E-01
+/ANG,   1,  -76.9528445780  
+/REPLO  
+/VIEW,  1,  0.972984892783    ,  0.205134074228    ,  0.105926436769
+/ANG,   1,  -77.4235359957  
+/REPLO  
+/VIEW,  1,  0.886643322038    , -0.447100824969    ,  0.118171366232
+/ANG,   1,  -77.6745708172  
+/REPLO  
+/VIEW,  1,  0.744928841323    ,  0.642034998507    ,  0.181306596840
+/ANG,   1,  -74.2583873168  
+/REPLO  
+/VIEW,  1,  0.950225042522    ,  0.129706643281    ,  0.283281759479
+/ANG,   1,  -76.0515001614  
+/REPLO  
+/VIEW,  1,  0.998054471166    , -0.458769865483E-01,  0.422205482173E-01
+/ANG,   1,  -75.9364287459  
+/REPLO  
+/VIEW,  1,  0.718673339150    ,  0.695293376089    , -0.870360623107E-02
+/ANG,   1,  -74.2679607587  
+/REPLO  
+/VIEW,  1,  0.880467317809    , -0.472158772048    ,  0.429347906398E-01
+/ANG,   1,  -76.1684429203  
+/REPLO  
+/VIEW,  1,  0.924120543349    ,  0.381780498207    , -0.156484040359E-01
+/ANG,   1,  -76.7124555166  
+/REPLO  
+/VIEW,  1,  0.974704074675    , -0.222939972556    ,  0.158030202438E-01
+/ANG,   1,  -75.3992157541  
+/REPLO  
+/VIEW,  1,  0.624534055997    , -0.669492757801    , -0.402164966341
+/ANG,   1,  -95.1474311562  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1, -0.900365433730E-01, -0.896946607495    , -0.432874351471
+/ANG,   1,  -141.088493694  
+/REPLO  
+/VIEW,  1,  0.787438097952    ,  0.568630468491    , -0.237908873725
+/ANG,   1,  -89.8103034085  
+/REPLO  
+!*  
+!*  
+!*  
+!*  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0.1 
+MAT,1   
+R,14
+REAL,14 
+ET,32,170   
+ET,33,174   
+KEYOPT,33,9,0   
+KEYOPT,33,10,0  
+R,14,   
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,139
+CM,_TARGET,AREA 
+TYPE,32 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,17 
+CM,_CONTACT,AREA
+TYPE,33 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,32 
+ESEL,A,TYPE,,33 
+ESEL,R,REAL,,14 
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,32 
+ESEL,A,TYPE,,33 
+ESEL,R,REAL,,14 
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.509266041518    , -0.256134801960    ,  0.821610042649
+/ANG,   1,  -46.4452284664  
+/REPLO  
+/VIEW,  1,  0.345263558488    , -0.241630229587    ,  0.906867083607
+/ANG,   1,  -43.5348909869  
+/REPLO  
+/VIEW,  1,  0.532131091547    , -0.505650834440    ,  0.679083010419
+/ANG,   1,  -50.1269354074  
+/REPLO  
+/VIEW,  1,  0.682372797793    , -0.698271481919    ,  0.216296792327
+/ANG,   1,  -71.6947685660  
+/REPLO  
+/VIEW,  1,  0.770803353549    , -0.595651209435    , -0.225968641313
+/ANG,   1,  -94.4554518767  
+/REPLO  
+/VIEW,  1,  0.845685262889    , -0.525245092517    , -0.945199921727E-01
+/ANG,   1,  -88.8802088131  
+/REPLO  
+/MREP,EPLOT 
+vsel,s,volu,3   
+vsel,s,volu,,3  
+/VIEW,  1,  0.719281740823    , -0.525066846677    , -0.454905027273
+/ANG,   1,  -103.369914493  
+/REPLO  
+/VIEW,  1,  0.547343820749    , -0.282161691760    , -0.787908320549
+/ANG,   1,  -112.835120959  
+/REPLO  
+/VIEW,  1,  0.768115659176    , -0.638488238803    ,  0.482814978961E-01
+/ANG,   1,  -77.7270609523  
+/REPLO  
+/VIEW,  1,  0.462352032189    , -0.506187769637    ,  0.728014107144
+/ANG,   1,  -44.1345905488  
+/REPLO  
+/VIEW,  1,  0.639964563056    , -0.354428500259    , -0.681781340488
+/ANG,   1,  -98.4830044790  
+/REPLO  
+/VIEW,  1,  0.238390522873    , -0.724962737419E-01, -0.968459730137
+/ANG,   1,  -105.477179535  
+/REPLO  
+/VIEW,  1,  0.802994458665    , -0.541906035419    , -0.248068031254
+/ANG,   1,  -77.2574446441  
+/REPLO  
+/VIEW,  1,  0.773495638070    , -0.595477325203    ,  0.217051268266
+/ANG,   1,  -57.0340756600  
+/REPLO  
+!*  
+/VIEW,  1,  0.486451190361    , -0.166170950620    ,  0.857760138131
+/ANG,   1,  -37.7742302690  
+/REPLO  
+/VIEW,  1,  0.261309206858    , -0.778285225224E-02,  0.965223769714
+/ANG,   1,  -36.3510958759  
+/REPLO  
+/VIEW,  1,  0.474325968986    , -0.481605263556    ,  0.736933677654
+/ANG,   1,  -41.3360276641  
+/REPLO  
+/VIEW,  1,  0.558795951931    , -0.640500709373    ,  0.526788311751
+/ANG,   1,  -49.2168227077  
+/REPLO  
+/VIEW,  1,  0.412232259455    , -0.253825188853    ,  0.875007050125
+/ANG,   1,  -38.4126111618  
+/REPLO  
+/VIEW,  1,  0.603432758391    , -0.551007486764    ,  0.576419687060
+/ANG,   1,  -46.4738445688  
+/REPLO  
+/VIEW,  1,  0.396252056184    , -0.911991261474    ,  0.106095461571
+/ANG,   1,  -70.7459234244  
+/REPLO  
+/VIEW,  1,  0.983676201712    ,  0.420651253068E-01, -0.174961868471
+/ANG,   1,  -94.4436408272  
+/REPLO  
+/VIEW,  1,  0.548542200218    ,  0.764743877153    , -0.338035881138
+/ANG,   1,  -68.8146896079  
+/REPLO  
+/VIEW,  1,  0.466283193989    ,  0.481556608874    , -0.742080329515
+/ANG,   1,  -51.5105999923  
+/REPLO  
+/VIEW,  1,  0.606354061879    ,  0.638512795542    ,  0.473957974478
+/ANG,   1,  -115.760495319  
+/REPLO  
+/VIEW,  1,  0.322558484228    ,  0.381437739021    ,  0.866291680384
+/ANG,   1,  -132.101604632  
+/REPLO  
+/VIEW,  1,  0.324104181760    , -0.143621006998    ,  0.935055873044
+/ANG,   1,  -130.607172377  
+/REPLO  
+/VIEW,  1,  0.357275558799    ,  0.246267493257    ,  0.900947554994
+/ANG,   1,  -127.357534886  
+/REPLO  
+/VIEW,  1,  0.599550227932    ,  0.228378614845    ,  0.767061100870
+/ANG,   1,  -124.388719982  
+/REPLO  
+/VIEW,  1,  0.271662578235E-01,  0.529899869543    ,  0.847624989423
+/ANG,   1,  -138.286571448  
+/REPLO  
+/VIEW,  1, -0.831037610571    ,  0.403449514848    ,  0.382890296018
+/ANG,   1,  -175.346153379  
+/REPLO  
+/VIEW,  1, -0.456075824295    , -0.400234031953    ,  0.794863234878
+/ANG,   1,  -170.875502395  
+/REPLO  
+/VIEW,  1, -0.505328442494E-01,  0.400679814872    ,  0.914823544519
+/ANG,   1,  -171.358294120  
+/REPLO  
+/VIEW,  1,  0.124593750927    ,  0.843207773574    ,  0.522950330160
+/ANG,   1,  -159.572431412  
+/REPLO  
+/VIEW,  1,  0.958863557349    ,  0.686388719149E-01,  0.275443975519
+/ANG,   1,  -114.545491912  
+/REPLO  
+/VIEW,  1,  0.695629488788    , -0.679264490670    ,  0.233878955966
+/ANG,   1,  -112.274440872  
+/REPLO  
+/VIEW,  1,  0.498944849433    , -0.536251806471    ,  0.680799557345
+/ANG,   1,  -90.7400930042  
+/REPLO  
+/VIEW,  1,  0.231179449173    , -0.414031184878    ,  0.880417083108
+/ANG,   1,  -79.9451555966  
+/REPLO  
+/VIEW,  1,  0.830388044259    ,  0.244336336203    ,  0.500754880917
+/ANG,   1,  -74.9644894644  
+/REPLO  
+/VIEW,  1, -0.456772683275    ,  0.374762618900    ,  0.806790986123
+/ANG,   1,  -113.183935124  
+/REPLO  
+/VIEW,  1,  0.838068535999    ,  0.412716358416E-01,  0.544001636986
+/ANG,   1,  -99.9178627728  
+/REPLO  
+/VIEW,  1,  0.661599187368    ,  0.152201329326    ,  0.734248779792
+/ANG,   1,  -101.435028849  
+/REPLO  
+/VIEW,  1,  0.649725247742    ,  0.660858845467    ,  0.375662998996
+/ANG,   1,  -92.9965366618  
+/REPLO  
+/VIEW,  1,  0.747077317310    , -0.294019540540    ,  0.596177818894
+/ANG,   1,  -90.3558105592  
+/REPLO  
+/VIEW,  1,  0.634585875106    ,  0.132375091193    ,  0.761431285375
+/ANG,   1,  -89.5495483620  
+/REPLO  
+/VIEW,  1,  0.854364332477    , -0.191974503215    ,  0.482915497273
+/ANG,   1,  -90.8868778344  
+/REPLO  
+/VIEW,  1,  0.597081614619    , -0.563465638059E-01,  0.800199106618
+/ANG,   1,  -88.1205398853  
+/REPLO  
+/VIEW,  1,  0.895874806406E-01,  0.995922581885    , -0.105968959850E-01
+/ANG,   1,  -55.0692909111  
+/REPLO  
+/VIEW,  1,  0.187753813008E-01,  0.884135282525E-01,  0.995906889764
+/ANG,   1,  -152.662353179  
+/REPLO  
+/VIEW,  1,  0.423527098132    , -0.156808139489    ,  0.892208498355
+/ANG,   1,  -158.531208856  
+/REPLO  
+/VIEW,  1,  0.661871759750    ,  0.783016497986E-01,  0.745516348100
+/ANG,   1,  -161.690017416  
+/REPLO  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,  1,  0.547221437620    , -0.168813958974E-01,  0.836817612554
+/ANG,   1,  -161.982620204  
+/REPLO  
+!*  
+/COM, CONTACT PAIR CREATION - START 
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0   
+MAT,1   
+R,15
+REAL,15 
+ET,34,170   
+ET,35,174   
+KEYOPT,35,9,0   
+KEYOPT,35,10,0  
+R,15,   
+RMORE,  
+RMORE,,0
+RMORE,0 
+! Generate the target surface   
+ASEL,S,,,3  
+ASEL,A,,,4  
+CM,_TARGET,AREA 
+TYPE,34 
+NSLA,S,1
+ESLN,S,0
+ESLL,U  
+ESEL,U,ENAME,,188,189   
+NSLE,A,CT2  
+ESURF   
+CMSEL,S,_ELEMCM 
+! Generate the contact surface  
+ASEL,S,,,36 
+ASEL,A,,,37 
+CM,_CONTACT,AREA
+TYPE,35 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,34 
+ESEL,A,TYPE,,35 
+ESEL,R,REAL,,15 
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,34 
+ESEL,A,TYPE,,35 
+ESEL,R,REAL,,15 
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+/COM, CONTACT PAIR CREATION - END   
+CWZDELE,15,1,'' 
+/VIEW,  1,  0.713392161758    , -0.413891031677    , -0.565478414654
+/ANG,   1,  -103.713037108  
+/REPLO  
+/VIEW,  1,  0.538849824438    , -0.270474368870    , -0.797799775939
+/ANG,   1,  -109.545730301  
+/REPLO  
+/VIEW,  1,  0.825312634096    , -0.306955102266    , -0.473959514299
+/ANG,   1,  -102.366025141  
+/REPLO  
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,2,3   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/VIEW,  1,  0.508262560303    , -0.791444295382    ,  0.339536591696
+/ANG,   1,  -55.9739630295  
+/REPLO  
+/VIEW,  1,  0.346839764725    , -0.921523075354    ,  0.174635045724
+/ANG,   1,  -60.9234918807  
+/REPLO  
+/VIEW,  1,  0.530384344089    , -0.711380405235    ,  0.461118603608
+/ANG,   1,  -47.5320645302  
+/REPLO  
+/VIEW,  1,  0.590619068858    , -0.784330018159    ,  0.189724901150
+/ANG,   1,  -65.4897168117  
+/REPLO  
+/VIEW,  1,  0.446667484462    , -0.851647046690    ,  0.274199683057
+/ANG,   1,  -62.5314847487  
+/REPLO  
+FLST,2,1,5,ORDE,1   
+FITEM,2,1   
+!*  
+/GO 
+DA,P51X,UX, 
+FLST,2,1,5,ORDE,1   
+FITEM,2,1   
+!*  
+/GO 
+DA,P51X,ALL,
+FLST,2,1,5,ORDE,1   
+FITEM,2,1   
+FLST,2,1,5,ORDE,1   
+FITEM,2,16  
+/UI,MESH,OFF
+!*  
+/GO 
+DA,P51X,UX, 
+FLST,2,1,5,ORDE,1   
+FITEM,2,16  
+!*  
+/GO 
+DA,P51X,ALL,
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,800, 
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+FLST,2,6,5,ORDE,6   
+FITEM,2,90  
+FITEM,2,-91 
+FITEM,2,94  
+FITEM,2,99  
+FITEM,2,107 
+FITEM,2,-108
+*get,nam,node,,num,max  
+csys,0  
+WPSTYLE,,,,,,,,1
+/MREP,EPLOT 
+wpoff,,,10  
+wprota,,90  
+wpoff,,,-15/2   
+wpoff,,60   
+wpoff,,-65/2
+wpoff,-370  
+wprota,,,-30
+wpoff,,65   
+wprota,-180 
+wpoff,,,10  
+wprota,,,42 
+wprota,,-90 
+wpoff,,,-50 
+wprota,,90  
+wprota,,90  
+wpoff,,,50  
+wpoff,,,50  
+wpoff,,,-50 
+wpoff,,,-50 
+wpoff,,,165/2   
+wpoff,,,-165/2  
+wpoff,,,-165/2  
+wprota,,-90 
+wprota,,,-42
+/REPLOT,RESIZE  
+n,28498,wp(1),wp(2),wp(3)   
+K, 28498, WP(1), WP(2), WP(3)   
+*GET, WPX, WP, 1, X 
+*GET, WPY, WP, 1, Y 
+*GET, WPZ, WP, 1, Z 
+! Print the workplane coordinates   
+/OUTPUT, workplane_coordinates.txt  
+/SHOW, WPX, WPY, WPZ
+/OUTPUT 
+n,28498 
+n,574141
+*get,wpx,wp,1   
+*GET, WPX, WP, 1, X 
+WPSTYL, STAT
+n,574141,483.584    ,  0.00000    ,  380.131
+FLST,2,1,1,ORDE,1   
+FITEM,2,574141  
+FLST,2,1,1,ORDE,1   
+FITEM,2,574141  
+!*  
+/GO 
+D,P51X,UX, , , , ,UY,UZ,ROTX,ROTY, ,
+FLST,2,1,5,ORDE,1   
+FITEM,2,16  
+!*  
+/GO 
+DA,P51X,ALL,
+FLST,2,1,5,ORDE,1   
+FITEM,2,1   
+!*  
+/GO 
+DA,P51X,ALL,
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,800, 
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+WPSTYLE,,,,,,,,0
+WPSTYLE,,,,,,,,1
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,1000,
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+WPSTYLE,,,,,,,,0
+WPSTYLE,,,,,,,,1
+wpoffs,-483.584    ,  0.00000    ,  -380.131
+wpoffs,75/2,-350/2,70   
+k,1,75/2,-350/2,70  
+n,574142,75/2,-350/2,70 
+! wpsoff,-75/2,-350/2,70
+wpoff,-75/2,-350/2,70   
+wpoff,75/2,350/2,-70
+wpoff,-75/2 
+wpoff,-75/2 
+WPSTYL, STAT
+n,574123,-37.4998    , -175.000    ,  69.9998   
+wpoff,,-350/2,  
+wpoff,,350/2,   
+wpoff,,350/2,   
+wpoff,,350/2,   
+wpoff,,350/2,   
+wpoff,,350/2,   
+wpoff,,-350/2,  
+wpoff,,-350/2,  
+wpoff,,-350/2,  
+CSYS,0  
+WPSTYLE,,,,,,,,0
+WPSTYLE,,,,,,,,1
+WPSTYL, STAT
+wpoff,-37.5, 0, 70  
+wpoff,37.5, 0, -70  
+wpoff,37.5, 0, -70  
+wpoffs,75/2,350/2,70
+n,574144,75/2,350/2,70  
+n,574145,-75/2,350/2,70 
+wpoffs,-75/2,-350/2,-70 
+wpoff,,,600 
+wpoff,,,-600
+wpoff,,,600 
+wpoff,,,490-54/2
+wpoff,54/2,-50+CylnOrad 
+wpoff,,+50-CylnOrad 
+wpoff,,-50-CylnOrad 
+WPSTYL, STAT
+n,574146,27, -132.5, 1063   
+n,574147,-27, -132.5, 1063  
+wpoffs,27, 132.5,   
+wpoffs,, 132.5, 
+n,574149,27,132.5,1063  
+n,574148,-27,132.5,1063 
+FLST,2,1,1,ORDE,1   
+FITEM,2,574146  
+FLST,2,1,1,ORDE,1   
+FITEM,2,574142  
+FLST,2,1,1,ORDE,1   
+FITEM,2,574142  
+!*  
+/GO 
+F,P51X,FX,45e3  
+FLST,2,1,1,ORDE,1   
+FITEM,2,574142  
+!*  
+/GO 
+F,P51X,FX,-45000
+/FOC,   1,   220.557205948    ,   11.0658459862    ,   578.051935057
+/REPLO  
+WPSTYLE,,,,,,,,0
+FLST,2,1,1,ORDE,1   
+FITEM,2,574145  
+!*  
+/GO 
+F,P51X,FX,45000 
+FLST,2,1,1,ORDE,1   
+FITEM,2,574147  
+!*  
+/GO 
+F,P51X,FX,45000/2   
+FLST,2,1,1,ORDE,1   
+FITEM,2,574149  
+!*  
+/GO 
+F,P51X,FX,-45000/2  
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,1000,
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+FINISH  
+/SOL
+FINISH  
+/PREP7  
+FINISH  
+/SOL
+/STATUS,SOLU
+SOLVE   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/STATUS,SOLU
+SOLVE   
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,1000,
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+!*  
+OUTPR,BASIC,NONE,   
+!*  
+OUTPR,BASIC,NONE,   
+/ZOOM,1,RECT,-0.128717,-0.765088 ,0.0874774273065 ,-0.534210502056  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/USER,  1   
+/VIEW,  1,  0.298253594520    , -0.948871428573    ,  0.103381842669
+/ANG,   1,  -70.9046288066  
+/REPLO  
+/STATUS,SOLU
+SOLVE   
+FINISH  
+/POST1  
+FINISH  
+/SOL
+lssolve,1,2 
+FINISH  
+/POST1  
+PLDISP,0
+PLDISP,1
+/VIEW,  1,  0.405333880228    , -0.882285954280    ,  0.239323923624
+/ANG,   1,  -60.2059708498  
+/REPLO  
+/VIEW,  1,  0.812365809389    , -0.298742696070    ,  0.500813930797
+/ANG,   1,  -59.2663153989  
+/REPLO  
+/VIEW,  1,  0.233531075026    , -0.967935240574    ,  0.925451622282E-01
+/ANG,   1,  -47.3031952637  
+/REPLO  
+/VIEW,  1, -0.553473378830E-01, -0.987964081515    ,  0.144442534684
+/ANG,   1,   36.0276330659  
+/REPLO  
+/VIEW,  1,  0.231480770007    , -0.845698954639    ,  0.480842938223
+/ANG,   1,  -26.8677387364  
+/REPLO  
+/VIEW,  1,  0.127984221074    , -0.893002201820    ,  0.431470864254
+/ANG,   1,  -18.8956653958  
+/REPLO  
+/VIEW,  1,  0.368085895514    , -0.908005666759    ,  0.200096183513
+/ANG,   1,  -61.4059456580  
+/REPLO  
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,1000,
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+!*  
+/EFACET,1   
+PLNSOL, U,SUM, 0,1.0
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1,  0.224259342389    , -0.909880521630    ,  0.349034645429
+/ANG,   1,  -35.0396308845  
+/REPLO  
+/VIEW,  1,  0.261329710559    , -0.956343168596    ,  0.130822499051
+/ANG,   1,  -63.7368695358  
+/REPLO  
+/VIEW,  1,  0.267816389492    , -0.935981077551    ,  0.228503400383
+/ANG,   1,  -50.5859134569  
+/REPLO  
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,1000,
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+!*  
+/EFACET,1   
+PLNSOL, U,Y, 0,1.0  
+!*  
+/EFACET,1   
+PLNSOL, ROT,SUM, 0,1.0  
+/EFACET,1   
+PLNSOL, S,EQV, 0,1.0
+/VIEW,  1,  0.325019256851    , -0.905505654870    ,  0.272803943658
+/ANG,   1,  -51.0849831379  
+/REPLO  
+/VIEW,  1,  0.359419594778    , -0.852361878538    ,  0.379864163754
+/ANG,   1,  -45.2888538974  
+/REPLO  
+/VIEW,  1,  0.323284788462    , -0.787433166867    ,  0.524819924609
+/ANG,   1,  -35.6240126910  
+/REPLO  
+/VIEW,  1,  0.400636631964    , -0.915741372664    , -0.301334949970E-01
+/ANG,   1,  -91.5501722277  
+/REPLO  
+/VIEW,  1,  0.308053727818    , -0.951145809679    , -0.206045991800E-01
+/ANG,   1,  -91.0799829664  
+/REPLO  
+/VIEW,  1,  0.297086725201    , -0.944269862397    ,  0.141752970615
+/ANG,   1,  -63.0994109277  
+/REPLO  
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,1000,
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+!*  
+/EFACET,1   
+PLNSOL, S,XY, 0,1.0 
+!*  
+/EFACET,1   
+PLNSOL, S,YZ, 0,1.0 
+!*  
+/EFACET,1   
+PLNSOL, S,XZ, 0,1.0 
+!*  
+/EFACET,1   
+PLNSOL, S,1, 0,1.0  
+!*  
+/EFACET,1   
+PLNSOL, S,XZ, 0,1.0 
+/VIEW,  1,  0.627909428583    , -0.700043033779    ,  0.340102191045
+/ANG,   1,  -62.7081460205  
+/REPLO  
+/VIEW,  1,  0.514643191112    , -0.690034259538    ,  0.508915618256
+/ANG,   1,  -51.1604137245  
+/REPLO  
+!*  
+/EFACET,1   
+PLNSOL, S,INT, 0,1.0
+/VIEW,  1,  0.564334999955    , -0.769578945921    ,  0.298787974691
+/ANG,   1,  -63.4672383352  
+/REPLO  
+/VIEW,  1,  0.582278876793    , -0.791269087101    ,  0.186666926473
+/ANG,   1,  -71.3536826855  
+/REPLO  
+!*  
+!*  
+PLESOL, S,EQV, 0,1.0
+!*  
+PLESOL, NL,SEPL, 0,1.0  
+!*  
+PRNSOL,S,PRIN   
+!*  
+*get,smx
+!*  
+/DSCALE,ALL,1.0 
+/EFACET,1   
+PLNSOL, S,XY, 0,1.0 
+!*  
+/DSCALE,ALL,AUTO
+/EFACET,1   
+PLNSOL, S,XY, 0,1.0 
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,1000,
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+!*  
+/EFACET,1   
+PLNSOL, S,YZ, 0,1.0 
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,1000,
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+!*  
+/EFACET,1   
+PLNSOL, S,XZ, 0,1.0 
+!*  
+/EFACET,1   
+PLNSOL, S,XZ, 2,1.0 
+!*  
+/EFACET,1   
+PLNSOL, S,XZ, 1,1.0 
+!*  
+/EFACET,1   
+PLNSOL, S,XZ, 0,1.0 
+/SHOW,PNG,,0
+PNGR,COMP,0,-1  
+PNGR,ORIENT,HORIZ   
+PNGR,COLOR,2
+PNGR,TMOD,1 
+/GFILE,1000,
+!*  
+/CMAP,_TEMPCMAP_,CMP,,SAVE  
+/RGB,INDEX,100,100,100,0
+/RGB,INDEX,0,0,0,15 
+/REPLOT 
+/CMAP,_TEMPCMAP_,CMP
+/DELETE,_TEMPCMAP_,CMP  
+/SHOW,CLOSE 
+/DEVICE,VECTOR,0
+!*  
+!*  
+PRNSOL,U,COMP   
+!*  
+PRNSOL,S,COMP   
+!*  
+PRNSOL,S,COMP   
+!*  
+PRNSOL,S,COMP   
