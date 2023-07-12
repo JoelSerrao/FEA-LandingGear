@@ -5,7 +5,7 @@
 ! ...............................................................
 ! MODEL:    HYBRID ELEMENTS SIMPLIFIED MODEL - 3D all round
 ! ---------------------------------------------------------------------------------
-! version: v4_10/07
+! version: v6_12/07
 
 FINISH
 /CLEAR, START, NEW
@@ -63,7 +63,7 @@ SECDATA,solid_d*0.5
 
 ! ELEMENT 3 -> CONTACT BONDED
 ET,3,CONTA174
-KEYOPT,3,2,0		!Contact algorithm: Augmented Lagrangian (Default)
+KEYOPT,3,2,2		!Contact algorithm: 2-Multipoint constraint (MPC)
 KEYOPT,3,12,5 		!Behavior of contact surface: Bonded (always)
 KEYOPT,3,4,2 		!Rigid surface constraint
 
@@ -75,11 +75,12 @@ R,1			!Real Constants set #1, All Default
 ! ELEMENT 5 -> CONTACT FRICTIONLESS
 ET,5,CONTA174
 KEYOPT,5,1,0		!Degrees of freedom UX UY UZ
-KEYOPT,5,2,0		!Contact algorithm: 0-Augmented Lagrangian, 2-Multipoint constraint (MPC)
+KEYOPT,5,2,0		!Contact algorithm: 0-Augmented Lagrangian
 KEYOPT,5,4,2 		!Local Detection Point 0-Gaussian Point, 2-On nodal point normal to surf
 !KEYOPT,5,9,0		!Effect of initial penetration or gap: 0-Include, 1-Exclude
 KEYOPT,5,12,2		!Behavior of contact surface: No separation (Sliding Permitted) (NOT FOR GENERAL CONTACT)
 KEYOPT,5,18,0		!Sliding behaviour; 0-Finite sliding, 1-Small sliding
+R,2
 
 !------------------------------------------------------------------------------------------------------------
 
@@ -110,17 +111,18 @@ LESIZE,4,esize_s1
 LESIZE,5,esize_s1
 LESIZE,6,esize_s1
 LESIZE,7,esize_s1
+
 ! Area 1
 AL,4,5,6,7
 
-! Cylinder
 K,8,solid_r,solid_base_y,0
 K,9,cylinder_do*0.5,solid_base_y,0
-K,10,cylinder_do*0.5,cylinder_hi+solid_base_y
+K,10,cylinder_do*0.5,cylinder_hi+solid_base_y+40
 K,11,cylinder_do*0.5,cylinder_ho+solid_base_y
 K,12,0,cylinder_ho+solid_base_y
-K,13,0,cylinder_hi+solid_base_y
-K,14,cylinder_di*0.5,cylinder_hi+solid_base_y
+K,13,0,cylinder_hi+solid_base_y+40
+K,14,0,cylinder_hi+solid_base_y
+K,15,cylinder_di*0.5,cylinder_hi+solid_base_y
 
 ! horizontals
 L,8,9
@@ -129,55 +131,70 @@ L,10,11
 L,11,12
 L,12,13
 L,13,14
-L,14,8
+L,14,15
+L,15,8
+L,13,10
 ALLS
 
-! Area 2
-AL,8,9,10,11,12,13,14
-
-! Make volumes
+AL,8,9,16,13,14,15
+AL,10,11,12,16
 VROTAT,1,,,,,,4,7
-
-VROTAT,2,,,,,,4,7,,8
+VSEL,S,VOLU,,1,4
+VADD,ALL
+NUMCMP,VOLU
 ALLS
 
-!------------------------------------------------------------------------------------------------------------
+! Create volumes, add them to get only 3 of them and glue the top ones. Numcmp to have 1,2,3 as id
+VROTAT,2,3,,,,,4,7
+VSEL,S,VOLU,,1
+VSEL,INVE
+VSEL,R,LOC,Y,solid_base_y-eps,solid_base_y+eps+cylinder_hi
+VADD,ALL
+NUMCMP,VOLU
+VSEL,S,VOLU,,1
+VSEL,INVE
+VSEL,R,LOC,Y,solid_base_y-eps+cylinder_hi,solid_base_y+eps+cylinder_ho
+VADD,ALL
+NUMCMP,VOLU
+ALLS
+VGLUE,2,3	!Glue together volumes
+ALLS
 
-! >>>>> MESH ELEMENTS <<<<<
-
-! SOLID Elements
+! Mesh piston head
 TYPE,1
 ESIZE,esize_s1
 MSHKEY,0
 MSHAPE,1,3D 		!Tetra Elements if you are using solid187
-VSEL,S,VOLU,,1,4,1		!Select volumes that make up the piston head
+VSEL,S,VOLU,,1		!Select volumes that make up the piston head
 VMESH,ALL
 
+! Select only chamber walls and mesh finely
 VSEL,INVE
-ESIZE,esize_s2
+VSEL,R,LOC,Y,solid_base_y-eps,solid_base_y+eps+cylinder_hi
 VMESH,ALL
 ALLS
-! Refined by hand on inner faces
-!asel,s,area,,22,23,1
-!asel,a,area,,29,30  
-!asel,a,area,,36,37  
-!asel,a,area,,43,44  
-!asel,a,area,,50,51  
-!asel,a,area,,57,58  
-!asel,a,area,,64,65  
-!asel,a,area,,71,72 
 
-! ####### May need better mesh control/mapping ############
+! Mesh roughly the rest
+ESIZE,esize_s2
+VSEL,S,LOC,Y,solid_base_y-eps+cylinder_hi,solid_base_y+eps+cylinder_ho
+VMESH,ALL
+ALLS
+
+! I checked the interface nodes and they are shared as they should 
+
+! -------------------------------------------------------------------------------
+
+! >>>>> BEAM-SOLID INTERFACE <<<<<
 
 ! CONTA on solid surface
 TYPE,3
 REAL,1				!Call real constants ID
 CSYS,0
-VSEL,S,VOLU,,1,4,1
+VSEL,S,VOLU,,1
 NSLV,S,1
-NSEL,R,LOC,Y,piston_h-solid_h-eps,piston_h-solid_h+eps
-csys,5
-nsel,r,loc,x,0,solid_r*0.75
+NSEL,R,LOC,Y,solid_base_y-eps,solid_base_y+eps
+CSYS,5
+NSEL,R,LOC,X,0,solid_r-eps !*0.9
 CSYS,0
 ESURF
 ALLS
@@ -186,21 +203,29 @@ ALLS
 TYPE,4
 REAL,1				!Call real constants ID
 *GET,nmax,NODE,,NUM,MAX
-N,nmax+10,0,piston_h-solid_h			!Create node on Keypoint #4
+N,nmax+1,0,piston_h-solid_h			!Create node on Keypoint #4
 TSHAPE,pilo			!Pilot Targe element
-E,nmax+10
+E,nmax+1
 
 ! BEAM elements
 TYPE,2
 SECNUM,2
 MAT,1
-LSEL,S,LINE,,1,3,1		!Select the lines
+NKPT,nmax+2,1
+!NKPT,nmax+3,2
+!NKPT,nmax+4,3
+E,nmax+1,nmax+2
+!E,nmax+2,nmax+3
+!E,nmax+2,nmax+4
+LSEL,S,LINE,,1,2,1		!Select the lines
 LESIZE,ALL,ndiv1		!Refine mesh
 LMESH,ALL			!Mesh lines
 !/ESHAPE,1			!Show cross sections
 !EPLOT
 ALLS
-
+NSEL,S,LOC,Y,-eps,+eps
+NUMMRG,NODES
+ALLS
 !------------------------------------------------------------------------------------------------------------
 
 ! >>>>> FRICTIONLESS CONTACTS <<<<<
@@ -208,20 +233,20 @@ ALLS
 
 ! CONTACT ELEMENTS -> Piston Outer Walls	!CHECK NORMALS->they look opposite
 ! Remesh the piston side walls
-VSEL,S,VOLU,,1,4,1		
+VSEL,S,VOLU,,1		
 ASLV,S
 CLOCAL,11,1,0,0,0,0,-90
 CSYS,11
 ASEL,R,LOC,X,solid_r			! Select outer surfaces
 NSLA,,1
 TYPE,5
-REAL,1					! Select real constants set #2
+REAL,2					! Select real constants set #2
 ESURF
 ALLS
 
 ! TARGET ELEMENTS -> Cylinder Inner Wall
 CSYS,0
-VSEL,S,VOLU,,1,4,1
+VSEL,S,VOLU,,1
 VSEL,INVE
 ASLV,S
 ASEL,R,LOC,Y,piston_h-solid_h-eps,piston_h+cylinder_hi-solid_h+eps
@@ -232,7 +257,7 @@ CSYS,0
 NSEL,R,LOC,Y,piston_h-solid_h-eps,piston_h+eps
 
 TYPE,4
-REAL,1					! Real Constant Set ID
+REAL,2					! Real Constant Set ID
 ESURF					! Mesh NODES
 ALLS
 
@@ -317,19 +342,19 @@ WPCSYS,,0					! Go back to origin WP
 WPROTA,0,-10,0					! Rotate working plane
 CSWPLA,100,0					! Rotated coordinate system 10°
 NSEL,S,LOC,Y,-eps,+eps				! Select nodes on base
-NSEL,R,LOC,X,65,270
+NSEL,R,LOC,X,260,270
 D,ALL,UX,0,,,,UZ,ROTX,ROTY,ROTZ			! Horizontal constrain
 NROTAT,ALL					! Rotate nodal in new coordinate system
 D,ALL,UY					! Inclined Constrain Nodes 
 ALLS
 NSEL,S,LOC,Y,-eps,+eps
-NSEL,R,LOC,X,-65,-270
+NSEL,R,LOC,X,-270,-260
 D,ALL,UX,0,,,,UZ,ROTX,ROTY,ROTZ			! Horizontal constrain
 NROTAT,ALL					! Rotate nodal in new coordinate system
 D,ALL,UY					! Inclined Constrain Nodes 
 CSYS,0
 ALLS
-	
+! to distribute constrain I should use MPCs on pilot nodes and constrain only the pilot. -> only if I have time
 					
 ! ##### INTERNAL PRESSURE #####
 
@@ -350,13 +375,22 @@ ALLS
 /SOLU
 ANTYPE,STATIC
 ALLS
+! The warning are auto solved by ansys
 !warning1: NLGEOM,ON		!Add to include large deflection effects
 !warning2: NSUB or DELTIM
 SOLVE
 
 !------------------------------------------------------------------------------------------------------------
 
-! >>>>> POST-PROCESSING <<<<<
+! >>>>> GENERAL POST-PROCESSING <<<<<
 /POST1
+!PLDISP,2	!Deformed Shape -> the volumes are ok but the beams are not deforming
+! USE GUI
+
+
+
+
+
+
 
 
