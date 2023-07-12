@@ -338,23 +338,52 @@ D,masternode+10,UX,0,,,,UY,UZ,ROTX,ROTZ
 
 ! ##### WHEEL AXLES #####
 
+ALLS
+CSYS,0
+*GET, max_node, NODE, 0, NUM, MAX
+masternode = max_node+10
+N,masternode,-(65+270)*0.5,-20,0	
+N,masternode+10,0.5*(270+65),-20,0
+
+! Select Beam Nodes (DX)
+ALLS
+NSEL,S,LOC,Y,-eps,+eps								! Select in Y
+NSEL,R,LOC,X,65,270								! Reselect in X		
+
+TYPE,6
+
+*GET, num_nodes, NODE, 0, COUNT
+*DO, ii, 1, num_nodes,1
+     *GET, n_node, NODE, 0, NUM, MAX
+     E,masternode+10,n_node
+     NSEL,U,NODE,,n_node
+*ENDDO
+ALLS
+
+! Select Beam Nodes (SX)
+ALLS
+NSEL,S,LOC,Y,-eps,+eps								! Select in Y
+NSEL,R,LOC,X,-270,-65								! Reselect in X		
+
+*GET, num_nodes, NODE, 0, COUNT
+*DO, ii, 1, num_nodes,1
+     *GET, n_node, NODE, 0, NUM, MAX
+     E,masternode,n_node
+     NSEL,U,NODE,,n_node
+*ENDDO
+ALLS
+
+! Constrain Masternodes
 WPCSYS,,0					! Go back to origin WP
 WPROTA,0,-10,0					! Rotate working plane
 CSWPLA,100,0					! Rotated coordinate system 10°
-NSEL,S,LOC,Y,-eps,+eps				! Select nodes on base
-NSEL,R,LOC,X,260,270
+
+NSEL,S,NODE,,masternode				
+NSEL,A,NODE,,masternode+10		
 D,ALL,UX,0,,,,UZ,ROTX,ROTY,ROTZ			! Horizontal constrain
 NROTAT,ALL					! Rotate nodal in new coordinate system
 D,ALL,UY					! Inclined Constrain Nodes 
 ALLS
-NSEL,S,LOC,Y,-eps,+eps
-NSEL,R,LOC,X,-270,-260
-D,ALL,UX,0,,,,UZ,ROTX,ROTY,ROTZ			! Horizontal constrain
-NROTAT,ALL					! Rotate nodal in new coordinate system
-D,ALL,UY					! Inclined Constrain Nodes 
-CSYS,0
-ALLS
-! to distribute constrain I should use MPCs on pilot nodes and constrain only the pilot. -> only if I have time
 					
 ! ##### INTERNAL PRESSURE #####
 
