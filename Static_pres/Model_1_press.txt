@@ -33,7 +33,7 @@ side_support_h = 370		! Distance of support from base [mm]
 
 esize_s1 = 10			! Solid mesh element size #1
 esize_s2 = 20			! Solid mesh element size #2
-esize_b  = 10			! Beam mesh size
+esize_b  = 20			! Beam mesh size
 ndiv1    = 10			! Lines divisions size
 ndiv2    = 5
 press    = 100			! Internal pressure value [Pa] ########TESTING VALUE#########
@@ -74,10 +74,12 @@ R,1			!Real Constants set #1, All Default
 
 ! ELEMENT 5 -> CONTACT FRICTIONLESS
 ET,5,CONTA174
-KEYOPT,5,2,2		!Contact algorithm: Multipoint constraint (MPC)
-KEYOPT,5,12,2		!Behavior of contact surface: No separation (Sliding Permitted)
-KEYOPT,5,4,2 		!Rigid surface constraint
-R,2
+KEYOPT,5,1,0		!Degrees of freedom UX UY UZ
+KEYOPT,5,2,0		!Contact algorithm: 0-Augmented Lagrangian, 2-Multipoint constraint (MPC)
+KEYOPT,5,4,2 		!Local Detection Point 0-Gaussian Point, 2-On nodal point normal to surf
+!KEYOPT,5,9,0		!Effect of initial penetration or gap: 0-Include, 1-Exclude
+KEYOPT,5,12,2		!Behavior of contact surface: No separation (Sliding Permitted) (NOT FOR GENERAL CONTACT)
+KEYOPT,5,18,0		!Sliding behaviour; 0-Finite sliding, 1-Small sliding
 
 !------------------------------------------------------------------------------------------------------------
 
@@ -112,25 +114,22 @@ LESIZE,7,esize_s1
 AL,4,5,6,7
 
 ! Cylinder
-K,8,cylinder_do*0.5,solid_base_y,0
-K,9,cylinder_do*0.5,cylinder_hi+solid_base_y
-K,10,cylinder_do*0.5,cylinder_ho+solid_base_y
-K,11,0,cylinder_ho+solid_base_y
-K,12,0,cylinder_hi+solid_base_y
-K,13,cylinder_di*0.5,cylinder_hi+solid_base_y
+K,8,solid_r,solid_base_y,0
+K,9,cylinder_do*0.5,solid_base_y,0
+K,10,cylinder_do*0.5,cylinder_hi+solid_base_y
+K,11,cylinder_do*0.5,cylinder_ho+solid_base_y
+K,12,0,cylinder_ho+solid_base_y
+K,13,0,cylinder_hi+solid_base_y
+K,14,cylinder_di*0.5,cylinder_hi+solid_base_y
 
 ! horizontals
-L,5,8
 L,8,9
 L,9,10
 L,10,11
 L,11,12
 L,12,13
-L,13,5
-ALLS
-
-LSEL,S,LINE,,13,14,1
-LESIZE,ALL,10
+L,13,14
+L,14,8
 ALLS
 
 ! Area 2
@@ -138,10 +137,8 @@ AL,8,9,10,11,12,13,14
 
 ! Make volumes
 VROTAT,1,,,,,,4,7
-!VADD,1,2,3,4		! Merge volumes into one
-!NUMCMP,VOLU		! Back to be #1
 
-VROTAT,2,,,,,,4,11,,8
+VROTAT,2,,,,,,4,7,,8
 ALLS
 
 !------------------------------------------------------------------------------------------------------------
@@ -153,15 +150,11 @@ TYPE,1
 ESIZE,esize_s1
 MSHKEY,0
 MSHAPE,1,3D 		!Tetra Elements if you are using solid187
-!MSHKEY,1		!Free meshing (default), 1 for mapped
-!MSHAPE,0,3D 		!Quadrilateral shaped elements ONLY FOR MAPPED MESH and 185
 VSEL,S,VOLU,,1,4,1		!Select volumes that make up the piston head
 VMESH,ALL
 
 VSEL,INVE
 ESIZE,esize_s2
-!MSHKEY,0
-!MSHAPE,1,3D
 VMESH,ALL
 ALLS
 ! Refined by hand on inner faces
@@ -206,6 +199,7 @@ LESIZE,ALL,ndiv1		!Refine mesh
 LMESH,ALL			!Mesh lines
 !/ESHAPE,1			!Show cross sections
 !EPLOT
+ALLS
 
 !------------------------------------------------------------------------------------------------------------
 
@@ -219,10 +213,10 @@ ASLV,S
 CLOCAL,11,1,0,0,0,0,-90
 CSYS,11
 ASEL,R,LOC,X,solid_r			! Select outer surfaces
-nsla,,1
+NSLA,,1
 TYPE,5
-REAL,2					! Select real constants set #2
-esurf
+REAL,1					! Select real constants set #2
+ESURF
 ALLS
 
 ! TARGET ELEMENTS -> Cylinder Inner Wall
@@ -238,32 +232,83 @@ CSYS,0
 NSEL,R,LOC,Y,piston_h-solid_h-eps,piston_h+eps
 
 TYPE,4
-REAL,2					! Real Constant Set ID
-!TSHAP,TRI6				! Targe 170 Segment Type: CYLI=cylinder, TRI6=triangular 6 nodes
-ESURF				! Mesh NODES
-alls
+REAL,1					! Real Constant Set ID
+ESURF					! Mesh NODES
+ALLS
+
 !------------------------------------------------------------------------------------------------------------
 
 ! >>>>> BOUNDARY CONDITIONS <<<<<
 
 ! ##### TOP FACE ##### 
 
-ET,6,MASS21
-R,3,0,0,0,0,0,0
-KEYOPT,6,3,0
+ET,6,184			!MPC184
+KEYOPT,6,1,0			! Set option for rigid link behavior 0, beam 1
 TYPE,6
-REAL,3
-alls
+
 *GET, max_node, NODE, 0, NUM, MAX
 masternode = max_node+10
 N,masternode,0,35+(cylinder_ho+solid_base_y),0 					! Create 'master' node in the hook center
-E, masternode									! Create point mass
+
 NSEL,S,LOC,Y,cylinder_ho+solid_base_y-eps,cylinder_ho+solid_base_y+eps		! Pick top face nodes
-NSEL,A,NODE,,masternode								! Add masternode
-CERIG, masternode, ALL, ALL
+*GET, num_nodes, NODE, 0, COUNT
+*DO, ii, 1, num_nodes,1
+     *GET, n_node, NODE, 0, NUM, MAX
+     E,masternode,n_node
+     NSEL,U,NODE,,n_node
+*ENDDO
 ALLS
 
 D,masternode,UX,0,,,,UY,UZ,ROTX,ROTY						! Keep ROTZ free, lock others
+
+
+! ##### STEERING POINTS #####
+
+! Create master nodes
+ALLS
+CSYS,0
+*GET, max_node, NODE, 0, NUM, MAX
+masternode = max_node+10
+N,masternode,side_support_r,solid_base_y+side_support_h,0	
+N,masternode+10,-side_support_r,solid_base_y+side_support_h,0
+
+! Select Wall Nodes (DX)
+ALLS
+NSEL,S,LOC,Y,solid_base_y+side_support_h-55,solid_base_y+side_support_h+80	! Select in Y
+NSEL,R,LOC,Z,-50,+50								! Select in Z
+NSEL,R,LOC,X,0,cylinder_do*0.5+eps						! Reselect in X		
+CSYS,5
+NSEL,R,LOC,X,cylinder_do*0.5-eps,cylinder_do*0.5+eps				! Reselect in X		
+CSYS,0
+
+*GET, num_nodes, NODE, 0, COUNT
+*DO, ii, 1, num_nodes,1
+     *GET, n_node, NODE, 0, NUM, MAX
+     E,masternode,n_node
+     NSEL,U,NODE,,n_node
+*ENDDO
+ALLS
+
+D,masternode,ux,0,,,,uy,uz,rotx,rotz
+
+! Select Wall Nodes (SX)
+ALLS
+NSEL,S,LOC,Y,solid_base_y+side_support_h-55,solid_base_y+side_support_h+80	! Select in Y
+NSEL,R,LOC,Z,-50,+50								! Select in Z
+NSEL,R,LOC,X,0,-cylinder_do*0.5-eps						! Reselect in X		
+CSYS,5
+NSEL,R,LOC,X,cylinder_do*0.5-eps,cylinder_do*0.5+eps				! Reselect in X	
+CSYS,0	
+
+*GET, num_nodes, NODE, 0, COUNT
+*DO, ii, 1, num_nodes,1
+     *GET, n_node, NODE, 0, NUM, MAX
+     E,masternode+10,n_node
+     NSEL,U,NODE,,n_node
+*ENDDO
+ALLS
+	
+D,masternode+10,UX,0,,,,UY,UZ,ROTX,ROTZ
 
 
 ! ##### WHEEL AXLES #####
@@ -273,17 +318,19 @@ WPROTA,0,-10,0					! Rotate working plane
 CSWPLA,100,0					! Rotated coordinate system 10°
 NSEL,S,LOC,Y,-eps,+eps				! Select nodes on base
 NSEL,R,LOC,X,65,270
-D,ALL,UX					! Horizontal constrain
+D,ALL,UX,0,,,,UZ,ROTX,ROTY,ROTZ			! Horizontal constrain
 NROTAT,ALL					! Rotate nodal in new coordinate system
 D,ALL,UY					! Inclined Constrain Nodes 
+ALLS
 NSEL,S,LOC,Y,-eps,+eps
 NSEL,R,LOC,X,-65,-270
-D,ALL,UX					! Horizontal constrain
+D,ALL,UX,0,,,,UZ,ROTX,ROTY,ROTZ			! Horizontal constrain
 NROTAT,ALL					! Rotate nodal in new coordinate system
 D,ALL,UY					! Inclined Constrain Nodes 
 CSYS,0
-
-						
+ALLS
+	
+					
 ! ##### INTERNAL PRESSURE #####
 
 ! Select Chamber Nodes
@@ -295,40 +342,21 @@ NSEL,R,LOC,Y,piston_h-eps,eps+piston_h+cylinder_hi-solid_h
 
 ! Apply loads
 SF,ALL,PRES,press				! Surface load on selected nodes
-
+ALLS
 !------------------------------------------------------------------------------------------------------------
 
 ! >>>>> SOLUTION <<<<<
 
 /SOLU
 ANTYPE,STATIC
-alls
-solve
+ALLS
+!warning1: NLGEOM,ON		!Add to include large deflection effects
+!warning2: NSUB or DELTIM
+SOLVE
 
 !------------------------------------------------------------------------------------------------------------
 
 ! >>>>> POST-PROCESSING <<<<<
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/POST1
 
 
