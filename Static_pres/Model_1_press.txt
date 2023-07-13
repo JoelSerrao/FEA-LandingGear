@@ -9,7 +9,7 @@
 
 FINISH
 /CLEAR, START, NEW
-/FILNAM, static_pres
+/FILNAM, static_pres_FINAL
 /TITLE, static internal pressure
 
 !------------------------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ esize_s2 = 20			! Solid mesh element size #2
 esize_b  = 20			! Beam mesh size
 ndiv1    = 10			! Lines divisions size
 ndiv2    = 5
-press    = 100			! Internal pressure value [Pa] ########TESTING VALUE#########
+press    = 2.2			! Internal pressure value [MPa]
 
 !------------------------------------------------------------------------------------------------------------
 
@@ -382,7 +382,7 @@ NSEL,S,NODE,,masternode
 NSEL,A,NODE,,masternode+10		
 D,ALL,UX,0,,,,UZ,ROTX,ROTY,ROTZ			! Horizontal constrain
 NROTAT,ALL					! Rotate nodal in new coordinate system
-D,ALL,UY					! Inclined Constrain Nodes 
+D,ALL,UY					! Inclined Constrain on Nodes 
 ALLS
 					
 ! ##### INTERNAL PRESSURE #####
